@@ -49,7 +49,8 @@ export default {
         <div class="w-[80%] m-auto mt-24 flex gap-16 items-center">
             <div class="bg-gradient-to-r from-30% from-black to-YellowWebAcademy w-[40%] px-16 pt-8 pb-8 rounded-xl animated-icon-coppa drop-shadow-lg">
                 <h2 class="text-white text-[2rem] pb-4">Domande frequenti</h2>
-                <p class="text-white text-sm  w-full">Ottieni risposte alle tue domande urgenti sui nostri  corsi online in HTML, CSS e JavaScript. I nostri istruttori esperti sono qui per guidarti in ogni fase del percorso</p>
+                <p class="text-white text-sm  w-full">Ottieni risposte alle tue domande urgenti sui nostri  corsi online in HTML, CSS e JavaScript. <br> I nostri istruttori esperti sono qui per guidarti in ogni fase del percorso</p>
+                <p class="text-neutral-500 mt-4">Chiarisci qualsiasi dubbio</p>
             </div>
             <div class="w-[60%] p-12 text-center">
                 <p class="text-neutral-500 text-xl leading-8 animated-icon-triste text-center">

@@ -3,22 +3,26 @@ import Nav from '../components/NavHomepage.vue'
 import Hero from '../components/HeroHomepage.vue'
 import CentralSection from '../components/CentralSectionHomepage.vue'
 import LowCentral from '../components/icons/LowCentralSectionHomepage.vue'
+import Footer from '../components/FooterHomepage.vue'
 
 export default {
   components: {
     Nav,
     Hero,
     CentralSection,
-    LowCentral
+    LowCentral,
+    Footer
   }
 }
 </script>
 
 <template>
-  <div>
+  <router-view></router-view>
+  <div class="wrapper">
     <Nav />
     <Hero />
     <CentralSection />
     <LowCentral />
+    <Footer />
   </div>
 </template>

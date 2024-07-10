@@ -24,13 +24,22 @@ export default {
             <div>
                 <div class="w-full bg-indigo-600 rounded-xl p-4">
                     <IconaStudio  class="m-auto"/>
+                    <div class="mt-8">
+                        <p class="text-center text-white">Impara a creare layout accattivanti e funzionali con le ultime tecniche e best practice.</p>
+                    </div>
                 </div>
             </div>
             <div class="w-full bg-indigo-600 rounded-xl p-4">
                 <IconaPerformance class="m-auto" />
+                <div class="mt-8">
+                        <p class="text-center text-white">Ottimizza i tuoi siti web per garantire un'esperienza utente fluida e veloce.</p>
+                    </div>
             </div>
             <div class="w-full bg-indigo-600 rounded-xl p-4">
                 <IconaStar class="m-auto" />
+                <div class="mt-8">
+                        <p class="text-center text-white">Scopri gli strumenti più utili e le risorse indispensabili per ogni sviluppatore web.</p>
+                    </div>
             </div>
         </div>
     </div>

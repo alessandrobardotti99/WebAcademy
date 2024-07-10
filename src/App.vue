@@ -1,12 +1,13 @@
 <script setup>
-import HomePage from './views/HomeView.vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { RouterLink, RouterView } from 'vue-router';
+import HomePage from '@/views/HomeView.vue'
 </script>
 
 <template>
   <header>
     <div>
-      <HomePage/>
     </div>
   </header>
-
+  <router-view></router-view>
 </template>
