@@ -17,7 +17,7 @@ export default {
 </script>
 
 <template>
-  <router-view></router-view>
+  <router-view></router-view> 
   <div class="wrapper">
     <Nav />
     <Hero />
