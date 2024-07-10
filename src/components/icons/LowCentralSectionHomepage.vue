@@ -23,14 +23,14 @@ export default {
         <div class="grid grid-cols-3 w-full m-auto mt-16 gap-16">
             <div>
                 <div class="w-full bg-indigo-600 rounded-xl p-4">
-                    <IconaStudio />
+                    <IconaStudio  class="m-auto"/>
                 </div>
             </div>
             <div class="w-full bg-indigo-600 rounded-xl p-4">
-                <IconaPerformance />
+                <IconaPerformance class="m-auto" />
             </div>
             <div class="w-full bg-indigo-600 rounded-xl p-4">
-                <IconaStar />
+                <IconaStar class="m-auto" />
             </div>
         </div>
     </div>
