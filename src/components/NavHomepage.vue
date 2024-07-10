@@ -1,5 +1,6 @@
 <template>
-    <nav class="sticky flex justify-around w-full m-auto ml-auto mr-auto items-center bg-YellowWebAcademy top-0 p-4">
+    <div class="w-full bg-YellowWebAcademy">
+    <nav class="sticky flex justify-between w-[80%] m-auto ml-auto mr-auto items-center bg-YellowWebAcademy top-0 p-4">
         <div>
            <img src="/src/assets/img/logoWebAcademy.png" alt="logoWebAcademy" class="max-w-full h-[30px]">
         </div>
@@ -13,4 +14,5 @@
             </ul>
         </div>
     </nav>
+</div>
 </template>

@@ -8,6 +8,7 @@ export default {
     extend: {
       colors: {
         YellowWebAcademy: '#ffd06a',
+        HoverYwlloWebAcademt: '#d6ae58'
       },
     },
   },
