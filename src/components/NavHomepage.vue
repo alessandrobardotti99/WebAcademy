@@ -7,7 +7,7 @@
         <div>
             <ul class="inline-flex gap-5">
                 <li class="text-neutral-500 py-2 px-4 rounded-xl hover:text-black cursor-pointer">Home</li>
-                <li class="text-neutral-500 py-2 px-4 rounded-xl hover:text-black cursor-pointer">About</li>
+                <li class="text-neutral-500 py-2 px-4 rounded-xl hover:text-black cursor-pointer">News</li>
                 <li class="text-neutral-500 py-2 px-4 rounded-xl hover:text-black cursor-pointer">Corsi</li>
                 <li class="text-neutral-500 py-2 px-4 rounded-xl hover:text-black cursor-pointer">Contatti</li>
                 <li class="bg-indigo-600 text-whie py-2 px-4 text-white rounded-xl cursor-pointer hover:bg-indigo-700">Accedi</li>
