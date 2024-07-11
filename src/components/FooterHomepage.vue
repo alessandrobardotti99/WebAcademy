@@ -2,7 +2,7 @@
     <footer>
         <div class="w-full mt-36 bg-slate-200 grid grid-cols-4 gap-8 px-36 py-16">
             <div>
-                <img src="/src/assets/img/logoWebAcademy.png" alt="logoWebAcademy" class="max-w-full h-[30px] mb-4">
+                <img src="/src/assets/img/logoWebAcademy-removebg-preview.png" alt="logoWebAcademy" class="max-w-full h-[30px] mb-4">
                 <p>Formazione digitale a 360 gradi. Corsi, tutorial, notizie e roadmap da seguire.</p>
             </div>
             <div>

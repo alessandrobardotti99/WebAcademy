@@ -24,9 +24,11 @@ export default {
                     <button
                         class="bg-indigo-600 text-whie py-2 px-4 text-white rounded-xl cursor-pointer hover:bg-indigo-700">Scopri
                         i corsi</button>
+                        <router-link to="/accedi">
                     <button
                         class="bg-transparent text-whie py-2 px-4 text-neutral-500 rounded-xl cursor-pointer border border-neutral-500 hover:bg-HoverYwlloWebAcademt hover:text-black hover:border-black">Inizia
                         ad imparare</button>
+                        </router-link>
                 </div>
             </div>
             <div class="relative">

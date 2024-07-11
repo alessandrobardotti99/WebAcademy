@@ -10,6 +10,7 @@
     "test:unit": "vitest"
   },
   "dependencies": {
+    "@formkit/auto-animate": "^0.8.2",
     "@supabase/supabase-js": "^2.44.3",
     "@vueuse/motion": "^2.2.3",
     "dotenv": "^16.4.5",
