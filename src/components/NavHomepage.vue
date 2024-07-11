@@ -2,10 +2,10 @@
   <div :class="['w-full', 'bg-YellowWebAcademy', 'sticky', 'top-0', 'z-50', { 'shadow-lg': hasScrolled }]">
     <nav class="sticky flex justify-between w-[80%] m-auto ml-auto mr-auto items-center bg-YellowWebAcademy top-0 p-4">
       <router-link to="/">
-      <div>
-        <img src="/src/assets/img/logoWebAcademy-removebg-preview.png" alt="logoWebAcademy" class="max-w-full h-[30px]">
-      </div>
-    </router-link>
+        <div>
+          <img src="/src/assets/img/logoWebAcademy-removebg-preview.png" alt="logoWebAcademy" class="max-w-full h-[30px]">
+        </div>
+      </router-link>
       <div>
         <ul class="inline-flex gap-5">
           <router-link to="/" class="text-neutral-500 py-2 px-4 rounded-xl hover:text-black cursor-pointer" active-class="text-black font-bold">
@@ -21,6 +21,10 @@
             <li>Contatti</li>
           </router-link>
           <template v-if="user">
+            <router-link to="/carrello" class="relative text-neutral-500 py-2 px-4 rounded-xl hover:text-black cursor-pointer" active-class="text-black font-bold">
+              <li>Carrello</li>
+              <span v-if="totalItems > 0" class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-indigo-500 rounded-full">{{ totalItems }}</span>
+            </router-link>
             <li ref="dropdown" class="bg-indigo-600 text-white py-2 px-4 rounded-xl cursor-pointer hover:bg-indigo-700 relative flex items-center" @click="toggleDropdown">
               Ciao {{ user.email }}
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" :class="{'rotate-180': dropdownOpen, 'ml-2': true, 'w-4': true, 'h-4': true, 'transition-transform': true}">
@@ -54,9 +58,10 @@
 </template>
 
 <script>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted, onBeforeUnmount, computed } from 'vue'
 import Cookies from 'js-cookie'
 import { autoAnimatePlugin } from '@formkit/auto-animate/vue'
+import { useCartStore } from '../stores/counter.js'
 
 export default {
   directives: {
@@ -67,6 +72,8 @@ export default {
     const user = ref(null)
     const dropdownOpen = ref(false)
     const dropdown = ref(null)
+    const cartStore = useCartStore()
+    const totalItems = computed(() => cartStore.totalItems)
 
     const handleScroll = () => {
       hasScrolled.value = window.scrollY > 0
@@ -88,13 +95,14 @@ export default {
       window.location.href = '/'
     }
 
-    onMounted(() => {
+    onMounted(async () => {
       window.addEventListener('scroll', handleScroll)
       document.addEventListener('click', handleClickOutside)
       const session = Cookies.get('supabaseSession')
       if (session) {
         user.value = JSON.parse(session).user
       }
+      await cartStore.loadCart()
     })
 
     onBeforeUnmount(() => {
@@ -108,7 +116,8 @@ export default {
       dropdownOpen,
       toggleDropdown,
       logout,
-      dropdown
+      dropdown,
+      totalItems
     }
   }
 }

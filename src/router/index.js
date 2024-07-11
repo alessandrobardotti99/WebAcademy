@@ -1,19 +1,36 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import LoginView from '../views/LoginView.vue'
-import RegistrazioneView from '../views/RegistrazioneView.vue'
-import CorsiView from '../views/CorsiView.vue'
+import { createRouter, createWebHistory } from "vue-router";
+import HomeView from "../views/HomeView.vue";
+import LoginView from "../views/LoginView.vue";
+import RegistrazioneView from "../views/RegistrazioneView.vue";
+import CorsiView from "../views/CorsiView.vue";
+import CourseDetail from "../views/CorsiDettaglioView.vue";
+import CartView from '../views/CarrelloView.vue'
 
 const routes = [
-  { path: '/', name: 'home', component: HomeView },
-  { path: '/accedi', name: 'accedi', component: LoginView },
-  { path: '/registrazione', name: 'registrazione', component: RegistrazioneView },
-  { path: '/corsi', name: 'corsi', component: CorsiView }
-]
+  { path: "/", name: "home", component: HomeView },
+  { path: "/accedi", name: "accedi", component: LoginView },
+  {
+    path: "/registrazione",
+    name: "registrazione",
+    component: RegistrazioneView,
+  },
+  { path: "/corsi", name: "corsi", component: CorsiView },
+  {
+    path: "/corsi/:id",
+    name: "CourseDetail",
+    component: CourseDetail,
+    props: true,
+  },
+  {
+    path: "/carrello",
+    name: "carrello",
+    component: CartView,
+  },
+];
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;
