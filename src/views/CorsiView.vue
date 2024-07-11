@@ -7,9 +7,8 @@
         <p class="mt-2 text-center text-neutral-500">Non sai da dove iniziare il tuo percorso di studio? Visita le nostre <span class="font-bold text-neutral-800 underline">FAQ</span> per maggiori informazioni.</p>
       </div>
       <div class="p-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
-        <div v-for="course in courses" :key="course.id" class="bg-white rounded-xl">
-          <img :src="course.image_url" :alt="course.title" class="w-full h-48 object-cover rounded-xl">
-          <div class="p-4 bg-white rounded-xl m-[10px]">
+        <div v-for="course in courses" :key="course.id" class="course-card rounded-xl relative" :style="{ backgroundImage: `url(${course.image_url})` }">
+          <div class="p-4 bg-white rounded-xl m-[10px] backdrop-filter backdrop-blur-lg bg-opacity-80">
             <h2 class="text-xl font-bold">{{ course.title }}</h2>
             <p class="text-gray-700">{{ course.description }}</p>
             <div class="flex justify-between items-center mt-4">
@@ -61,6 +60,16 @@
   <style scoped>
   .font-monospace {
     font-family: monospace;
+  }
+  .course-card {
+    background-size: cover;
+    background-position: center;
+    height: 350px;
+    display: flex;
+    align-items: flex-end;
+  }
+  .backdrop-filter {
+    backdrop-filter: blur(8px);
   }
   </style>
   
