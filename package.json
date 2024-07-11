@@ -13,6 +13,7 @@
     "@supabase/supabase-js": "^2.44.3",
     "@vueuse/motion": "^2.2.3",
     "dotenv": "^16.4.5",
+    "js-cookie": "^3.0.5",
     "pinia": "^2.1.7",
     "vue": "^3.4.29",
     "vue-router": "^4.4.0"

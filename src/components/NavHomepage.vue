@@ -22,7 +22,7 @@
           <li class="bg-indigo-600 text-whie py-2 px-4 text-white rounded-xl cursor-pointer hover:bg-indigo-700">
             Accedi
           </li>
-        </router-link>
+          </router-link>
         </ul>
       </div>
     </nav>
