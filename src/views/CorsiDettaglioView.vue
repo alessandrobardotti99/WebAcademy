@@ -23,8 +23,8 @@
             <p class="text-gray-700 mb-6">{{ course.internal_description }}</p>
             <button @click="addToCart(course)" 
                     class="inline-block text-neutral-800 text-center py-2 px-4 rounded-lg" 
-                    :class="{'bg-YellowWebAcademy hover:bg-HoverYwlloWebAcademt': !isInCart(course.id), 'bg-green-500': isInCart(course.id)}">
-              {{ isInCart(course.id) ? 'Nel carrello' : 'Aggiungi al carrello' }}
+                    :class="{'bg-YellowWebAcademy hover:bg-HoverYwlloWebAcademt': !isInCart(course.id), 'bg-indigo-500 text-white': isInCart(course.id)}">
+              {{ isInCart(course.id) ? 'Già nel carrello' : 'Aggiungi al carrello' }}
             </button>
           </div>
         </div>

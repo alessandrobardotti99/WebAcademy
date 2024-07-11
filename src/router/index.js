@@ -4,11 +4,18 @@ import LoginView from "../views/LoginView.vue";
 import RegistrazioneView from "../views/RegistrazioneView.vue";
 import CorsiView from "../views/CorsiView.vue";
 import CourseDetail from "../views/CorsiDettaglioView.vue";
-import CartView from '../views/CarrelloView.vue'
+import CartView from "../views/CarrelloView.vue";
+import ProfiloView from "@/views/ProfiloView.vue";
 
 const routes = [
   { path: "/", name: "home", component: HomeView },
   { path: "/accedi", name: "accedi", component: LoginView },
+  {
+    path: "/profilo",
+    name: "profilo",
+    component: ProfiloView,
+  },
+  
   {
     path: "/registrazione",
     name: "registrazione",

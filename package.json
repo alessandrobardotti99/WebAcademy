@@ -13,6 +13,7 @@
     "@formkit/auto-animate": "^0.8.2",
     "@supabase/supabase-js": "^2.44.3",
     "@vueuse/motion": "^2.2.3",
+    "date-fns": "^3.6.0",
     "dotenv": "^16.4.5",
     "js-cookie": "^3.0.5",
     "pinia": "^2.1.7",

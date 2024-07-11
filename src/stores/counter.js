@@ -49,6 +49,8 @@ export const useCartStore = defineStore('cart', () => {
     return items.value.includes(courseId)
   }
 
+  
+
   const totalItems = computed(() => items.value.length)
 
   return {

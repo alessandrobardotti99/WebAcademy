@@ -23,7 +23,7 @@
           <template v-if="user">
             <router-link to="/carrello" class="relative text-neutral-500 py-2 px-4 rounded-xl hover:text-black cursor-pointer" active-class="text-black font-bold">
               <li>Carrello</li>
-              <span v-if="totalItems > 0" class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-indigo-500 rounded-full">{{ totalItems }}</span>
+              <span v-if="totalItems > 0" class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-indigo-500 rounded-full h-[20px] w-[20px]">{{ totalItems }}</span>
             </router-link>
             <li ref="dropdown" class="bg-indigo-600 text-white py-2 px-4 rounded-xl cursor-pointer hover:bg-indigo-700 relative flex items-center" @click="toggleDropdown">
               Ciao {{ user.email }}
