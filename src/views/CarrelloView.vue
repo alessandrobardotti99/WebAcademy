@@ -19,7 +19,10 @@
           </div>
         </div>
         <div v-else class="text-center text-gray-500">
-          Il carrello è vuoto.
+          <h3 class="mt-[20rem] text-[1.5rem]">Il tuo carrello è vuoto</h3>
+          <div>
+            <CarrelloVuoto class="m-auto max-w-full w-[500px]" />
+          </div>
         </div>
       </div>
     </div>
@@ -29,11 +32,13 @@
   import { ref, onMounted } from 'vue'
   import { supabase } from '../supabase'
   import Nav from '../components/NavHomepage.vue'
+  import CarrelloVuoto from '../components/icons/IconaCarrelloVuoto.vue'
   
   export default {
     name: 'CarrelloView',
     components: {
-      Nav
+      Nav,
+      CarrelloVuoto
     },
     setup() {
       const cartItems = ref([])

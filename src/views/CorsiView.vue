@@ -7,7 +7,7 @@
       <p class="mt-2 text-center text-neutral-500">Non sai da dove iniziare il tuo percorso di studio? Visita le nostre <span class="font-bold text-neutral-800 underline">FAQ</span> per maggiori informazioni.</p>
     </div>
     <div v-if="loading" class="text-center text-gray-500 mt-8">
-      Caricamento in corso...
+      <h3 class="mt-[20rem] text-[1rem]">Caricamento in corso...</h3>
     </div>
     <div v-else class="p-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
       <div v-for="course in courses" :key="course.id" class="course-card rounded-xl relative" :style="{ backgroundImage: `url(${course.image_url})` }">
