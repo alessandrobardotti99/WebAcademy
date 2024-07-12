@@ -41,7 +41,7 @@ export default {
     const user = ref(null)
 
     const fetchProfile = async () => {
-      await userStore.fetchUser()
+      userStore.loadSessionFromCookies()
       if (userStore.user) {
         user.value = userStore.user
       }

@@ -4,7 +4,7 @@
     <div class="full">
       <h1 class="text-[4rem] font-monospace text-center mt-8">Corsi di Formazione</h1>
       <p class="mt-4 text-center text-neutral-500">Il nostro obiettivo è fornire una formazione di eccellenza e qualità superiore, mantenendo prezzi competitivi e accessibili.</p>
-      <p class="mt-2 text-center text-neutral-500">Non sai da dove iniziare il tuo percorso di studio? Visita le nostre <span class="font-bold text-neutral-800 underline">FAQ</span> per maggiori informazioni.</p>
+      <p class="mt-2 text-center text-neutral-500">Non sai da dove iniziare il tuo percorso di studio? Visita le nostre <router-link to="/faq"> <span class="font-bold text-neutral-800 underline">FAQ</span> </router-link>per maggiori informazioni.</p>
     </div>
     <div v-if="loading" class="text-center text-gray-500 mt-8">
       <h3 class="mt-[20rem] text-[1rem]">Caricamento in corso...</h3>

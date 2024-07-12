@@ -6,6 +6,7 @@ import CorsiView from "../views/CorsiView.vue";
 import CourseDetail from "../views/CorsiDettaglioView.vue";
 import CartView from "../views/CarrelloView.vue";
 import ProfiloView from "@/views/ProfiloView.vue";
+import FaqView from "@/views/FaqView.vue";
 
 const routes = [
   { path: "/", name: "home", component: HomeView },
@@ -27,6 +28,11 @@ const routes = [
     name: "CourseDetail",
     component: CourseDetail,
     props: true,
+  },
+  {
+    path: "/faq",
+    name: "faq",
+    component: FaqView,
   },
   {
     path: "/carrello",

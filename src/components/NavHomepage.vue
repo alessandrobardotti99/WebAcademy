@@ -8,11 +8,11 @@
       </router-link>
       <div>
         <ul class="inline-flex gap-5">
-          <router-link to="/news" class="text-neutral-500 py-2 px-4 rounded-xl hover:text-black cursor-pointer" active-class="text-black font-bold">
-            <li>News</li>
-          </router-link>
           <router-link to="/corsi" class="text-neutral-500 py-2 px-4 rounded-xl hover:text-black cursor-pointer" active-class="text-black font-bold">
             <li>Corsi</li>
+          </router-link>
+          <router-link to="/faq" class="text-neutral-500 py-2 px-4 rounded-xl hover:text-black cursor-pointer" active-class="text-black font-bold">
+            <li>Faq</li>
           </router-link>
           <router-link to="/contatti" class="text-neutral-500 py-2 px-4 rounded-xl hover:text-black cursor-pointer" active-class="text-black font-bold">
             <li>Contatti</li>
@@ -59,6 +59,7 @@ import { ref, onMounted, onBeforeUnmount, computed } from 'vue'
 import Cookies from 'js-cookie'
 import { autoAnimatePlugin } from '@formkit/auto-animate/vue'
 import { useCartStore } from '../stores/counter.js'
+import { useUserStore } from '../stores/user.js'
 
 export default {
   directives: {
@@ -66,10 +67,11 @@ export default {
   },
   setup() {
     const hasScrolled = ref(false)
-    const user = ref(null)
+    const userStore = useUserStore()
+    const cartStore = useCartStore()
+    const user = computed(() => userStore.user)
     const dropdownOpen = ref(false)
     const dropdown = ref(null)
-    const cartStore = useCartStore()
     const totalItems = computed(() => cartStore.totalItems)
 
     const handleScroll = () => {
@@ -88,17 +90,14 @@ export default {
 
     const logout = () => {
       Cookies.remove('supabaseSession')
-      user.value = null
+      userStore.removeSession()
       window.location.href = '/'
     }
 
     onMounted(async () => {
       window.addEventListener('scroll', handleScroll)
       document.addEventListener('click', handleClickOutside)
-      const session = Cookies.get('supabaseSession')
-      if (session) {
-        user.value = JSON.parse(session).user
-      }
+      userStore.loadSessionFromCookies()
       await cartStore.loadCart()
     })
 

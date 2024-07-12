@@ -1,9 +1,9 @@
 <template>
   <div class="bg-gray-100 flex h-screen items-center">
     <router-link to="/">
-    <div class="absolute top-4 left-4 z-50 text-white bg-indigo-700 p-2 rounded-xl">
-      <span><IconaBack /></span>
-    </div>
+      <div class="absolute top-4 left-4 z-50 text-white bg-indigo-700 p-2 rounded-xl">
+        <span><IconaBack /></span>
+      </div>
     </router-link>
     <div class="w-[60%] bg-gradient-to-r from-30% from-black to-indigo-600 h-screen grid place-items-center">
       <div>
@@ -51,7 +51,7 @@
           <div class="mt-8 text-center text-neutral-500">
             <p>Non hai un account? 
               <router-link to="/registrazione">
-              <span class="text-neutral-800 font-bold underline cursor-pointer">Registrati</span>
+                <span class="text-neutral-800 font-bold underline cursor-pointer">Registrati</span>
               </router-link>
             </p>
           </div>
@@ -73,7 +73,7 @@ export default {
   components: {
     IconaBack,
     IconaStudio
-    },
+  },
   setup() {
     const email = ref('')
     const password = ref('')
@@ -96,7 +96,9 @@ export default {
         }
         password.value = ''
       } else {
-        Cookies.set('supabaseSession', JSON.stringify(data), { expires: 1 })
+        const { access_token, refresh_token, expires_at, user } = data.session
+        const session = { access_token, refresh_token, expires_at, user }
+        Cookies.set('supabaseSession', JSON.stringify(session), { expires: 1 })
         window.location.href = '/'
       }
     }
