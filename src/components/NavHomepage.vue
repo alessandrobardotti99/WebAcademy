@@ -8,9 +8,6 @@
       </router-link>
       <div>
         <ul class="inline-flex gap-5">
-          <router-link to="/" class="text-neutral-500 py-2 px-4 rounded-xl hover:text-black cursor-pointer" active-class="text-black font-bold">
-            <li>Home</li>
-          </router-link>
           <router-link to="/news" class="text-neutral-500 py-2 px-4 rounded-xl hover:text-black cursor-pointer" active-class="text-black font-bold">
             <li>News</li>
           </router-link>
