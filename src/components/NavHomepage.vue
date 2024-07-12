@@ -14,6 +14,9 @@
           <router-link to="/faq" class="text-neutral-500 py-2 px-4 rounded-xl hover:text-black cursor-pointer" active-class="text-black font-bold">
             <li>Faq</li>
           </router-link>
+          <router-link to="/esercitazioni" class="text-neutral-500 py-2 px-4 rounded-xl hover:text-black cursor-pointer" active-class="text-black font-bold">
+            <li>Esercitazioni</li>
+          </router-link>
           <router-link to="/contatti" class="text-neutral-500 py-2 px-4 rounded-xl hover:text-black cursor-pointer" active-class="text-black font-bold">
             <li>Contatti</li>
           </router-link>

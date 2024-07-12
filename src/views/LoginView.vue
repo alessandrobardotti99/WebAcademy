@@ -67,6 +67,7 @@ import { supabase } from '../supabase'
 import Cookies from 'js-cookie'
 import IconaBack from '../components/icons/IconaBack.vue'
 import IconaStudio from '@/components/icons/IconaStudio.vue'
+import { useUserStore } from '../stores/user.js'
 
 export default {
   name: 'LoginView',
@@ -79,6 +80,7 @@ export default {
     const password = ref('')
     const error = ref(null)
     const loading = ref(false)
+    const userStore = useUserStore()
 
     const login = async () => {
       error.value = null
@@ -96,9 +98,8 @@ export default {
         }
         password.value = ''
       } else {
-        const { access_token, refresh_token, expires_at, user } = data.session
-        const session = { access_token, refresh_token, expires_at, user }
-        Cookies.set('supabaseSession', JSON.stringify(session), { expires: 1 })
+        Cookies.set('supabaseSession', JSON.stringify(data), { expires: 1 }) // Save session to cookies
+        await userStore.fetchUser()
         window.location.href = '/'
       }
     }
@@ -113,6 +114,7 @@ export default {
   }
 }
 </script>
+
 
 <style scoped>
 .font-monospace {

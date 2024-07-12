@@ -7,6 +7,11 @@ import CourseDetail from "../views/CorsiDettaglioView.vue";
 import CartView from "../views/CarrelloView.vue";
 import ProfiloView from "@/views/ProfiloView.vue";
 import FaqView from "@/views/FaqView.vue";
+import EsercitazioniView from "../views/EsercitazioniView.vue";
+import HtmlExercisesView from "../views/HtmlExercisesView.vue";
+import { supabase } from '../supabase';
+import Cookies from 'js-cookie';
+import { useUserStore } from '../stores/user.js'
 
 const routes = [
   { path: "/", name: "home", component: HomeView },
@@ -15,8 +20,8 @@ const routes = [
     path: "/profilo",
     name: "profilo",
     component: ProfiloView,
+    meta: { requiresAuth: true },
   },
-  
   {
     path: "/registrazione",
     name: "registrazione",
@@ -38,12 +43,48 @@ const routes = [
     path: "/carrello",
     name: "carrello",
     component: CartView,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/esercitazioni",
+    name: "esercitazioni",
+    component: EsercitazioniView,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/esercitazioni/html",
+    name: "esercitazioni-html",
+    component: HtmlExercisesView,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/esercitazioni/html/:exerciseId",
+    name: "esercitazioni-html",
+    component: HtmlExercisesView,
+    meta: { requiresAuth: true },
   },
 ];
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
+});
+
+router.beforeEach(async (to, from, next) => {
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+  const userStore = useUserStore()
+
+  if (requiresAuth) {
+    await userStore.loadSessionFromCookies()
+    const session = Cookies.get('supabaseSession')
+    if (!session || !userStore.user) {
+      next({ name: 'accedi' });
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
 });
 
 export default router;

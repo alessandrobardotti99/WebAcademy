@@ -24,12 +24,15 @@ export const useUserStore = defineStore('user', () => {
     user.value = null
   }
 
-  const loadSessionFromCookies = () => {
+  const loadSessionFromCookies = async () => {
     const sessionData = Cookies.get('supabaseSession')
     if (sessionData) {
       const session = JSON.parse(sessionData)
       user.value = session.user
-      supabase.auth.setSession(session)
+      await supabase.auth.setSession({
+        access_token: session.access_token,
+        refresh_token: session.refresh_token,
+      })
     }
   }
 

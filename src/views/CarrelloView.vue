@@ -2,7 +2,7 @@
   <div class="bg-gray-100 min-h-screen">
     <Nav />
     <div class="max-w-6xl mx-auto p-8">
-      <h1 class="text-4xl font-bold mb-6">Il tuo carrello</h1>
+      <h1 class="text-[4rem] font-monospace text-center mt-4 mb-8">Il tuo carrello</h1>
       <div v-if="cartItems.length">
         <div v-for="course in cartItems" :key="course.id" class="mb-4 p-4 bg-white rounded-xl shadow-md flex justify-between items-center">
           <div class="flex items-center">

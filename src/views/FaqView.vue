@@ -69,7 +69,7 @@ onBeforeUnmount(() => {
     <div class="p-8">
       <h1 class="text-[4rem] font-monospace text-center mt-4 mb-8">Domande più popolari</h1>
       <div ref="dropdownStudy" class="dropdown mb-4 p-4 bg-white shadow rounded-lg" @click.stop>
-        <div class="flex justify-between items-center cursor-pointer">
+        <div class="flex justify-between items-center cursor-pointer"  @click="showStudy = !showStudy">
           <strong class="dropdown-label text-xl text-indigo-500">Quali sono i primi passi per imparare a creare siti web?</strong>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffd06a" :class="{'rotate-180': showStudy, 'ml-2': true, 'w-6': true, 'h-6': true, 'transition-transform': true}">
             <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
