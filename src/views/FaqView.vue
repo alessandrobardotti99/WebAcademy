@@ -64,7 +64,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="bg-gray-100 min-h-screen">
+  <div class="bg-gray-100 min-h-screen">  
     <Nav />
     <div class="p-8">
       <h1 class="text-[4rem] font-monospace text-center mt-4 mb-8">Domande più popolari</h1>
