@@ -3,41 +3,43 @@
         <Nav />
         <div class="bg-gray-100 min-h-screen p-8">
             <h1 class="text-4xl font-monospace text-center mt-4 mb-8">Esercitazioni</h1>
-            <div class="flex flex-col gap-4 justify-center">
-                <div v-for="(course, index) in Object.keys(exercises)" :key="index" ref="setDropdownRef"
-                    class="bg-white shadow rounded-lg p-4">
-                    <div @click="toggleDropdown(index)" class="flex justify-between items-center cursor-pointer">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 justify-center">
+                <div v-for="(course, index) in Object.keys(exercises)" :key="index" class="bg-white shadow rounded-lg p-4 cursor-pointer" @click="openModal(course)">
+                    <div class="flex justify-between items-center">
                         <h2 class="text-2xl font-bold text-indigo-500 font-monospace">{{ course }}</h2>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" :class="{
-                    'rotate-180': showDropdown[index],
-                    'ml-2': true,
-                    'w-6': true,
-                    'h-6': true,
-                    'transition-transform': true,
-                }">
+                            stroke="currentColor" class="ml-2 w-6 h-6 transition-transform">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                         </svg>
                     </div>
-                    <div v-if="showDropdown[index]" class="list-disc list-inside mt-4">
-                        <div v-for="(exercise, idx) in exercises[course]" :key="idx" class="ml-4 p-4 mb-4 bg-neutral-100 rounded-xl flex justify-between items-center">
-                            <div>
-                                <div v-if="exercise.completed" class="text-green-700 bg-green-200 w-min p-2 rounded-xl mb-2 border-2 border-green-400">Completato</div>
-                                {{ exercise.title }}
-                            </div>
-                            <router-link :to="`/esercitazioni/${course.toLowerCase()}/${exercise.id}`" class="text-blue-500 hover:underline">
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div v-if="showModal" class="fixed inset-0 backdrop-filter backdrop-blur-lg bg-opacity-80 flex items-center justify-center z-[99999]">
+            <div class="bg-white rounded-2xl shadow-lg p-8 w-full max-w-2xl h-[40rem] overflow-auto">
+                <h3 class="text-lg font-bold mb-4">{{ currentCourse }}</h3>
+                <div v-if="currentExercises" class="space-y-4">
+                    <div v-for="(exercise, idx) in currentExercises" :key="idx" class="p-4 bg-neutral-100 rounded-xl flex justify-between items-center">
+                        <div class="font-bold">{{ exercise.title }}</div>
+                        <div class="flex items-center gap-4">
+                            <div v-if="exercise.completed" class="text-green-700 bg-green-200 w-min p-2 rounded-xl">Completato</div>
+                            <router-link :to="`/esercitazioni/${currentCourse.toLowerCase()}/${exercise.id}`" class="bg-YellowWebAcademy rounded-xl text-neutral-700 p-2 hover:underline">
                                 Vai all'esercizio
                             </router-link>
                         </div>
                     </div>
                 </div>
+                <button @click="closeModal" class="mt-6 bg-indigo-500 text-white py-2 px-4 rounded">Chiudi</button>
             </div>
         </div>
-        <div v-if="showModal" class="fixed inset-0 backdrop-filter backdrop-blur-lg bg-opacity-80 flex items-center justify-center z-[99999]">
+
+        <div v-if="showInitialModal" class="fixed inset-0 backdrop-filter backdrop-blur-lg bg-opacity-80 flex items-center justify-center z-[99999]">
             <div class="bg-white rounded-2xl shadow-lg p-8 w-96">
                 <h3 class="text-lg font-bold">Premio di Completamento</h3>
                 <p class="mt-4">Compila ed esegui correttamente tutti gli esercizi per ricevere un template HTML, CSS e JS di un sito completamente gratuito per il tuo progetto!</p>
-                <button @click="closeModal" class="mt-6 bg-indigo-500 text-white py-2 px-4 rounded">Ok</button>
+                <button @click="closeInitialModal" class="mt-6 bg-indigo-500 text-white py-2 px-4 rounded">Ok</button>
             </div>
         </div>
     </div>
@@ -62,10 +64,11 @@ export default {
             javascript: [],
             tailwind: []
         })
-        const showDropdown = ref([false, false, false, false])
-        const dropdownRefs = ref([]) // Array to store refs to dropdown elements
-        const user = ref(null)
         const showModal = ref(false)
+        const showInitialModal = ref(false)
+        const currentCourse = ref(null)
+        const currentExercises = ref(null)
+        const user = ref(null)
 
         const fetchExercises = async () => {
             const session = Cookies.get('supabaseSession')
@@ -125,45 +128,41 @@ export default {
             }
         }
 
-        const toggleDropdown = (index) => {
-            showDropdown.value[index] = !showDropdown.value[index]
+        const openModal = (course) => {
+            currentCourse.value = course
+            currentExercises.value = exercises.value[course.toLowerCase()]
+            showModal.value = true
         }
 
         const closeModal = () => {
             showModal.value = false
-            Cookies.set('modalRead', 'true', { expires: 7 }) // Set cookie to expire in 7 days
         }
 
-        const setDropdownRef = (el, index) => {
-            if (el) {
-                dropdownRefs.value[index] = el
-            }
+        const closeInitialModal = () => {
+            showInitialModal.value = false
+            Cookies.set('modalRead', 'true', { expires: 7 }) // Set cookie to expire in 7 days
         }
 
         onMounted(() => {
             fetchExercises()
-            dropdownRefs.value.forEach(dropdown => {
-                if (dropdown) {
-                    autoAnimate(dropdown)
-                }
-            })
 
             const modalRead = Cookies.get('modalRead')
             if (!modalRead) {
-                showModal.value = true
+                showInitialModal.value = true
             }
         })
 
         return {
             exercises,
-            showDropdown,
-            toggleDropdown,
-            setDropdownRef,
             showModal,
-            closeModal
+            showInitialModal,
+            currentCourse,
+            currentExercises,
+            openModal,
+            closeModal,
+            closeInitialModal
         }
     }
 }
 </script>
-
 
