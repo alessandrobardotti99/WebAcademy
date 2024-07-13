@@ -2,15 +2,11 @@
     <div>
         <Nav />
         <div class="bg-gray-100 min-h-screen p-8">
-            <h1 class="text-4xl font-monospace text-center mt-4 mb-8">Esercitazioni</h1>
+            <h1 class="text-[4rem] font-monospace text-center mt-4 mb-8">Esercitazioni</h1>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 justify-center">
                 <div v-for="(course, index) in Object.keys(exercises)" :key="index" class="bg-white shadow rounded-lg p-4 cursor-pointer" @click="openModal(course)">
                     <div class="flex justify-between items-center">
-                        <h2 class="text-2xl font-bold text-indigo-500 font-monospace">{{ course }}</h2>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="ml-2 w-6 h-6 transition-transform">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-                        </svg>
+                        <h2 class="text-2xl font-bold text-indigo-500 font-monospace uppercase">{{ course }}</h2>
                     </div>
                 </div>
             </div>
@@ -18,8 +14,8 @@
 
         <!-- Modal -->
         <div v-if="showModal" class="fixed inset-0 backdrop-filter backdrop-blur-lg bg-opacity-80 flex items-center justify-center z-[99999]">
-            <div class="bg-white rounded-2xl shadow-lg p-8 w-full max-w-2xl h-[40rem] overflow-auto">
-                <h3 class="text-lg font-bold mb-4">{{ currentCourse }}</h3>
+            <div class="bg-white rounded-2xl shadow-lg p-8 w-full max-w-[60rem] h-[40rem] overflow-auto relative">
+                <h3 class="text-3xl font-bold mb-4 uppercase text-indigo-500">{{ currentCourse }}</h3>
                 <div v-if="currentExercises" class="space-y-4">
                     <div v-for="(exercise, idx) in currentExercises" :key="idx" class="p-4 bg-neutral-100 rounded-xl flex justify-between items-center">
                         <div class="font-bold">{{ exercise.title }}</div>
@@ -31,7 +27,7 @@
                         </div>
                     </div>
                 </div>
-                <button @click="closeModal" class="mt-6 bg-indigo-500 text-white py-2 px-4 rounded">Chiudi</button>
+                <button @click="closeModal" class="absolute top-0 right-4 mt-6"><IconaChiusura /></button>
             </div>
         </div>
 
@@ -49,13 +45,15 @@
 import { ref, onMounted } from 'vue'
 import autoAnimate from '@formkit/auto-animate'
 import Nav from '../components/NavHomepage.vue'
+import IconaChiusura from '../components/icons/IconaChiusura.vue'
 import { supabase } from '../supabase'
 import Cookies from 'js-cookie'
 
 export default {
     name: 'EsercitazioniView',
     components: {
-        Nav
+        Nav,
+        IconaChiusura
     },
     setup() {
         const exercises = ref({
@@ -166,3 +164,8 @@ export default {
 }
 </script>
 
+<style scoped>
+.font-monospace {
+  font-family: monospace;
+}
+</style>

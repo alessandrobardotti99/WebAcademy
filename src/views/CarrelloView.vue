@@ -3,19 +3,42 @@
     <Nav />
     <div class="max-w-6xl mx-auto p-8">
       <h1 class="text-[4rem] font-monospace text-center mt-4 mb-8">Il tuo carrello</h1>
-      <div v-if="cartItems.length">
-        <div v-for="course in cartItems" :key="course.id" class="mb-4 p-4 bg-white rounded-xl shadow-md flex justify-between items-center">
-          <div class="flex items-center">
-            <img :src="course.image_url" :alt="course.title" class="w-20 h-20 object-cover rounded-xl mr-4">
-            <div>
-              <h2 class="text-xl font-bold">{{ course.title }}</h2>
-              <p class="text-gray-500">{{ course.duration }}</p>
+      <div v-if="cartItems.length" class="flex gap-4 items-start">
+        <div class="w-[60%]">
+          <div v-for="course in cartItems" :key="course.id"
+            class="mb-4 p-4 bg-white rounded-xl shadow-md flex justify-between items-center">
+            <div class="flex items-center">
+              <img :src="course.image_url" :alt="course.title" class="w-[9rem] h-[6rem] object-cover rounded-xl mr-4">
+              <div>
+                <h2 class="text-xl font-bold">{{ course.title }}</h2>
+                <p class="text-gray-500">{{ course.duration }}</p>
+              </div>
+            </div>
+            <div class="flex items-center">
+              <span class="text-lg font-bold mr-4">{{ course.price }} €</span>
+              <button @click="removeFromCart(course.id)"
+                class="bg-red-500 text-white py-1 px-3 rounded-xl hover:bg-red-600"><IconaCestino /></button>
             </div>
           </div>
-          <div class="flex items-center">
-            <span class="text-lg font-bold mr-4">{{ course.price }} €</span>
-            <button @click="removeFromCart(course.id)" class="bg-red-500 text-white py-1 px-3 rounded-xl hover:bg-red-600">Rimuovi</button>
+        </div>
+        <!-- Riepilogo dell'ordine -->
+        <div class="bg-white rounded-xl shadow-md p-4 w-[40%]">
+          <h2 class="text-2xl font-bold mb-4 text-indigo-500">Riepilogo ordine</h2>
+          <hr class="mb-4">
+          <div class="flex justify-between mb-2">
+            <span>Subtotale:</span>
+            <span>{{ subtotal.toFixed(2) }} €</span>
           </div>
+          <div class="flex justify-between mb-2">
+            <span>IVA (22%):</span>
+            <span>{{ tax.toFixed(2) }} €</span>
+          </div>
+          <div class="flex justify-between font-bold">
+            <span>Totale:</span>
+            <span>{{ total.toFixed(2) }} €</span>
+          </div>
+          <hr class="mb-4 mt-4">
+          <button @click="goToPayment" class="bg-indigo-500 text-white py-2 px-4 rounded-xl hover:bg-indigo-600 w-full">Vai al pagamento</button>
         </div>
       </div>
       <div v-else class="text-center text-gray-500">
@@ -29,17 +52,19 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { supabase } from '../supabase'
 import Nav from '../components/NavHomepage.vue'
 import CarrelloVuoto from '../components/icons/IconaCarrelloVuoto.vue'
+import IconaCestino from '../components/icons/IconaCestino.vue'
 import { useUserStore } from '../stores/user.js'
 
 export default {
   name: 'CarrelloView',
   components: {
     Nav,
-    CarrelloVuoto
+    CarrelloVuoto,
+    IconaCestino
   },
   setup() {
     const cartItems = ref([])
@@ -89,13 +114,33 @@ export default {
       }
     }
 
+    const subtotal = computed(() => {
+      return cartItems.value.reduce((sum, course) => sum + course.price, 0)
+    })
+
+    const tax = computed(() => {
+      return subtotal.value * 0.22
+    })
+
+    const total = computed(() => {
+      return subtotal.value + tax.value
+    })
+
+    const goToPayment = () => {
+      console.log(cartItems.value)
+    }
+
     onMounted(() => {
       fetchCartItems()
     })
 
     return {
       cartItems,
-      removeFromCart
+      removeFromCart,
+      subtotal,
+      tax,
+      total,
+      goToPayment
     }
   }
 }
