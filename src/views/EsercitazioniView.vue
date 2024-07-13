@@ -33,6 +33,13 @@
                 </div>
             </div>
         </div>
+        <div v-if="showModal" class="fixed inset-0 backdrop-filter backdrop-blur-lg bg-opacity-80 flex items-center justify-center z-[99999]">
+            <div class="bg-white rounded-2xl shadow-lg p-8 w-96">
+                <h3 class="text-lg font-bold">Premio di Completamento</h3>
+                <p class="mt-4">Compila ed esegui correttamente tutti gli esercizi per ricevere un template HTML, CSS e JS di un sito completamente gratuito per il tuo progetto!</p>
+                <button @click="closeModal" class="mt-6 bg-indigo-500 text-white py-2 px-4 rounded">Ok</button>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -58,6 +65,7 @@ export default {
         const showDropdown = ref([false, false, false, false])
         const dropdownRefs = ref([]) // Array to store refs to dropdown elements
         const user = ref(null)
+        const showModal = ref(false)
 
         const fetchExercises = async () => {
             const session = Cookies.get('supabaseSession')
@@ -121,6 +129,11 @@ export default {
             showDropdown.value[index] = !showDropdown.value[index]
         }
 
+        const closeModal = () => {
+            showModal.value = false
+            Cookies.set('modalRead', 'true', { expires: 7 }) // Set cookie to expire in 7 days
+        }
+
         const setDropdownRef = (el, index) => {
             if (el) {
                 dropdownRefs.value[index] = el
@@ -134,44 +147,23 @@ export default {
                     autoAnimate(dropdown)
                 }
             })
+
+            const modalRead = Cookies.get('modalRead')
+            if (!modalRead) {
+                showModal.value = true
+            }
         })
 
         return {
             exercises,
             showDropdown,
             toggleDropdown,
-            setDropdownRef
+            setDropdownRef,
+            showModal,
+            closeModal
         }
     }
 }
 </script>
 
-<style scoped>
-.bg-gray-100 {
-    background-color: #f7fafc;
-}
 
-.shadow {
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.rounded-lg {
-    border-radius: 0.5rem;
-}
-
-.transition-transform {
-    transition: transform 0.2s linear;
-}
-
-.rotate-180 {
-    transform: rotate(180deg);
-}
-
-.font-monospace {
-    font-family: monospace;
-}
-
-.text-green-600 {
-    color: #38a169;
-}
-</style>

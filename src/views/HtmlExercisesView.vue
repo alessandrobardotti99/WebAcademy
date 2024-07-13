@@ -2,12 +2,12 @@
     <div>
         <Nav />
         <div class="bg-gray-100 min-h-screen p-8">
-            <h1 class="text-4xl font-monospace text-center mt-4 mb-8">Esercitazione HTML</h1>
+            <h1 class="text-4xl font-bold mb-8 text-center">Esercitazione HTML</h1>
             <router-link to="/esercitazioni">
-      <div class="text-white bg-indigo-700 p-2 rounded-xl w-min mb-4">
-        <span><IconaBack /></span>
-      </div>
-    </router-link>
+                <div class="text-white bg-indigo-700 p-2 rounded-xl w-min mb-4">
+                    <span><IconaBack /></span>
+                </div>
+            </router-link>
             <div class="space-y-8" v-if="exercise">
                 <div class="bg-white p-6 rounded-lg shadow">
                     <h2 class="text-2xl font-bold mb-4 font-monospace">{{ exercise.title }}</h2>
@@ -88,30 +88,100 @@ export default {
         }
     },
     methods: {
-        async checkExercise() {
-            if (this.exercise.userCode.trim() === this.exercise.correct_code.trim()) {
-                this.exercise.feedback = "Corretto! Ottimo lavoro."
-                this.exercise.isCorrect = true
-                this.exercise.completed = true
+        checkExercise() {
+            const exercise = this.exercise
+            let isCorrect = false
+
+            // Define regex patterns for different types of exercises
+            const regexPatterns = {
+                'comment': /<!--.*?-->/g,
+                'img': /<img\s+[^>]*src="[^"]*"[^>]*>/i,
+                'link': /<a\s+[^>]*href="[^"]*"[^>]*>.*?<\/a>/i,
+                'list': /<(ul|ol)>\s*<li>.*?<\/li>\s*<\/\1>/is,
+                'table': /<table>.*?<tr>.*?<th>.*?<\/th>.*?<\/tr>.*?<\/table>/is,
+                'form': /<form>.*?<input\s+[^>]*type="text"[^>]*>.*?<button\s+[^>]*type="submit"[^>]*>.*?<\/button>.*?<\/form>/is,
+                'video': /<video\s+[^>]*controls[^>]*>.*?<source\s+[^>]*src="[^"]*"[^>]*>.*?<\/video>/is,
+                'section_article': /<section>.*?<article>.*?<\/article>.*?<\/section>/is,
+                'nav': /<nav>.*?<ul>.*?<li>.*?<\/li>.*?<\/ul>.*?<\/nav>/is,
+                'css': /\.\w+\s*{\s*\w+:\s*[^;]+;\s*}/,
+                'flex': /\.flex-container\s*{\s*display:\s*flex;\s*[^}]*}/,
+                'grid': /\.grid-container\s*{\s*display:\s*grid;\s*grid-template-columns:[^}]*}/,
+                'animation': /@keyframes\s+\w+\s*{\s*from\s*{\s*\w+:\s*[^;]+;\s*}\s*to\s*{\s*\w+:\s*[^;]+;\s*}\s*}.*?\.\w+\s*{\s*animation-name:\s*\w+;\s*animation-duration:\s*[^;]+;\s*}/,
+                'media_query': /@media\s*only\s*screen\s*and\s*\(max-width:\s*[^)]+\)\s*{\s*[^}]+}/
+            }
+
+            // Determine the type of exercise and apply the appropriate regex
+            switch (exercise.category) {
+                case 'HTML':
+                    if (exercise.description.includes('commento')) {
+                        isCorrect = regexPatterns.comment.test(exercise.userCode)
+                    } else if (exercise.description.includes('immagine')) {
+                        isCorrect = regexPatterns.img.test(exercise.userCode)
+                    } else if (exercise.description.includes('link')) {
+                        isCorrect = regexPatterns.link.test(exercise.userCode)
+                    } else if (exercise.description.includes('lista')) {
+                        isCorrect = regexPatterns.list.test(exercise.userCode)
+                    } else if (exercise.description.includes('tabella')) {
+                        isCorrect = regexPatterns.table.test(exercise.userCode)
+                    } else if (exercise.description.includes('form')) {
+                        isCorrect = regexPatterns.form.test(exercise.userCode)
+                    } else if (exercise.description.includes('video')) {
+                        isCorrect = regexPatterns.video.test(exercise.userCode)
+                    } else if (exercise.description.includes('sezione') || exercise.description.includes('articolo')) {
+                        isCorrect = regexPatterns.section_article.test(exercise.userCode)
+                    } else if (exercise.description.includes('menu di navigazione')) {
+                        isCorrect = regexPatterns.nav.test(exercise.userCode)
+                    } else {
+                        isCorrect = exercise.userCode.trim() === exercise.correct_code.trim()
+                    }
+                    break
+                case 'CSS':
+                    if (exercise.description.includes('Flexbox')) {
+                        isCorrect = regexPatterns.flex.test(exercise.userCode)
+                    } else if (exercise.description.includes('griglia di layout')) {
+                        isCorrect = regexPatterns.grid.test(exercise.userCode)
+                    } else if (exercise.description.includes('animazione')) {
+                        isCorrect = regexPatterns.animation.test(exercise.userCode)
+                    } else if (exercise.description.includes('media query')) {
+                        isCorrect = regexPatterns.media_query.test(exercise.userCode)
+                    } else {
+                        isCorrect = regexPatterns.css.test(exercise.userCode)
+                    }
+                    break
+                case 'JavaScript':
+                    isCorrect = exercise.userCode.trim() === exercise.correct_code.trim()
+                    break
+                case 'Tailwind':
+                    isCorrect = exercise.userCode.trim() === exercise.correct_code.trim()
+                    break
+                default:
+                    isCorrect = exercise.userCode.trim() === exercise.correct_code.trim()
+            }
+
+            if (isCorrect) {
+                exercise.feedback = "Corretto! Ottimo lavoro."
+                exercise.isCorrect = true
+                exercise.completed = true
 
                 // Update user_exercises table
-                const { error } = await supabase
+                supabase
                     .from('user_exercises')
                     .upsert({ user_id: this.user.id, exercise_id: this.exercise.id, completed: true }, { onConflict: ['user_id', 'exercise_id'] })
+                    .then(({ error }) => {
+                        if (error) {
+                            console.error('Error updating exercise:', error)
+                        }
 
-                if (error) {
-                    console.error('Error updating exercise:', error)
-                }
-
-                // Save the state of exercises in cookies
-                const savedExercises = Cookies.get('completedExercises')
-                    ? JSON.parse(Cookies.get('completedExercises'))
-                    : {}
-                savedExercises[this.exercise.id] = true
-                Cookies.set('completedExercises', JSON.stringify(savedExercises), { expires: 7 })
+                        // Save the state of exercises in cookies
+                        const savedExercises = Cookies.get('completedExercises')
+                            ? JSON.parse(Cookies.get('completedExercises'))
+                            : {}
+                        savedExercises[this.exercise.id] = true
+                        Cookies.set('completedExercises', JSON.stringify(savedExercises), { expires: 7 })
+                    })
             } else {
-                this.exercise.feedback = "Sbagliato. Riprova."
-                this.exercise.isCorrect = false
+                exercise.feedback = "Sbagliato. Riprova."
+                exercise.isCorrect = false
             }
         }
     }
@@ -131,7 +201,6 @@ export default {
 .p-4 {
     padding: 1rem;
 }
-
 .font-monospace {
     font-family: monospace;
 }
