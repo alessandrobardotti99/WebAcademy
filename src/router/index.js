@@ -10,13 +10,20 @@ import FaqView from "@/views/FaqView.vue";
 import EsercitazioniView from "../views/EsercitazioniView.vue";
 import HtmlExercisesView from "../views/HtmlExercisesView.vue";
 import CssExerciseView from '../views/CsslExercisesView.vue'
+import ReturnPaymentCancelView from "../views/ReturnPaymentCancelView.vue";
+import ReturnPaymentSuccessView from "../views/ReturnPaymentSuccessView.vue";
 import { supabase } from '../supabase';
 import Cookies from 'js-cookie';
 import { useUserStore } from '../stores/user.js'
 
 const routes = [
-  { path: "/", name: "home", component: HomeView },
-  { path: "/accedi", name: "accedi", component: LoginView },
+  { path: "/", 
+    name: "home", 
+    component: HomeView
+   },
+  { path: "/accedi", 
+    name: "accedi", 
+    component: LoginView },
   {
     path: "/profilo",
     name: "profilo",
@@ -70,6 +77,18 @@ const routes = [
     component: CssExerciseView,
     meta: { requiresAuth: true },
   },
+  {
+    path: '/ordine-completato',
+    name: 'OrderCompleted',
+    component: ReturnPaymentSuccessView,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/ordine-fallito',
+    name: 'OrderFailed',
+    component: ReturnPaymentCancelView,
+    meta: { requiresAuth: true },
+  }
 ];
 
 const router = createRouter({
