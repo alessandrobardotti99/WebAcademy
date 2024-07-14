@@ -6,7 +6,9 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 justify-center">
                 <div v-for="(course, index) in Object.keys(exercises)" :key="index" class="bg-white shadow rounded-lg p-4 cursor-pointer" @click="openModal(course)">
                     <div class="flex justify-between items-center">
-                        <h2 class="text-2xl font-bold text-indigo-500 font-monospace uppercase">{{ course }}</h2>
+                        <h2 class="text-2xl font-bold text-indigo-500 font-monospace uppercase">{{ course }}
+                        </h2>
+                        <span v-if="isCourseCompleted(course)" class="text-green-700 bg-green-200 font-monospace uppercase text-2xl w-min p-2 rounded-xl">Completato</span>
                     </div>
                 </div>
             </div>
@@ -126,6 +128,11 @@ export default {
             }
         }
 
+        const isCourseCompleted = (course) => {
+            const courseExercises = exercises.value[course.toLowerCase()]
+            return courseExercises.length > 0 && courseExercises.every(exercise => exercise.completed)
+        }
+
         const openModal = (course) => {
             currentCourse.value = course
             currentExercises.value = exercises.value[course.toLowerCase()]
@@ -138,7 +145,7 @@ export default {
 
         const closeInitialModal = () => {
             showInitialModal.value = false
-            Cookies.set('modalRead', 'true', { expires: 7 }) // Set cookie to expire in 7 days
+            Cookies.set('modalRead', 'true', { expires: 1 })
         }
 
         onMounted(() => {
@@ -158,7 +165,8 @@ export default {
             currentExercises,
             openModal,
             closeModal,
-            closeInitialModal
+            closeInitialModal,
+            isCourseCompleted
         }
     }
 }
