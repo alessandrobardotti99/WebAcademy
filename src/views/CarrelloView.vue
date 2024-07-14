@@ -45,13 +45,7 @@
         </div>
       </div>
     </div>
-
-    <div v-if="loadingPayment" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div class="bg-white p-8 rounded-lg shadow-lg text-center">
-        <h2 class="text-2xl font-bold mb-4">Pagamento in corso...</h2>
-        <p>Verrai reindirizzato a Stripe per completare il pagamento.</p>
-      </div>
-    </div>
+    <Footer />
   </div>
 </template>
 
@@ -61,6 +55,7 @@ import { supabase } from '../supabase'
 import Nav from '../components/NavHomepage.vue'
 import CarrelloVuoto from '../components/icons/IconaCarrelloVuoto.vue'
 import IconaCestino from '../components/icons/IconaCestino.vue'
+import Footer from '../components/FooterHomepage.vue'
 import { useUserStore } from '../stores/user.js'
 import axios from 'axios'
 import { loadStripe } from '@stripe/stripe-js'
@@ -70,12 +65,13 @@ export default {
   components: {
     Nav,
     CarrelloVuoto,
-    IconaCestino
+    IconaCestino,
+    Footer
   },
   setup() {
     const cartItems = ref([])
     const userStore = useUserStore()
-    const stripePromise = loadStripe('pk_test_51OfA2oIUYPj0EUS8C48LqjygNk0EWpEpHzeKQSM0b843UKPZ36EUrlyzb7jh05hzv8xKuyaoKOLj1T3ij5AxrmZz00y5X7rIpb')
+    const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
     const loadingPayment = ref(false)
 
     const fetchCartItems = async () => {

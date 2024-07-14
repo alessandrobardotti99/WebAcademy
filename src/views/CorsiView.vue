@@ -24,18 +24,22 @@
         </div>
       </div>
     </div>
+    <Footer />
   </div>
+  
 </template>
 
 <script>
 import Nav from '../components/NavHomepage.vue'
+import Footer from '../components/FooterHomepage.vue'
 import { ref, onMounted } from 'vue'
 import { supabase } from '../supabase'
 
 export default {
   name: 'CoursesView',
   components: {
-    Nav
+    Nav,
+    Footer
   },
   setup() {
     const courses = ref([])

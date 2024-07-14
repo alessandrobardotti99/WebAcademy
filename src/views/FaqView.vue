@@ -2,6 +2,7 @@
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import autoAnimate from '@formkit/auto-animate'
 import Nav from '../components/NavHomepage.vue'
+import Footer from '../components/FooterHomepage.vue'
 
 const dropdownStudy = ref(null)
 const showStudy = ref(false)
@@ -164,6 +165,7 @@ onBeforeUnmount(() => {
         </p>
       </div>
     </div>
+    <Footer />
   </div>
 </template>
 

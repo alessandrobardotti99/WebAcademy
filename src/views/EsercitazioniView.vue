@@ -1,9 +1,9 @@
 <template>
     <div>
         <Nav />
-        <div class="bg-gray-100 min-h-screen p-8">
+        <div class="bg-gray-100 min-h-screen">
             <h1 class="text-[4rem] font-monospace text-center mt-4 mb-8">Esercitazioni</h1>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 justify-center">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 justify-center p-8">
                 <div v-for="(course, index) in Object.keys(exercises)" :key="index" class="bg-white shadow rounded-lg p-4 cursor-pointer" @click="openModal(course)">
                     <div class="flex justify-between items-center">
                         <h2 class="text-2xl font-bold text-indigo-500 font-monospace uppercase">{{ course }}
@@ -12,6 +12,7 @@
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
 
         <!-- Modal -->
@@ -48,6 +49,7 @@ import { ref, onMounted } from 'vue'
 import autoAnimate from '@formkit/auto-animate'
 import Nav from '../components/NavHomepage.vue'
 import IconaChiusura from '../components/icons/IconaChiusura.vue'
+import Footer from '../components/FooterHomepage.vue'
 import { supabase } from '../supabase'
 import Cookies from 'js-cookie'
 
@@ -55,7 +57,8 @@ export default {
     name: 'EsercitazioniView',
     components: {
         Nav,
-        IconaChiusura
+        IconaChiusura,
+        Footer
     },
     setup() {
         const exercises = ref({
