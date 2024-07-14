@@ -93,12 +93,14 @@ export default {
       if (loginError) {
         if (loginError.message === 'Invalid login credentials') {
           error.value = 'Credenziali di accesso non valide'
+        } else if (loginError.message === 'Email not confirmed') {
+          error.value = 'Email non confermata'
         } else {
           error.value = loginError.message
         }
         password.value = ''
       } else {
-        Cookies.set('supabaseSession', JSON.stringify(data), { expires: 1 }) // Save session to cookies
+        Cookies.set('supabaseSession', JSON.stringify(data), { expires: 1 })
         await userStore.fetchUser()
         window.location.href = '/'
       }
@@ -114,7 +116,6 @@ export default {
   }
 }
 </script>
-
 
 <style scoped>
 .font-monospace {
