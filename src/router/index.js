@@ -9,6 +9,7 @@ import ProfiloView from "@/views/ProfiloView.vue";
 import FaqView from "@/views/FaqView.vue";
 import EsercitazioniView from "../views/EsercitazioniView.vue";
 import HtmlExercisesView from "../views/HtmlExercisesView.vue";
+import CssExerciseView from '../views/CsslExercisesView.vue'
 import { supabase } from '../supabase';
 import Cookies from 'js-cookie';
 import { useUserStore } from '../stores/user.js'
@@ -61,6 +62,12 @@ const routes = [
     path: "/esercitazioni/html/:exerciseId",
     name: "esercitazioni-html",
     component: HtmlExercisesView,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/esercitazioni/css/:exerciseId",
+    name: "esercitazioni-css",
+    component: CssExerciseView,
     meta: { requiresAuth: true },
   },
 ];

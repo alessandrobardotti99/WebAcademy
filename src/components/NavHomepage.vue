@@ -26,7 +26,7 @@
               <span v-if="totalItems > 0" class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-indigo-500 rounded-full h-[20px] w-[20px]">{{ totalItems }}</span>
             </router-link>
             <li ref="dropdown" class="bg-indigo-600 text-white py-2 px-4 rounded-xl cursor-pointer hover:bg-indigo-700 relative flex items-center" @click="toggleDropdown">
-              Ciao {{ user.email }}
+              {{ firstInitial }}
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" :class="{'rotate-180': dropdownOpen, 'ml-2': true, 'w-4': true, 'h-4': true, 'transition-transform': true}">
                 <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
               </svg>
@@ -77,6 +77,13 @@ export default {
     const dropdown = ref(null)
     const totalItems = computed(() => cartStore.totalItems)
 
+    const firstInitial = computed(() => {
+      if (user.value && user.value.email) {
+        return user.value.email.charAt(0).toUpperCase()
+      }
+      return ''
+    })
+
     const handleScroll = () => {
       hasScrolled.value = window.scrollY > 0
     }
@@ -116,7 +123,8 @@ export default {
       toggleDropdown,
       logout,
       dropdown,
-      totalItems
+      totalItems,
+      firstInitial
     }
   }
 }

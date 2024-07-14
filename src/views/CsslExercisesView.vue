@@ -2,7 +2,7 @@
     <div>
         <Nav />
         <div class="bg-gray-100 min-h-screen p-8">
-            <h1 class="text-4xl font-bold mb-8 text-center">Esercitazione HTML</h1>
+            <h1 class="text-4xl font-bold mb-8 text-center">Esercitazione CSS</h1>
             <router-link to="/esercitazioni">
                 <div class="text-white bg-indigo-700 p-2 rounded-xl w-min mb-4">
                     <span><IconaBack /></span>
@@ -13,18 +13,18 @@
                     <h2 class="text-2xl font-bold mb-4 font-monospace">{{ exercise.title }}</h2>
                     <p class="mb-4">{{ exercise.description }}</p>
                     <textarea v-model="exercise.userCode" class="w-full p-2 border rounded-lg mb-4" rows="5"></textarea>
-                    <div class="flex items-center justify-between"> 
+                    <div class="flex items-center justify-between">
                     <button @click="checkExercise" :class="exercise.completed ? 'bg-green-600' : 'bg-indigo-600'" class="text-white py-2 px-4 rounded-lg">
                         {{ exercise.completed ? 'Completato' : 'Verifica' }}
                     </button>
-                    <router-link v-if="exercise.completed" :to="`/esercitazioni/html/${nextExerciseId}`" class="py-2 px-4 text-white rounded-xl hover:bg-indigo-600 bg-indigo-500 flex items-center gap-2">
+                    <router-link v-if="exercise.completed" :to="`/esercitazioni/css/${nextExerciseId}`" class="py-2 px-4 text-white rounded-xl hover:bg-indigo-600 bg-indigo-500 flex items-center gap-2">
                         Vai al prossimo esercizio <IconaBack class="rotate-180" />
                     </router-link>
                 </div>
                     <p v-if="exercise.feedback" :class="{'text-green-600': exercise.isCorrect, 'text-red-600': !exercise.isCorrect}" class="mt-4">
                         {{ exercise.feedback }}
                     </p>
-                   
+                    
                 </div>
             </div>
             <div v-else>
@@ -34,7 +34,6 @@
     </div>
 </template>
 
-
 <script>
 import Nav from '../components/NavHomepage.vue'
 import IconaBack from '../components/icons/IconaBack.vue'
@@ -42,7 +41,7 @@ import { supabase } from '../supabase'
 import Cookies from 'js-cookie'
 
 export default {
-    name: 'HtmlExercisesView',
+    name: 'CssExercisesView',
     components: {
         Nav,
         IconaBack
@@ -126,68 +125,24 @@ export default {
 
             // Define regex patterns for different types of exercises
             const regexPatterns = {
-                'comment': /<!--.*?-->/g,
-                'img': /<img\s+[^>]*src="[^"]*"[^>]*>/i,
-                'link': /<a\s+[^>]*href="[^"]*"[^>]*>.*?<\/a>/i,
-                'list': /<(ul|ol)>\s*<li>.*?<\/li>\s*<\/\1>/is,
-                'table': /<table>.*?<tr>.*?<th>.*?<\/th>.*?<\/tr>.*?<\/table>/is,
-                'form': /<form>.*?<input\s+[^>]*type="text"[^>]*>.*?<button\s+[^>]*type="submit"[^>]*>.*?<\/button>.*?<\/form>/is,
-                'video': /<video\s+[^>]*controls[^>]*>.*?<source\s+[^>]*src="[^"]*"[^>]*>.*?<\/video>/is,
-                'section_article': /<section>.*?<article>.*?<\/article>.*?<\/section>/is,
-                'nav': /<nav>.*?<ul>.*?<li>.*?<\/li>.*?<\/ul>.*?<\/nav>/is,
-                'css': /\.\w+\s*{\s*\w+:\s*[^;]+;\s*}/,
-                'flex': /\.flex-container\s*{\s*display:\s*flex;\s*[^}]*}/,
-                'grid': /\.grid-container\s*{\s*display:\s*grid;\s*grid-template-columns:[^}]*}/,
-                'animation': /@keyframes\s+\w+\s*{\s*from\s*{\s*\w+:\s*[^;]+;\s*}\s*to\s*{\s*\w+:\s*[^;]+;\s*}\s*}.*?\.\w+\s*{\s*animation-name:\s*\w+;\s*animation-duration:\s*[^;]+;\s*}/,
-                'media_query': /@media\s*only\s*screen\s*and\s*\(max-width:\s*[^)]+\)\s*{\s*[^}]+}/
+                'Esercizio 1: Applicare stili di base': /p\s*{\s*color:\s*[^;]+;\s*}/,
+                'Esercizio 2: Cambiare il colore di sfondo': /body\s*{\s*background-color:\s*[^;]+;\s*}/,
+                'Esercizio 3: Aggiungere un bordo a un\'immagine': /img\s*{\s*border:\s*[^;]+;\s*}/, 
+                'Esercizio 4: Creare una griglia di layout': /\.grid-container\s*{\s*display:\s*grid;\s*grid-template-columns:[^}]*}/,
+                'Esercizio 5: Aggiungere stili a un link al passaggio del mouse': /a:hover\s*{\s*color:\s*[^;]+;\s*}/,
+                'Esercizio 6: Creare un\'animazione semplice': /@keyframes\s+\w+\s*{\s*from\s*{\s*\w+:\s*[^;]+;\s*}\s*to\s*{\s*\w+:\s*[^;]+;\s*}\s*}.*?\.\w+\\s*{\s*animation-name:\s*\w+;\s*animation-duration:\s*[^;]+;\s*}/,
+                'Esercizio 7: Usare Flexbox': /\.flex-container\s*{\s*display:\s*flex;\s*[^}]*}/,
+                'Esercizio 8: Applicare ombre': /(h1\s*{\s*text-shadow:\s*[^;]+;\s*})|(div\s*{\s*box-shadow:\s*[^;]+;\s*})/,
+                'Esercizio 9: Usare variabili CSS': /:root\s*{\s*--\w+:\s*[^;]+;\s*}.*?body\s*{\s*background-color:\s*var\(--\w+\)[^;]*;\s*}/,
+                'Esercizio 10: Creare un layout responsive': /@media\s*only\s*screen\s*and\s*\(max-width:\s*[^)]+\)\s*{\s*[^}]+}/
             }
 
             // Determine the type of exercise and apply the appropriate regex
-            switch (exercise.category) {
-                case 'HTML':
-                    if (exercise.description.includes('commento')) {
-                        isCorrect = regexPatterns.comment.test(exercise.userCode)
-                    } else if (exercise.description.includes('immagine')) {
-                        isCorrect = regexPatterns.img.test(exercise.userCode)
-                    } else if (exercise.description.includes('link')) {
-                        isCorrect = regexPatterns.link.test(exercise.userCode)
-                    } else if (exercise.description.includes('lista')) {
-                        isCorrect = regexPatterns.list.test(exercise.userCode)
-                    } else if (exercise.description.includes('tabella')) {
-                        isCorrect = regexPatterns.table.test(exercise.userCode)
-                    } else if (exercise.description.includes('form')) {
-                        isCorrect = regexPatterns.form.test(exercise.userCode)
-                    } else if (exercise.description.includes('video')) {
-                        isCorrect = regexPatterns.video.test(exercise.userCode)
-                    } else if (exercise.description.includes('sezione') || exercise.description.includes('articolo')) {
-                        isCorrect = regexPatterns.section_article.test(exercise.userCode)
-                    } else if (exercise.description.includes('menu di navigazione')) {
-                        isCorrect = regexPatterns.nav.test(exercise.userCode)
-                    } else {
-                        isCorrect = exercise.userCode.trim() === exercise.correct_code.trim()
-                    }
-                    break
-                case 'CSS':
-                    if (exercise.description.includes('Flexbox')) {
-                        isCorrect = regexPatterns.flex.test(exercise.userCode)
-                    } else if (exercise.description.includes('griglia di layout')) {
-                        isCorrect = regexPatterns.grid.test(exercise.userCode)
-                    } else if (exercise.description.includes('animazione')) {
-                        isCorrect = regexPatterns.animation.test(exercise.userCode)
-                    } else if (exercise.description.includes('media query')) {
-                        isCorrect = regexPatterns.media_query.test(exercise.userCode)
-                    } else {
-                        isCorrect = regexPatterns.css.test(exercise.userCode)
-                    }
-                    break
-                case 'JavaScript':
-                    isCorrect = exercise.userCode.trim() === exercise.correct_code.trim()
-                    break
-                case 'Tailwind':
-                    isCorrect = exercise.userCode.trim() === exercise.correct_code.trim()
-                    break
-                default:
-                    isCorrect = exercise.userCode.trim() === exercise.correct_code.trim()
+            const pattern = regexPatterns[exercise.title];
+            if (pattern) {
+                isCorrect = pattern.test(exercise.userCode)
+            } else {
+                isCorrect = exercise.userCode.trim() === exercise.correct_code.trim()
             }
 
             if (isCorrect) {
@@ -219,6 +174,7 @@ export default {
     }
 }
 </script>
+
 
 
 <style scoped>
