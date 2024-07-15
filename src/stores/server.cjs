@@ -6,8 +6,8 @@ const { v4: uuidv4 } = require('uuid');
 require('dotenv').config();
 
 const app = express();
-const stripe = Stripe(process.env.VITE_STRIPE_PUBLIC_KEY); 
-const supabase = createClient(process.env.VITE_SUPABASE_URL, process.env.VITE_SUPABASE_ANON_KEY); 
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY); // Usa la chiave segreta di Stripe
+const supabase = createClient(process.env.VITE_SUPABASE_URL, process.env.VITE_SUPABASE_ANON_KEY);
 
 app.use(cors());
 app.use(express.json());
@@ -26,15 +26,20 @@ app.post('/create-checkout-session', async (req, res) => {
     quantity: 1,
   }));
 
-  const session = await stripe.checkout.sessions.create({
-    payment_method_types: ['card'],
-    line_items: lineItems,
-    mode: 'payment',
-    success_url: 'http://localhost:8080/ordine-completato',
-    cancel_url: 'http://localhost:8080/ordine-fallito',
-  });
+  try {
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items: lineItems,
+      mode: 'payment',
+      success_url: 'http://localhost:8080/ordine-completato',
+      cancel_url: 'http://localhost:8080/ordine-fallito',
+    });
 
-  res.json({ id: session.id });
+    res.json({ id: session.id });
+  } catch (error) {
+    console.error('Error creating Stripe checkout session:', error);
+    res.status(500).json({ error: 'An error occurred while creating the checkout session.' });
+  }
 });
 
 const PORT = process.env.PORT || 3000;
