@@ -46,6 +46,20 @@
                   <h3 class="text-xl font-bold">{{ course.title }}</h3>
                   <p>{{ course.description }}</p>
                   <span class="text-gray-500">Acquistato il: {{ formatDate(course.purchase_date) }}</span>
+                  <div v-if="course.videos.length">
+                    <h4 class="text-lg font-bold mt-4">Video del corso:</h4>
+                    <ul>
+                      <li v-for="video in course.videos" :key="video.id" class="mb-2">
+                        <router-link :to="{ name: 'VideoView', params: { id: video.id, title: video.title, courseId: course.id } }" class="text-blue-500 hover:underline">
+                          {{ video.title }}
+                        </router-link>
+                        <p>{{ video.description }}</p>
+                      </li>
+                    </ul>
+                  </div>
+                  <div v-else class="text-gray-500">
+                    Nessun video disponibile.
+                  </div>
                 </li>
               </ul>
             </div>
@@ -113,6 +127,21 @@ export default {
         if (coursesError) {
           console.error('Error fetching courses:', coursesError)
           return
+        }
+
+        // Fetch videos for each course
+        for (const course of courses) {
+          const { data: videos, error: videosError } = await supabase
+            .from('course_videos')
+            .select('*')
+            .eq('course_id', course.id)
+
+          if (videosError) {
+            console.error('Error fetching videos:', videosError)
+            course.videos = []
+          } else {
+            course.videos = videos
+          }
         }
 
         purchasedCourses.value = courses.map(course => {

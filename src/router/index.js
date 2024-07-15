@@ -12,6 +12,7 @@ import HtmlExercisesView from "../views/HtmlExercisesView.vue";
 import CssExerciseView from '../views/CsslExercisesView.vue'
 import ReturnPaymentCancelView from "../views/ReturnPaymentCancelView.vue";
 import ReturnPaymentSuccessView from "../views/ReturnPaymentSuccessView.vue";
+import VideoView from "../views/VideoView.vue";
 import { supabase } from '../supabase';
 import Cookies from 'js-cookie';
 import { useUserStore } from '../stores/user.js'
@@ -76,6 +77,13 @@ const routes = [
     name: "esercitazioni-css",
     component: CssExerciseView,
     meta: { requiresAuth: true },
+  },
+  {
+    path: '/video/:courseId/:id',
+    name: 'VideoView',
+    component: VideoView,
+    meta: { requiresAuth: true },
+    props: true
   },
   {
     path: '/ordine-completato',
