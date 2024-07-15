@@ -6,8 +6,9 @@
           <img src="/src/assets/img/logoWebAcademy-removebg-preview.png" alt="logoWebAcademy" class="max-w-full h-[30px]">
         </div>
       </router-link>
-      <div>
+      <div class="hidden lg:flex">
         <ul class="inline-flex gap-5">
+          <!-- Menu items -->
           <router-link to="/corsi" class="text-neutral-500 py-2 px-4 rounded-xl hover:text-black cursor-pointer" active-class="text-black font-bold">
             <li>Corsi</li>
           </router-link>
@@ -53,7 +54,66 @@
           </template>
         </ul>
       </div>
+      <div class="lg:hidden">
+        <button @click="toggleMobileMenu" class="text-neutral-500 p-2 rounded-lg hover:text-black focus:outline-none">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+          </svg>
+        </button>
+      </div>
     </nav>
+    <transition name="slide">
+      <div v-if="mobileMenuOpen" class="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden" @click="toggleMobileMenu">
+        <div class="fixed inset-y-0 right-0 w-64 bg-YellowWebAcademy shadow-lg z-50 flex flex-col p-4" @click.stop>
+          <ul class="space-y-4">
+            <!-- Mobile menu items -->
+            <router-link to="/corsi" class="text-neutral-500 py-2 px-4 rounded-xl hover:text-black cursor-pointer" active-class="text-black font-bold" @click="toggleMobileMenu">
+              <li>Corsi</li>
+            </router-link>
+            <router-link to="/faq" class="text-neutral-500 py-2 px-4 rounded-xl hover:text-black cursor-pointer" active-class="text-black font-bold" @click="toggleMobileMenu">
+              <li>Faq</li>
+            </router-link>
+            <router-link to="/esercitazioni" class="text-neutral-500 py-2 px-4 rounded-xl hover:text-black cursor-pointer" active-class="text-black font-bold" @click="toggleMobileMenu">
+              <li>Esercitazioni</li>
+            </router-link>
+            <router-link to="/contatti" class="text-neutral-500 py-2 px-4 rounded-xl hover:text-black cursor-pointer" active-class="text-black font-bold" @click="toggleMobileMenu">
+              <li>Contatti</li>
+            </router-link>
+            <template v-if="user">
+              <router-link to="/carrello" class="relative text-neutral-500 py-2 px-4 rounded-xl hover:text-black cursor-pointer" active-class="text-black font-bold" @click="toggleMobileMenu">
+                <li>Carrello</li>
+                <span v-if="totalItems > 0" class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-indigo-500 rounded-full h-[20px] w-[20px]">{{ totalItems }}</span>
+              </router-link>
+              <li ref="dropdown" class="bg-indigo-600 text-white py-2 px-4 rounded-xl cursor-pointer hover:bg-indigo-700 relative flex items-center" @click="toggleDropdown">
+                {{ firstInitial }}
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" :class="{'rotate-180': dropdownOpen, 'ml-2': true, 'w-4': true, 'h-4': true, 'transition-transform': true}">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                </svg>
+                <transition name="fade">
+                  <ul v-if="dropdownOpen" v-auto-animate class="absolute top-full right-0 mt-2 bg-YellowWebAcademy shadow-md rounded-xl w-48 py-2">
+                    <router-link to="/profilo" class="block px-4 py-2 text-slate-500 hover:bg-HoverYwlloWebAcademt cursor-pointer" @click="toggleMobileMenu">
+                      <li>Profilo</li>
+                    </router-link>
+                    <router-link to="/impostazioni" class="block px-4 py-2 text-slate-500 hover:bg-HoverYwlloWebAcademt cursor-pointer" @click="toggleMobileMenu">
+                      <li>Impostazioni</li>
+                    </router-link>
+                    <hr>
+                    <li @click="logout" class="block px-4 py-2 text-slate-500 hover:bg-HoverYwlloWebAcademt cursor-pointer">
+                      Logout
+                    </li>
+                  </ul>
+                </transition>
+              </li>
+            </template>
+            <template v-else>
+              <router-link to="/accedi" class="bg-indigo-600 text-white py-2 px-4 rounded-xl cursor-pointer hover:bg-indigo-700" @click="toggleMobileMenu">
+                <li>Accedi</li>
+              </router-link>
+            </template>
+          </ul>
+        </div>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -76,6 +136,7 @@ export default {
     const dropdownOpen = ref(false)
     const dropdown = ref(null)
     const totalItems = computed(() => cartStore.totalItems)
+    const mobileMenuOpen = ref(false)
 
     const firstInitial = computed(() => {
       if (user.value && user.value.email) {
@@ -90,6 +151,10 @@ export default {
 
     const toggleDropdown = () => {
       dropdownOpen.value = !dropdownOpen.value
+    }
+
+    const toggleMobileMenu = () => {
+      mobileMenuOpen.value = !mobileMenuOpen.value
     }
 
     const handleClickOutside = (event) => {
@@ -124,7 +189,9 @@ export default {
       logout,
       dropdown,
       totalItems,
-      firstInitial
+      firstInitial,
+      mobileMenuOpen,
+      toggleMobileMenu
     }
   }
 }
@@ -143,7 +210,17 @@ export default {
 .fade-enter-from, .fade-leave-to {
   opacity: 0;
 }
-
+.slide-enter-active {
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(100%);
+}
+.slide-leave-active {
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(100%);
+}
+.slide-enter-to, .slide-leave-from {
+  transform: translateX(0);
+}
 hr {
   border: solid 1px #e4bb62;
 }

@@ -18,10 +18,14 @@
     "@vueuse/motion": "^2.2.3",
     "ace-builds": "^1.35.2",
     "codemirror": "^6.0.1",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
+    "csurf": "^1.11.0",
     "date-fns": "^3.6.0",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "express-rate-limit": "^7.3.1",
+    "helmet": "^7.1.0",
     "js-cookie": "^3.0.5",
     "monaco-editor": "^0.50.0",
     "pinia": "^2.1.7",
@@ -35,7 +39,8 @@
     "vue-codemirror": "^6.1.1",
     "vue-plyr": "^7.0.0",
     "vue-router": "^4.4.0",
-    "vue-toastification": "^2.0.0-rc.5"
+    "vue-toastification": "^2.0.0-rc.5",
+    "winston": "^3.13.1"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.5",

@@ -1,42 +1,42 @@
 <template>
   <Nav />
-  <div class="bg-gray-100 min-h-screen flex">
+  <div class="bg-white min-h-screen flex">
     <div class="flex w-full">
-      <aside class="bg-white w-1/4 min-h-screen p-8 shadow-lg">
+      <aside class="bg-white w-1/4 min-h-screen p-8 shadow-xl">
         <ul>
           <li class="mb-2">
             <button @click="currentTab = 'profile'"
-              :class="{ 'text-white font-bold': currentTab === 'profile', 'text-neutral-800 p-4 bg-neutral-100 rounded-xl': currentTab !== 'profile' }"
+              :class="{ 'text-white font-bold ml-2': currentTab === 'profile', 'text-neutral-800 p-4 bg-neutral-100 rounded-xl hover:bg-neutral-200': currentTab !== 'profile' }"
               class="p-4 bg-indigo-500 rounded-xl block w-full text-start">Profilo</button>
           </li>
           <li class="mb-2">
             <button @click="currentTab = 'orders'"
-              :class="{ 'text-white font-bold': currentTab === 'orders', 'text-neutral-800 p-4 bg-neutral-100 rounded-xl': currentTab !== 'orders' }"
-              class="bg-indigo-500 rounded-xl block w-full text-start p-4">Ordini</button>
+              :class="{ 'text-white font-bold ml-2': currentTab === 'orders', 'text-neutral-800 p-4 bg-neutral-100 rounded-xl hover:bg-neutral-200': currentTab !== 'orders' }"
+              class="bg-indigo-500 rounded-xl block w-full text-start p-4">Corsi acquistati</button>
           </li>
           <li class="mb-2">
             <button @click="currentTab = 'settings'"
-              :class="{ 'text-white font-bold': currentTab === 'settings', 'text-neutral-800 p-4 bg-neutral-100 rounded-xl': currentTab !== 'settings' }"
+              :class="{ 'text-white font-bold ml-2': currentTab === 'settings', 'text-neutral-800 p-4 bg-neutral-100 rounded-xl hover:bg-neutral-200': currentTab !== 'settings' }"
               class="bg-indigo-500 rounded-xl block w-full text-start p-4">Impostazioni</button>
           </li>
         </ul>
       </aside>
-      <main class="w-3/4 p-8">
-        <div class="max-w-4xl mx-auto">
+      <main class="w-3/4 p-4">
+        <div class="mx-auto">
           <div v-if="currentTab === 'profile'">
             <div v-if="user">
               <h1 class="text-4xl font-bold mb-6 font-monospace text-indigo-500">Profilo Utente</h1>
               <div class="mb-4">
                 <label class="block text-gray-700">Email:</label>
-                <input v-model="user.email" disabled class="w-full mt-1 p-2 border rounded-lg" />
+                <input v-model="user.email" disabled class="w-full mt-1 p-4 border rounded-xl" />
               </div>
               <div class="mb-4">
                 <label class="block text-gray-700">Ultimo accesso:</label>
-                <input v-model="formattedLastSignIn" disabled class="w-full mt-1 p-2 border rounded-lg" />
+                <input v-model="formattedLastSignIn" disabled class="w-full mt-1 p-4 border rounded-xl" />
               </div>
               <div class="mb-4">
                 <label class="block text-gray-700">Creato il:</label>
-                <input v-model="formattedCreatedAt" disabled class="w-full mt-1 p-2 border rounded-lg" />
+                <input v-model="formattedCreatedAt" disabled class="w-full mt-1 p-4 border rounded-xl" />
               </div>
             </div>
             <div v-else class="text-center text-gray-500">
@@ -48,12 +48,12 @@
             <h2 class="text-4xl font-bold mb-6 font-monospace text-indigo-500">Corsi acquistati</h2>
             <div v-if="purchasedCourses.length">
               <ul>
-                <li v-for="course in purchasedCourses" :key="course.id" class="mb-2 p-4 border rounded-lg">
+                <li v-for="course in purchasedCourses" :key="course.id" class="mb-2 p-4 border rounded-xl">
                   <h3 class="text-xl font-bold">{{ course.title }}</h3>
                   <p>{{ course.description }}</p>
                   <span class="text-gray-500">Acquistato il: {{ formatDate(course.purchase_date) }}</span>
                   <div @click="toggleDropdown(course.id)"
-                    class="cursor-pointer flex items-center justify-between bg-slate-200 p-4 rounded-xl mt-4">
+                    class="cursor-pointer flex items-center justify-between bg-neutral-100 p-4 rounded-xl mt-4">
                     <span class="text-lg font-bold">Video del corso</span>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                       stroke="currentColor"
@@ -79,7 +79,7 @@
                         </div>
                         </li>
                       </ul>
-                      <div v-else class="text-gray-500">
+                      <div v-else class="text-gray-500 p-4">
                         Nessun video disponibile.
                       </div>
                     </div>

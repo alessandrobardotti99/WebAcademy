@@ -5,7 +5,8 @@
       <h1 class="text-[4rem] font-monospace text-center mt-4 mb-8">Il tuo carrello</h1>
       <div v-if="cartItems.length" class="flex gap-4 items-start">
         <div class="w-[60%]">
-          <div v-for="course in cartItems" :key="course.id" class="mb-4 p-4 bg-white rounded-xl shadow-md flex justify-between items-center">
+          <div v-for="course in cartItems" :key="course.id"
+            class="flex flex-col justify-between  px-8 py-10  border-4 border-gray-900 bg-white  transition-all md:shadow-brutal md:-translate-y-2 md:-translate-x-2">
             <div class="flex items-center">
               <img :src="course.image_url" :alt="course.title" class="w-[9rem] h-[6rem] object-cover rounded-xl mr-4">
               <div>
@@ -15,13 +16,15 @@
             </div>
             <div class="flex items-center">
               <span class="text-lg font-bold mr-4">{{ course.price }} €</span>
-              <button @click="removeFromCart(course.id)" class="bg-red-500 text-white py-1 px-3 rounded-xl hover:bg-red-600">
+              <button @click="removeFromCart(course.id)"
+                class="bg-red-500 text-white py-1 px-3 rounded-xl hover:bg-red-600">
                 <IconaCestino />
               </button>
             </div>
           </div>
         </div>
-        <div class="bg-white rounded-xl shadow-md p-4 w-[40%]">
+        <div
+          class="p-4 w-[40%] flex flex-col justify-between  px-8 py-10  border-4 border-gray-900 bg-white  transition-all md:shadow-brutal md:-translate-y-2 md:-translate-x-2">
           <h2 class="text-2xl font-bold mb-4 text-indigo-500">Riepilogo ordine</h2>
           <hr class="mb-4">
           <div class="flex justify-between mb-2">
@@ -33,7 +36,9 @@
             <span>{{ total.toFixed(2) }} €</span>
           </div>
           <hr class="mb-4 mt-4">
-          <button @click="goToPayment" class="bg-indigo-500 text-white py-2 px-4 rounded-xl hover:bg-indigo-600 w-full" :disabled="loadingPayment">
+          <button @click="goToPayment"
+            class="my-0 mx-1 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-indigo-500 text-lg lg:text-xl w-fit mt-8 text-black font-medium flex gap-2 items-center whitespace-nowrap"
+            :disabled="loadingPayment">
             {{ loadingPayment ? 'Pagamento in corso...' : 'Vai al pagamento' }}
           </button>
         </div>
@@ -166,5 +171,22 @@ export default {
 .font-monospace {
   font-family: monospace;
 }
-</style>
 
+.md\:shadow-brutal {
+  --tw-shadow: 5px 5px 0px 0px #000;
+  --tw-shadow-colored: 5px 5px 0px 0px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.shadow-\[5px_5px_0px_0px_\#000\],
+.shadow-brutal,
+.shadow-brutalPressed {
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.shadow-\[5px_5px_0px_0px_\#000\],
+.shadow-brutal {
+  --tw-shadow: 5px 5px 0px 0px #000;
+  --tw-shadow-colored: 5px 5px 0px 0px var(--tw-shadow-color);
+}
+</style>
