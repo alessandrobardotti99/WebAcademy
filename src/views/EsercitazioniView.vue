@@ -2,7 +2,7 @@
     <div>
         <Nav />
         <div class="bg-gray-100 min-h-screen">
-            <h1 class="text-[4rem] font-monospace text-center mt-4 mb-8">Esercitazioni</h1>
+            <h1 class="text-[4rem] font-monospace text-center mb-8">Esercitazioni</h1>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 justify-center p-8">
                 <div v-for="(course, index) in Object.keys(exercises)" :key="index" class="bg-white shadow rounded-lg p-4 cursor-pointer" @click="openModal(course)">
                     <div class="flex justify-between items-center">
