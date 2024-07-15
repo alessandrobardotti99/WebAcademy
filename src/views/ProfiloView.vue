@@ -5,13 +5,19 @@
       <aside class="bg-white w-1/4 min-h-screen p-8 shadow-lg">
         <ul>
           <li class="mb-2">
-            <button @click="currentTab = 'profile'" :class="{'text-white font-bold': currentTab === 'profile', 'text-neutral-800 p-4 bg-neutral-100 rounded-xl': currentTab !== 'profile'}" class="p-4 bg-indigo-500 rounded-xl block w-full text-start">Profilo</button>
+            <button @click="currentTab = 'profile'"
+              :class="{ 'text-white font-bold': currentTab === 'profile', 'text-neutral-800 p-4 bg-neutral-100 rounded-xl': currentTab !== 'profile' }"
+              class="p-4 bg-indigo-500 rounded-xl block w-full text-start">Profilo</button>
           </li>
           <li class="mb-2">
-            <button @click="currentTab = 'orders'" :class="{'text-white font-bold': currentTab === 'orders', 'text-neutral-800 p-4 bg-neutral-100 rounded-xl': currentTab !== 'orders'}" class="bg-indigo-500 rounded-xl block w-full text-start p-4">Ordini</button>
+            <button @click="currentTab = 'orders'"
+              :class="{ 'text-white font-bold': currentTab === 'orders', 'text-neutral-800 p-4 bg-neutral-100 rounded-xl': currentTab !== 'orders' }"
+              class="bg-indigo-500 rounded-xl block w-full text-start p-4">Ordini</button>
           </li>
           <li class="mb-2">
-            <button @click="currentTab = 'settings'" :class="{'text-white font-bold': currentTab === 'settings', 'text-neutral-800 p-4 bg-neutral-100 rounded-xl': currentTab !== 'settings'}" class="bg-indigo-500 rounded-xl block w-full text-start p-4">Impostazioni</button>
+            <button @click="currentTab = 'settings'"
+              :class="{ 'text-white font-bold': currentTab === 'settings', 'text-neutral-800 p-4 bg-neutral-100 rounded-xl': currentTab !== 'settings' }"
+              class="bg-indigo-500 rounded-xl block w-full text-start p-4">Impostazioni</button>
           </li>
         </ul>
       </aside>
@@ -46,20 +52,39 @@
                   <h3 class="text-xl font-bold">{{ course.title }}</h3>
                   <p>{{ course.description }}</p>
                   <span class="text-gray-500">Acquistato il: {{ formatDate(course.purchase_date) }}</span>
-                  <div v-if="course.videos.length">
-                    <h4 class="text-lg font-bold mt-4">Video del corso:</h4>
-                    <ul>
-                      <li v-for="video in course.videos" :key="video.id" class="mb-2">
-                        <router-link :to="{ name: 'VideoView', params: { id: video.id, title: video.title, courseId: course.id } }" class="text-blue-500 hover:underline">
-                          {{ video.title }}
-                        </router-link>
-                        <p>{{ video.description }}</p>
-                      </li>
-                    </ul>
+                  <div @click="toggleDropdown(course.id)"
+                    class="cursor-pointer flex items-center justify-between bg-slate-200 p-4 rounded-xl mt-4">
+                    <span class="text-lg font-bold">Video del corso</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                      stroke="currentColor"
+                      :class="{ 'transform rotate-90': isOpen(course.id), 'ml-2': true, 'w-6': true, 'h-6': true, 'transition-transform': true }">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                    </svg>
+
                   </div>
-                  <div v-else class="text-gray-500">
-                    Nessun video disponibile.
-                  </div>
+                  <transition name="accordion">
+                    <div v-if="isOpen(course.id)">
+                      <ul v-if="course.videos.length">
+                        <li v-for="video in course.videos" :key="video.id" class="mb-2 bg-indigo-500 p-4 rounded-xl text-white mt-4">
+                          <div class="flex justify-between items-center">
+                            <div>
+                            {{ video.title }}
+                            <p>{{ video.description }}</p>
+                          </div>
+                          <div>
+                            <router-link :to="{ name: 'VideoView', params: { id: video.id, title: video.title, courseId: course.id } }"
+                            class="hover:underline bg-YellowWebAcademy text-neutral-800 p-2 rounded-xl hover:bg-HoverYwlloWebAcademt hover:text-neutral-950">
+                            <button>Vai al video</button> </router-link>
+                          </div>
+                        </div>
+                        </li>
+                      </ul>
+                      <div v-else class="text-gray-500">
+                        Nessun video disponibile.
+                      </div>
+                    </div>
+
+                  </transition>
                 </li>
               </ul>
             </div>
@@ -69,7 +94,7 @@
           </div>
 
           <div v-if="currentTab === 'settings'">
-            <h2 class="text-2xl font-bold mb-4 font-monospace text-indigo-500">Impostazioni</h2>
+            <h2 class="text-4xl font-bold mb-6 font-monospace text-indigo-500">Impostazioni</h2>
             <p>Pagina delle impostazioni (in arrivo).</p>
           </div>
         </div>
@@ -97,6 +122,7 @@ export default {
     const purchasedCourses = ref([])
     const route = useRoute()
     const currentTab = ref(route.query.tab || 'profile')
+    const openDropdowns = ref([])
 
     const fetchProfile = async () => {
       userStore.loadSessionFromCookies()
@@ -169,13 +195,27 @@ export default {
       return format(new Date(date), 'dd/MM/yyyy HH:mm:ss')
     }
 
+    const toggleDropdown = (courseId) => {
+      if (openDropdowns.value.includes(courseId)) {
+        openDropdowns.value = openDropdowns.value.filter(id => id !== courseId)
+      } else {
+        openDropdowns.value.push(courseId)
+      }
+    }
+
+    const isOpen = (courseId) => {
+      return openDropdowns.value.includes(courseId)
+    }
+
     return {
       user,
       formattedLastSignIn,
       formattedCreatedAt,
       purchasedCourses,
       formatDate,
-      currentTab
+      currentTab,
+      toggleDropdown,
+      isOpen
     }
   }
 }
@@ -185,10 +225,9 @@ export default {
 .font-monospace {
   font-family: monospace;
 }
-.text-black {
-  color: #000;
-}
-.font-bold {
-  font-weight: bold;
+
+.accordion-enter,
+.accordion-leave-to {
+  max-height: 0;
 }
 </style>
