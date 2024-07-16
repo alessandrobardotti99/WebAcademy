@@ -4,7 +4,7 @@
       <router-link to="/">
         <div>
           <img src="/src/assets/img/logoWebAcademy-removebg-preview.png" alt="logoWebAcademy"
-            class="max-w-full h-[30px]">
+            class="max-w-full h-[40px]">
         </div>
       </router-link>
       <div class="hidden lg:flex">
