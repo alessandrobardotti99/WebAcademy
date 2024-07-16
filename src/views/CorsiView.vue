@@ -10,17 +10,23 @@
       <h3 class="mt-[20rem] text-[1rem]">Caricamento in corso...</h3>
     </div>
     <div v-else class="p-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
-      <div v-for="course in courses" :key="course.id" class="course-card rounded-xl relative" :style="{ backgroundImage: `url(${course.image_url})` }">
-        <div class="p-4 bg-white rounded-xl m-[10px] backdrop-filter backdrop-blur-lg bg-opacity-80">
-          <h2 class="text-xl font-bold">{{ course.title }}</h2>
-          <p class="text-gray-700">{{ course.description }}</p>
+      <div v-for="course in courses" :key="course.id" class="border-4 border-gray-900 bg-white transition-all md:shadow-brutal md:-translate-y-2 md:-translate-x-2 h-[400px] relative p-4" :style="{ backgroundImage: `url(${course.image_url})`, backgroundSize: 'cover',backgroundRepeat: 'no-repeat'}">
+        <div class="p-4 bg-white transition-all md:shadow-brutal md:-translate-y-2 md:-translate-x-2 absolute bottom-0">
+          <h2 class="text-2xl font-bold">{{ course.title }}</h2>
+          <p class="text-lg">{{ course.description }}</p>
           <div class="flex justify-between items-center mt-4">
             <span class="text-sm text-gray-500">{{ course.duration }}</span>
             <span class="text-lg font-bold">{{ course.price }} €</span>
           </div>
-          <router-link :to="`/corsi/${course.id}`" class="block mt-4 bg-indigo-600 text-white text-center py-2 rounded-lg hover:bg-indigo-700">
+          <div class="flex items-center justify-between">
+          <router-link :to="`/corsi/${course.id}`" class="my-0 py-1 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-indigo-500 text-lg lg:text-xl text-black font-medium flex gap-2 items-center whitespace-nowrap w-min mt-4">
             Scopri di più
           </router-link>
+
+          <router-link :to="`/corsi/${course.id}`" class="my-0 py-1 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-YellowWebAcademy text-lg lg:text-xl text-black font-medium flex gap-2 items-center whitespace-nowrap w-min mt-4">
+           <IconaCarrello /> 
+          </router-link>
+        </div>
         </div>
       </div>
     </div>
@@ -32,6 +38,7 @@
 <script>
 import Nav from '../components/NavHomepage.vue'
 import Footer from '../components/FooterHomepage.vue'
+import IconaCarrello from '../components/icons/IconaCarrello.vue'
 import { ref, onMounted } from 'vue'
 import { supabase } from '../supabase'
 
@@ -39,7 +46,8 @@ export default {
   name: 'CoursesView',
   components: {
     Nav,
-    Footer
+    Footer,
+    IconaCarrello
   },
   setup() {
     const courses = ref([])

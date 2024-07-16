@@ -167,26 +167,3 @@ export default {
 }
 </script>
 
-<style scoped>
-.font-monospace {
-  font-family: monospace;
-}
-
-.md\:shadow-brutal {
-  --tw-shadow: 5px 5px 0px 0px #000;
-  --tw-shadow-colored: 5px 5px 0px 0px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
-.shadow-\[5px_5px_0px_0px_\#000\],
-.shadow-brutal,
-.shadow-brutalPressed {
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
-.shadow-\[5px_5px_0px_0px_\#000\],
-.shadow-brutal {
-  --tw-shadow: 5px 5px 0px 0px #000;
-  --tw-shadow-colored: 5px 5px 0px 0px var(--tw-shadow-color);
-}
-</style>
