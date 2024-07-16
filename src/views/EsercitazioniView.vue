@@ -4,11 +4,12 @@
         <div class="bg-gray-100 min-h-screen">
             <h1 class="text-[4rem] font-monospace text-center mb-8">Esercitazioni</h1>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 justify-center p-8">
-                <div v-for="(course, index) in Object.keys(exercises)" :key="index" class="bg-white shadow rounded-lg p-4 cursor-pointer" @click="openModal(course)">
+                <div v-for="(course, index) in Object.keys(exercises)" :key="index" class="my-0 mx-1 py-4 px-4 border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-white text-lg lg:text-xl w-full text-black font-medium flex gap-2 items-center whitespace-nowrap justify-between" @click="openModal(course)">
                     <div class="flex justify-between items-center">
-                        <h2 class="text-2xl font-bold text-indigo-500 font-monospace uppercase">{{ course }}
-                        </h2>
-                        <span v-if="isCourseCompleted(course)" class="text-green-700 bg-green-200 font-monospace uppercase text-2xl w-min p-2 rounded-xl">Completato</span>
+                        <h2 class="text-2xl font-bold text-indigo-500 font-monospace uppercase">{{ course }}</h2>
+                    </div>
+                    <div>
+                        <span v-if="isCourseCompleted(course)" class="text-green-700 bg-green-300 my-0 mx-1 py-2 px-2 border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] rounded-md text-lg lg:text-xl w-full font-medium flex gap-2 items-center whitespace-nowrap justify-between">Completato</span>
                     </div>
                 </div>
             </div>
@@ -20,11 +21,11 @@
             <div class="bg-white rounded-2xl shadow-lg p-8 w-full max-w-[60rem] h-[40rem] overflow-auto relative">
                 <h3 class="text-3xl font-bold mb-4 uppercase text-indigo-500">{{ currentCourse }}</h3>
                 <div v-if="currentExercises" class="space-y-4">
-                    <div v-for="(exercise, idx) in currentExercises" :key="idx" class="p-4 bg-neutral-100 rounded-xl flex justify-between items-center">
+                    <div v-for="(exercise, idx) in currentExercises" :key="idx" class="border-4 border-gray-900 bg-white transition-all md:shadow-brutal md:-translate-y-2 md:-translate-x-2 p-4 mb-4 cursor-pointer flex items-center justify-between">
                         <div class="font-bold">{{ exercise.title }}</div>
                         <div class="flex items-center gap-4">
-                            <div v-if="exercise.completed" class="text-green-700 bg-green-200 w-min p-2 rounded-xl">Completato</div>
-                            <router-link :to="`/esercitazioni/${currentCourse.toLowerCase()}/${exercise.id}`" class="bg-YellowWebAcademy rounded-xl text-neutral-700 p-2 hover:underline">
+                            <div v-if="exercise.completed" class="my-0 mx-1 py-2 px-4 rounded-md border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-green-300 text-lg lg:text-xl w-full text-green-700 font-medium flex gap-2 items-center whitespace-nowrap">Completato</div>
+                            <router-link :to="`/esercitazioni/${currentCourse.toLowerCase()}/${exercise.id}`" class="my-0 mx-1 py-2 px-4 rounded-md border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-YellowWebAcademy text-lg lg:text-xl w-full text-black font-medium flex gap-2 items-center whitespace-nowrap">
                                 Vai all'esercizio
                             </router-link>
                         </div>

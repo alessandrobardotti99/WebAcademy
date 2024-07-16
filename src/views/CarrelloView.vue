@@ -6,25 +6,31 @@
       <div v-if="cartItems.length" class="flex gap-4 items-start">
         <div class="w-[60%]">
           <div v-for="course in cartItems" :key="course.id"
-            class="flex flex-col justify-between  px-8 py-10  border-4 border-gray-900 bg-white  transition-all md:shadow-brutal md:-translate-y-2 md:-translate-x-2">
-            <div class="flex items-center">
-              <img :src="course.image_url" :alt="course.title" class="w-[9rem] h-[6rem] object-cover rounded-xl mr-4">
-              <div>
-                <h2 class="text-xl font-bold">{{ course.title }}</h2>
+            class="flex flex-col justify-between  px-8 py-10  border-4 border-gray-900 bg-white  transition-all md:shadow-brutal md:-translate-y-2 md:-translate-x-2 mb-4">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center j">
+              <img :src="course.image_url" :alt="course.title"
+                class="w-[9rem] h-[6rem] object-cover border-4 border-gray-900 bg-white transition-all md:shadow-brutal md:-translate-y-2 md:-translate-x-2">
+              <div class="ml-4">
+                <h2 class="text-xl font-bold justify-between w-full">{{ course.title }}</h2>
                 <p class="text-gray-500">{{ course.duration }}</p>
+                <div class="flex items-center justify-between">
+                  <span class="text-lg font-bold mr-4">{{ course.price }} €</span>
+                </div>
               </div>
             </div>
-            <div class="flex items-center">
-              <span class="text-lg font-bold mr-4">{{ course.price }} €</span>
-              <button @click="removeFromCart(course.id)"
-                class="bg-red-500 text-white py-1 px-3 rounded-xl hover:bg-red-600">
-                <IconaCestino />
-              </button>
+              <div>
+                <button @click="removeFromCart(course.id)"
+                  class="my-0 mx-1 py-2 px-2 rounded-md border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-red-500 text-lg lg:text-xl w-full text-black font-medium flex gap-2 items-center whitespace-nowrap justify-center">
+                  <IconaCestino class="text-black" />
+                </button>
+              </div>
             </div>
+
           </div>
         </div>
         <div
-          class="p-4 w-[40%] flex flex-col justify-between  px-8 py-10  border-4 border-gray-900 bg-white  transition-all md:shadow-brutal md:-translate-y-2 md:-translate-x-2">
+          class="p-4 w-[40%] flex flex-col justify-between  px-8 py-10  border-4 border-gray-900 bg-white  transition-all md:shadow-brutal md:-translate-y-2 md:-translate-x-2 sticky top-32">
           <h2 class="text-2xl font-bold mb-4 text-indigo-500">Riepilogo ordine</h2>
           <hr class="mb-4">
           <div class="flex justify-between mb-2">
@@ -37,10 +43,11 @@
           </div>
           <hr class="mb-4 mt-4">
           <button @click="goToPayment"
-            class="my-0 mx-1 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-indigo-500 text-lg lg:text-xl w-fit mt-8 text-black font-medium flex gap-2 items-center whitespace-nowrap"
-            :disabled="loadingPayment">
-            {{ loadingPayment ? 'Pagamento in corso...' : 'Vai al pagamento' }}
-          </button>
+              class="my-0 mx-1 py-2 px-4 rounded-md border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-indigo-500 text-lg lg:text-xl w-full text-black font-medium flex gap-2 items-center whitespace-nowrap"
+              :disabled="loadingPayment">
+        <span v-if="loadingPayment">Pagamento in corso...</span>
+        <span v-else class="flex items-center justify-start gap-2">Vai al pagamento <IconaFrecciaLunga /></span>
+      </button>
         </div>
       </div>
       <div v-else class="text-center text-gray-500">
@@ -60,6 +67,7 @@ import { supabase } from '../supabase'
 import Nav from '../components/NavHomepage.vue'
 import CarrelloVuoto from '../components/icons/IconaCarrelloVuoto.vue'
 import IconaCestino from '../components/icons/IconaCestino.vue'
+import IconaFrecciaLunga from '../components/icons/IconaFrecciaLunga.vue'
 import Footer from '../components/FooterHomepage.vue'
 import { useUserStore } from '../stores/user.js'
 import axios from 'axios'
@@ -71,7 +79,8 @@ export default {
     Nav,
     CarrelloVuoto,
     IconaCestino,
-    Footer
+    Footer,
+    IconaFrecciaLunga
   },
   setup() {
     const cartItems = ref([])
@@ -166,4 +175,3 @@ export default {
   }
 }
 </script>
-

@@ -16,7 +16,7 @@
 import IconaOrdineCompletato from '../components/icons/IconaOrdineCompletato.vue'
 import { ref, onMounted } from 'vue'
 import { useUserStore } from '../stores/user.js'
-import { supabase } from '../supabase' // Assicurati di importare il client di Supabase
+import { supabase } from '../supabase'
 import { v4 as uuidv4 } from 'uuid'
 
 export default {
@@ -36,7 +36,7 @@ export default {
             const { data, error } = await supabase
               .from('orders')
               .insert([{
-                id: uuidv4(), // Aggiungiamo un ID unico per ogni ordine
+                id: uuidv4(),
                 user_id: user.id,
                 course_id: item.id,
                 purchase_date: new Date().toISOString()
@@ -48,7 +48,7 @@ export default {
               console.log('Order inserted:', data)
             }
           }
-          localStorage.removeItem('cartItems')  // Rimuove i corsi dal carrello dopo aver salvato l'ordine
+          localStorage.removeItem('cartItems') 
         } catch (error) {
           console.error('Error saving order:', error)
         }

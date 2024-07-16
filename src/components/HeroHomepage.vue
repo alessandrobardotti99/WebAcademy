@@ -21,9 +21,10 @@ export default {
                 <p class="mt-4 text-black leading-8 font-semibold text-xl">Impara le competenze essenziali di sviluppo web con i nostri <br> corsi
                     online completi in HTML, CSS e JavaScript</p>
                 <div class="mt-8 flex gap-3">
+                    <router-link to="/corsi">
                     <button
                         class="my-0 mx-1 py-1 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-indigo-500 text-lg lg:text-xl w-fit text-black font-medium flex gap-2 items-center whitespace-nowrap">Scopri
-                        i corsi</button>
+                        i corsi</button></router-link>
                         <router-link to="/accedi">
                     <button
                         class="my-0 mx-1 py-1 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-YellowWebAcademy text-lg lg:text-xl w-fit text-black font-medium flex gap-2 items-center whitespace-nowrap">Inizia

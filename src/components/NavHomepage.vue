@@ -1,63 +1,62 @@
 <template>
   <div :class="['w-full', 'bg-YellowWebAcademy', 'sticky', 'top-0', 'z-50', { 'shadow-lg': hasScrolled }]">
-    <nav class="sticky flex justify-between w-[80%] m-auto ml-auto mr-auto items-center bg-YellowWebAcademy top-0 p-4">
+    <nav class="sticky flex justify-between w-full m-auto ml-auto mr-auto items-center bg-YellowWebAcademy top-0 p-4">
       <router-link to="/">
         <div>
-          <img src="/src/assets/img/logoWebAcademy-removebg-preview.png" alt="logoWebAcademy"
-            class="max-w-full h-[40px]">
+          <img src="/src/assets/img/logoWebAcademy-removebg-preview.png" alt="logoWebAcademy" class="max-w-full h-[40px]">
         </div>
       </router-link>
-      <div class="hidden lg:flex">
+      <div class="hidden lg:flex items-center">
         <ul class="inline-flex bg-white border-4 rounded-full border-gray-950 px-4 py-2 shadow-brutalSmall gap-4">
           <!-- Menu items -->
           <router-link to="/corsi"
             class="flex items-center gap-2 text-2xl font-semibold leading-2 text-gray-900 border-b-4 border-b-transparent mx-6 hover:border-b-gray-900"
-            active-class="text-black font-bold">
+            active-class="active">
             <li>Corsi</li>
           </router-link>
           <router-link to="/faq"
             class="flex items-center gap-2 text-2xl font-semibold leading-2 text-gray-900 border-b-4 border-b-transparent mx-6 hover:border-b-gray-900"
-            active-class="text-black font-bold">
+            active-class="active">
             <li>Faq</li>
           </router-link>
           <router-link to="/esercitazioni"
             class="flex items-center gap-2 text-2xl font-semibold leading-2 text-gray-900 border-b-4 border-b-transparent mx-6 hover:border-b-gray-900"
-            active-class="text-black font-bold">
+            active-class="active">
             <li>Esercitazioni</li>
           </router-link>
           <router-link to="/contatti"
             class="flex items-center gap-2 text-2xl font-semibold leading-2 text-gray-900 border-b-4 border-b-transparent mx-6 hover:border-b-gray-900"
-            active-class="text-black font-bold">
+            active-class="active">
             <li>Contatti</li>
           </router-link>
+          <router-link v-if="user" to="/carrello"
+            class="relative flex items-center gap-2 text-2xl font-semibold leading-2 text-gray-900 border-b-4 border-b-transparent mx-6 hover:border-b-gray-900"
+            active-class="active">
+            <li class="list-none">Carrello</li>
+            <span v-if="totalItems > 0"
+              class="absolute top-[-.2rem] right-[-1rem] inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-black bg-indigo-500 rounded-full h-[20px] w-[20px]">{{ totalItems }}</span>
+          </router-link>
+        </ul>
+        <div class="flex items-center gap-4 ml-4">
           <template v-if="user">
-            <router-link to="/carrello"
-              class="relative flex items-center gap-2 text-2xl font-semibold leading-2 text-gray-900 border-b-4 border-b-transparent mx-6 hover:border-b-gray-900"
-              active-class="text-black font-bold">
-              <li>Carrello</li>
-              <span v-if="totalItems > 0"
-                class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-indigo-500 rounded-full h-[20px] w-[20px]">{{
-    totalItems }}</span>
-            </router-link>
-            <li ref="dropdown" class="flex" @click="toggleDropdown">
-               <span class="my-0 mx-1 py-1 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-indigo-500 text-lg lg:text-xl w-fit text-black font-medium flex gap-2 items-center whitespace-nowrap">{{ firstInitial }} 
-
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor"
-                :class="{ 'rotate-180': dropdownOpen, 'ml-2': true, 'w-4': true, 'h-4': true, 'transition-transform': true }">
-                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-              </svg>
-               </span>
-              
+            <div ref="dropdown" class="flex items-center" @click="toggleDropdown">
+              <span class="text-2xl mx-4 border-4 rounded-full border-gray-950 p-2 shadow-brutalSmall text-white font-semibold leading-6 bg-indigo-500 flex items-center cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000]">{{ firstInitial }}
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                  :class="{ 'rotate-180': dropdownOpen, 'ml-2': true, 'w-8': true, 'h-8': true, 'transition-transform': true }">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                </svg>
+              </span>
               <transition name="fade">
                 <ul v-if="dropdownOpen" v-auto-animate
                   class="absolute top-full right-0 mt-2 bg-YellowWe inline-flex bg-white border-4 rounded-full border-gray-950 px-4 py-2 shadow-brutalSmall gap-4">
                   <router-link to="/profilo"
-                    class="flex items-center gap-2 text-2xl font-semibold leading-2 text-gray-900 border-b-4 border-b-transparent mx-6 hover:border-b-gray-900">
+                    class="flex items-center gap-2 text-2xl font-semibold leading-2 text-gray-900 border-b-4 border-b-transparent mx-6 hover:border-b-gray-900"
+                    active-class="active">
                     <li>Profilo</li>
                   </router-link>
                   <router-link to="/impostazioni"
-                    class="flex items-center gap-2 text-2xl font-semibold leading-2 text-gray-900 border-b-4 border-b-transparent mx-6 hover:border-b-gray-900">
+                    class="flex items-center gap-2 text-2xl font-semibold leading-2 text-gray-900 border-b-4 border-b-transparent mx-6 hover:border-b-gray-900"
+                    active-class="active">
                     <li>Impostazioni</li>
                   </router-link>
                   <hr>
@@ -67,20 +66,19 @@
                   </li>
                 </ul>
               </transition>
-            </li>
+            </div>
           </template>
           <template v-else>
             <router-link to="/accedi"
-              class="bg-indigo-600 text-white py-2 px-4 rounded-xl cursor-pointer hover:bg-indigo-700">
-              <li>Accedi</li>
+              class="my-0 mx-1 py-1 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-indigo-500 text-lg lg:text-xl w-fit text-black font-medium flex gap-2 items-center whitespace-nowrap">
+              <li class="list-none">Accedi</li>
             </router-link>
           </template>
-        </ul>
+        </div>
       </div>
       <div class="lg:hidden">
         <button @click="toggleMobileMenu" class="text-neutral-500 p-2 rounded-lg hover:text-black focus:outline-none">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-            stroke="currentColor" class="w-6 h-6">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 text-black">
             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
           </svg>
         </button>
@@ -88,44 +86,43 @@
     </nav>
     <transition name="slide">
       <div v-if="mobileMenuOpen" class="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden" @click="toggleMobileMenu">
-        <div class="fixed inset-y-0 right-0 w-64 bg-YellowWebAcademy shadow-lg z-50 flex flex-col p-4" @click.stop>
+        <div class="fixed inset-y-0 right-0 w-[50%] bg-YellowWebAcademy shadow-lg z-50 flex flex-col p-4" @click.stop>
           <ul class="space-y-4">
             <!-- Mobile menu items -->
             <router-link to="/corsi"
               class="flex items-center gap-2 text-2xl font-semibold leading-2 text-gray-900 border-b-4 border-b-transparent mx-6 hover:border-b-gray-900"
-              active-class="text-black font-bold" @click="toggleMobileMenu">
+              active-class="active" @click="toggleMobileMenu">
               <li>Corsi</li>
             </router-link>
             <router-link to="/faq"
               class="flex items-center gap-2 text-2xl font-semibold leading-2 text-gray-900 border-b-4 border-b-transparent mx-6 hover:border-b-gray-900"
-              active-class="text-black font-bold" @click="toggleMobileMenu">
+              active-class="active" @click="toggleMobileMenu">
               <li>Faq</li>
             </router-link>
             <router-link to="/esercitazioni"
               class="flex items-center gap-2 text-2xl font-semibold leading-2 text-gray-900 border-b-4 border-b-transparent mx-6 hover:border-b-gray-900"
-              active-class="text-black font-bold" @click="toggleMobileMenu">
+              active-class="active" @click="toggleMobileMenu">
               <li>Esercitazioni</li>
             </router-link>
             <router-link to="/contatti"
               class="flex items-center gap-2 text-2xl font-semibold leading-2 text-gray-900 border-b-4 border-b-transparent mx-6 hover:border-b-gray-900"
-              active-class="text-black font-bold" @click="toggleMobileMenu">
+              active-class="active" @click="toggleMobileMenu">
               <li>Contatti</li>
             </router-link>
             <template v-if="user">
               <router-link to="/carrello"
                 class="relative flex items-center gap-2 text-2xl font-semibold leading-2 text-gray-900 border-b-4 border-b-transparent mx-6 hover:border-b-gray-900"
-                active-class="text-black font-bold" @click="toggleMobileMenu">
-                <li>Carrello</li>
+                active-class="active" @click="toggleMobileMenu">
+                <li class="list-none">Carrello</li>
                 <span v-if="totalItems > 0"
-                  class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-indigo-500 rounded-full h-[20px] w-[20px]">{{totalItems }}</span>
+                  class="absolute top-1 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-black bg-indigo-500 rounded-full h-[20px] w-[20px]">{{totalItems }}</span>
               </router-link>
               <li ref="dropdown"
                 class="my-0 mx-1 py-1 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-indigo-500 text-lg lg:text-xl text-black font-medium flex gap-2 items-center whitespace-nowrap w-full"
                 @click="toggleDropdown">
                 {{ firstInitial }}
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                  stroke="currentColor"
-                  :class="{ 'rotate-180': dropdownOpen, 'ml-2': true, 'w-4': true, 'h-4': true, 'transition-transform': true }">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                  :class="{ 'rotate-180': dropdownOpen, 'ml-2': true, 'w-8': true, 'h-8': true, 'transition-transform': true }">
                   <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                 </svg>
                 <transition name="fade">
@@ -149,13 +146,12 @@
                   </ul>
                 </transition>
               </li>
-
             </template>
             <template v-else>
               <router-link to="/accedi"
                 class="bg-indigo-600 text-white py-2 px-4 rounded-xl cursor-pointer hover:bg-indigo-700"
                 @click="toggleMobileMenu">
-                <li>Accedi</li>
+                <li class="list-none">Accedi</li>
               </router-link>
             </template>
           </ul>
@@ -164,6 +160,8 @@
     </transition>
   </div>
 </template>
+
+
 
 <script>
 import { ref, onMounted, onBeforeUnmount, computed } from 'vue'
@@ -281,5 +279,10 @@ export default {
 
 hr {
   border: solid 1px #e4bb62;
+}
+
+.active {
+  border-bottom: solid 4px #1f2937 !important;
+  border-bottom-width: 4px !important;
 }
 </style>
