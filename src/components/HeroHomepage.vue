@@ -18,15 +18,15 @@ export default {
         <div class="flex justify-around">
             <div>
                 <h1 class="text-[4rem] font-monospace">Corsi online di HTML, CSS e JAVASCRIPT</h1>
-                <p class="mt-4 text-neutral-500 leading-8">Impara le competenze essenziali di sviluppo web con i nostri <br> corsi
+                <p class="mt-4 text-black leading-8 font-semibold text-xl">Impara le competenze essenziali di sviluppo web con i nostri <br> corsi
                     online completi in HTML, CSS e JavaScript</p>
                 <div class="mt-8 flex gap-3">
                     <button
-                        class="bg-indigo-600 text-whie py-2 px-4 text-white rounded-xl cursor-pointer hover:bg-indigo-700">Scopri
+                        class="my-0 mx-1 py-1 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-indigo-500 text-lg lg:text-xl w-fit text-black font-medium flex gap-2 items-center whitespace-nowrap">Scopri
                         i corsi</button>
                         <router-link to="/accedi">
                     <button
-                        class="bg-transparent text-whie py-2 px-4 text-neutral-500 rounded-xl cursor-pointer border border-neutral-500 hover:bg-HoverYwlloWebAcademt hover:text-black hover:border-black">Inizia
+                        class="my-0 mx-1 py-1 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-YellowWebAcademy text-lg lg:text-xl w-fit text-black font-medium flex gap-2 items-center whitespace-nowrap">Inizia
                         ad imparare</button>
                         </router-link>
                 </div>
