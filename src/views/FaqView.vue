@@ -72,7 +72,7 @@ onBeforeUnmount(() => {
       <div ref="dropdownStudy" class="my-0 mx-1 py-4 px-4 border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-white text-lg lg:text-xl w-full text-black font-medium mb-4" @click.stop>
         <div class="flex justify-between items-center cursor-pointer"  @click="showStudy = !showStudy">
           <strong class="dropdown-label text-xl text-indigo-500">Quali sono i primi passi per imparare a creare siti web?</strong>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" :class="{'rotate-180': showStudy, 'ml-2': true, 'w-6': true, 'h-6': true, 'transition-transform': true}">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="black" :class="{'rotate-180': showStudy, 'ml-2': true, 'w-6': true, 'h-6': true, 'transition-transform': true}">
             <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
           </svg>
         </div>
@@ -84,7 +84,7 @@ onBeforeUnmount(() => {
       <div ref="dropdownFramework" class="my-0 mx-1 py-4 px-4 border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-white text-lg lg:text-xl w-full text-black font-medium mb-4" @click.stop>
         <div class="flex justify-between items-center cursor-pointer" @click="showFramework = !showFramework">
           <strong class="dropdown-label text-xl text-indigo-500">Cosa sono i framework frontend e mi servono?</strong>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" :class="{'rotate-180': showFramework, 'ml-2': true, 'w-6': true, 'h-6': true, 'transition-transform': true}">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="black" :class="{'rotate-180': showFramework, 'ml-2': true, 'w-6': true, 'h-6': true, 'transition-transform': true}">
             <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
           </svg>
         </div>
@@ -96,7 +96,7 @@ onBeforeUnmount(() => {
       <div ref="dropdownMobile" class="my-0 mx-1 py-4 px-4 border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-white text-lg lg:text-xl w-full text-black font-medium mb-4" @click.stop>
         <div class="flex justify-between items-center cursor-pointer" @click="showMobile = !showMobile">
           <strong class="dropdown-label text-xl text-indigo-500">Quale linguaggio serve per creare applicazioni mobile?</strong>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" :class="{'rotate-180': showMobile, 'ml-2': true, 'w-6': true, 'h-6': true, 'transition-transform': true}">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="black" :class="{'rotate-180': showMobile, 'ml-2': true, 'w-6': true, 'h-6': true, 'transition-transform': true}">
             <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
           </svg>
         </div>
@@ -108,7 +108,7 @@ onBeforeUnmount(() => {
       <div ref="dropdownGames" class="my-0 mx-1 py-4 px-4 border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-white text-lg lg:text-xl w-full text-black font-medium mb-4" @click.stop>
         <div class="flex justify-between items-center cursor-pointer" @click="showGames = !showGames">
           <strong class="dropdown-label text-xl text-indigo-500">Come posso imparare a creare giochi?</strong>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" :class="{'rotate-180': showGames, 'ml-2': true, 'w-6': true, 'h-6': true, 'transition-transform': true}">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="black" :class="{'rotate-180': showGames, 'ml-2': true, 'w-6': true, 'h-6': true, 'transition-transform': true}">
             <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
           </svg>
         </div>
@@ -120,7 +120,7 @@ onBeforeUnmount(() => {
       <div ref="dropdownBestLanguage" class="my-0 mx-1 py-4 px-4 border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-white text-lg lg:text-xl w-full text-black font-medium mb-4" @click.stop>
         <div class="flex justify-between items-center cursor-pointer" @click="showBestLanguage = !showBestLanguage">
           <strong class="dropdown-label text-xl text-indigo-500">Qual è il miglior linguaggio di programmazione per iniziare?</strong>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" :class="{'rotate-180': showBestLanguage, 'ml-2': true, 'w-6': true, 'h-6': true, 'transition-transform': true}">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="black" :class="{'rotate-180': showBestLanguage, 'ml-2': true, 'w-6': true, 'h-6': true, 'transition-transform': true}">
             <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
           </svg>
         </div>
@@ -132,7 +132,7 @@ onBeforeUnmount(() => {
       <div ref="dropdownSelfTaught" class="my-0 mx-1 py-4 px-4 border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-white text-lg lg:text-xl w-full text-black font-medium mb-4" @click.stop>
         <div class="flex justify-between items-center cursor-pointer" @click="showSelfTaught = !showSelfTaught">
           <strong class="dropdown-label text-xl text-indigo-500">È possibile diventare sviluppatore da autodidatta?</strong>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" :class="{'rotate-180': showSelfTaught, 'ml-2': true, 'w-6': true, 'h-6': true, 'transition-transform': true}">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="black" :class="{'rotate-180': showSelfTaught, 'ml-2': true, 'w-6': true, 'h-6': true, 'transition-transform': true}">
             <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
           </svg>
         </div>
@@ -144,7 +144,7 @@ onBeforeUnmount(() => {
       <div ref="dropdownUniversity" class="my-0 mx-1 py-4 px-4 border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-white text-lg lg:text-xl w-full text-black font-medium mb-4" @click.stop>
         <div class="flex justify-between items-center cursor-pointer" @click="showUniversity = !showUniversity">
           <strong class="dropdown-label text-xl text-indigo-500">L'università è necessaria?</strong>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" :class="{'rotate-180': showUniversity, 'ml-2': true, 'w-6': true, 'h-6': true, 'transition-transform': true}">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="black" :class="{'rotate-180': showUniversity, 'ml-2': true, 'w-6': true, 'h-6': true, 'transition-transform': true}">
             <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
           </svg>
         </div>
@@ -156,7 +156,7 @@ onBeforeUnmount(() => {
       <div ref="dropdownAcademy" class="my-0 mx-1 py-4 px-4 border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-white text-lg lg:text-xl w-full text-black font-medium mb-4" @click.stop>
         <div class="flex justify-between items-center cursor-pointer" @click="showAcademy = !showAcademy">
           <strong class="dropdown-label text-xl text-indigo-500">Le Code Academy costose valgono l'investimento?</strong>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" :class="{'rotate-180': showAcademy, 'ml-2': true, 'w-6': true, 'h-6': true, 'transition-transform': true}">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="black" :class="{'rotate-180': showAcademy, 'ml-2': true, 'w-6': true, 'h-6': true, 'transition-transform': true}">
             <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
           </svg>
         </div>

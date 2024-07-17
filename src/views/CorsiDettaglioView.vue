@@ -7,7 +7,7 @@
           </router-link>
           <div v-if="course">
               <div class="relative mb-8 px-3">
-                  <img :src="course.image_url" :alt="course.title" class="w-full h-64 object-cover border-4 border-gray-900 bg-white transition-all md:shadow-brutal md:-translate-y-2 md:-translate-x-2">
+                  <img :src="course.image_url" :alt="course.title" class="w-full h-64 object-cover border-4 border-gray-900 bg-white transition-all md:shadow-brutal md:-translate-y-2  ">
                   <div class="absolute inset-0 bg-opacity-50 flex items-center justify-center rounded-xl">
                       <h1 class="text-4xl font-bold text-white">{{ course.title }}</h1>
                   </div>

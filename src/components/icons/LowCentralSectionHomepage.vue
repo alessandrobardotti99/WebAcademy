@@ -17,7 +17,7 @@ export default {
 <template>
     <div class="border-b-4 border-gray-900">
         <div
-            class="w-[80%] border-4 border-gray-900 bg-indigo-500 transition-all md:shadow-brutal md:-translate-y-2 md:-translate-x-2 relative  m-auto mt-28 mb-28">
+            class="w-[80%] border-4 border-gray-900 bg-indigo-500 transition-all md:shadow-brutal md:-translate-y-2   relative  m-auto mt-28 mb-28">
             <div class="bg-YellowWebAcademy h-8 border-b-4 border-gray-900 w-full">
                 <div class="flex gap-2 items-center h-full px-2">
                     <div class="w-4 border-2 border-gray-900 h-4 rounded-full bg-red-400"></div>
@@ -37,7 +37,7 @@ export default {
                 tendenze, cosa troverai qui?</p>
             <div class="grid grid-cols-3 m-auto mt-8 gap-4 w-full justify-center">
                 <div
-                    class="border-4 border-gray-900 bg-white transition-all md:shadow-brutal md:-translate-y-2 md:-translate-x-2 relative p-8 w-full">
+                    class="border-4 border-gray-900 bg-white transition-all md:shadow-brutal md:-translate-y-2   relative p-8 w-full">
                     <IconaStudio class="m-auto" />
                     <div class="mt-2">
                         <p class="text-center text-black font-semibold mt-4">Impara a creare layout accattivanti e
@@ -46,7 +46,7 @@ export default {
                     </div>
                 </div>
                 <div
-                    class="border-4 border-gray-900 bg-white transition-all md:shadow-brutal md:-translate-y-2 md:-translate-x-2 relative p-8 w-full">
+                    class="border-4 border-gray-900 bg-white transition-all md:shadow-brutal md:-translate-y-2   relative p-8 w-full">
                     <IconaPerformance class="m-auto" />
                     <div class="mt-2">
                         <p class="text-center text-black font-semibold mt-4">Ottimizza i tuoi siti web per garantire
@@ -55,7 +55,7 @@ export default {
                     </div>
                 </div>
                 <div
-                    class="border-4 border-gray-900 bg-white transition-all md:shadow-brutal md:-translate-y-2 md:-translate-x-2 relative p-8 w-full">
+                    class="border-4 border-gray-900 bg-white transition-all md:shadow-brutal md:-translate-y-2   relative p-8 w-full">
                     <IconaStar class="m-auto" />
                     <div class="mt-2">
                         <p class="text-center text-black font-semibold mt-4">Scopri gli strumenti più utili e le risorse

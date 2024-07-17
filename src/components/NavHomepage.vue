@@ -41,7 +41,7 @@
           <template v-if="user">
             <div ref="dropdown" class="flex items-center" @click="toggleDropdown">
               <span class="text-2xl mx-4 border-4 rounded-full border-gray-950 p-2 shadow-brutalSmall text-white font-semibold leading-6 bg-indigo-500 flex items-center cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000]">{{ firstInitial }}
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"
                   :class="{ 'rotate-180': dropdownOpen, 'ml-2': true, 'w-8': true, 'h-8': true, 'transition-transform': true }">
                   <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                 </svg>
@@ -54,6 +54,11 @@
                     active-class="active">
                     <li>Profilo</li>
                   </router-link>
+                  <router-link to="/profilo?tab=orders"
+                    class="flex items-center gap-2 text-2xl font-semibold leading-2 text-gray-900 border-b-4 border-b-transparent mx-6 hover:border-b-gray-900"
+                    active-class="active">
+                    <li>Corsi acquistati</li>
+                  </router-link>
                   <router-link to="/impostazioni"
                     class="flex items-center gap-2 text-2xl font-semibold leading-2 text-gray-900 border-b-4 border-b-transparent mx-6 hover:border-b-gray-900"
                     active-class="active">
@@ -61,7 +66,7 @@
                   </router-link>
                   <hr>
                   <li @click="logout"
-                    class="flex items-center gap-2 text-2xl font-semibold leading-2 text-gray-900 border-b-4 border-b-transparent mx-6 hover:border-b-gray-900">
+                    class="flex items-center gap-2 text-2xl font-semibold leading-2 text-gray-900 border-b-4 border-b-transparent mx-6 hover:border-b-gray-900 cursor-pointer">
                     Logout
                   </li>
                 </ul>
@@ -78,7 +83,7 @@
       </div>
       <div class="lg:hidden">
         <button @click="toggleMobileMenu" class="text-neutral-500 p-2 rounded-lg hover:text-black focus:outline-none">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 text-black">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-12 h-12 text-black">
             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
           </svg>
         </button>
@@ -121,7 +126,7 @@
                 class="my-0 mx-1 py-1 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-indigo-500 text-lg lg:text-xl text-black font-medium flex gap-2 items-center whitespace-nowrap w-full"
                 @click="toggleDropdown">
                 {{ firstInitial }}
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"
                   :class="{ 'rotate-180': dropdownOpen, 'ml-2': true, 'w-8': true, 'h-8': true, 'transition-transform': true }">
                   <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                 </svg>
@@ -133,7 +138,12 @@
                       @click="toggleMobileMenu">
                       <li v-auto-animate>Profilo</li>
                     </router-link>
-                    <router-link to="/impostazioni"
+                    <router-link to="/profilo?tab=orders"
+                      class="block px-4 py-2 text-slate-500 hover:bg-HoverYwlloWebAcademt cursor-pointer"
+                      @click="toggleMobileMenu">
+                      <li v-auto-animate>Corsi acquistati</li>
+                    </router-link>
+                    <router-link to="/profilo?tab=settings"
                       class="block px-4 py-2 text-slate-500 hover:bg-HoverYwlloWebAcademt cursor-pointer"
                       @click="toggleMobileMenu">
                       <li v-auto-animate>Impostazioni</li>

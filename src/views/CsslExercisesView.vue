@@ -2,23 +2,23 @@
     <div>
         <Nav />
         <div class="bg-gray-100 min-h-screen p-8">
-            <h1 class="text-4xl font-bold mb-8 text-center">Esercitazione CSS</h1>
+            <h1 class="text-4xl font-bold text-center font-monospace">Esercitazione CSS</h1>
             <router-link to="/esercitazioni">
-                <div class="text-white bg-indigo-700 p-2 rounded-xl w-min mb-4">
+                <div class="text-black bg-indigo-500 my-0 mx-1 py-2 px-2 border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] rounded-md text-lg lg:text-xl w-min font-medium whitespace-nowrap flex items-center gap-2 mb-8">
                     <span><IconaBack /></span>
                 </div>
             </router-link>
             <div class="space-y-8" v-if="exercise">
-                <div class="bg-white p-6 rounded-lg shadow">
+                <div class="my-0 mx-1 py-4 px-4 border-4 border-gray-900 shadow-brutal cursor-pointer bg-white text-lg lg:text-xl w-full text-black font-medium mb-4">
                     <h2 class="text-2xl font-bold mb-4 font-monospace">{{ exercise.title }}</h2>
                     <p class="mb-4">{{ exercise.description }}</p>
-                    <textarea v-model="exercise.userCode" class="w-full p-2 border rounded-lg mb-4" rows="5"></textarea>
+                    <textarea v-model="exercise.userCode" class="my-0 mx-1 py-4 px-4 border-4 border-gray-900 shadow-brutal cursor-pointer bg-white text-lg lg:text-xl w-full text-black font-medium mb-4" rows="5"></textarea>
                     <div class="flex items-center justify-between">
-                    <button @click="checkExercise" :class="exercise.completed ? 'bg-green-600' : 'bg-indigo-600'" class="text-white py-2 px-4 rounded-lg">
+                        <button @click="checkExercise" :class="exercise.completed ? 'text-green-700 bg-green-300 my-0 mx-1 py-2 px-2 border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] rounded-md text-lg lg:text-xl w-min font-medium flex gap-2 items-center whitespace-nowrap justify-center' : 'text-black bg-indigo-500 my-0 mx-1 py-2 px-2 border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] rounded-md text-lg lg:text-xl w-min font-medium whitespace-nowrap'" class="py-2 px-4 rounded-lg">
                         {{ exercise.completed ? 'Completato' : 'Verifica' }}
                     </button>
-                    <router-link v-if="exercise.completed" :to="`/esercitazioni/css/${nextExerciseId}`" class="py-2 px-4 text-white rounded-xl hover:bg-indigo-600 bg-indigo-500 flex items-center gap-2">
-                        Vai al prossimo esercizio <IconaBack class="rotate-180" />
+                    <router-link v-if="exercise.completed" :to="`/esercitazioni/html/${nextExerciseId}`" class="text-black bg-indigo-500 my-0 mx-1 py-2 px-2 border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] rounded-md text-lg lg:text-xl w-min font-medium whitespace-nowrap flex items-center gap-3">
+                        Vai al prossimo esercizio <IconaBack class="rotate-180 text-black" />
                     </router-link>
                 </div>
                     <p v-if="exercise.feedback" :class="{'text-green-600': exercise.isCorrect, 'text-red-600': !exercise.isCorrect}" class="mt-4">

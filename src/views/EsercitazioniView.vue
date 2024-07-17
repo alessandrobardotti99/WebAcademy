@@ -9,7 +9,7 @@
                         <h2 class="text-2xl font-bold text-indigo-500 font-monospace uppercase">{{ course }}</h2>
                     </div>
                     <div>
-                        <span v-if="isCourseCompleted(course)" class="text-green-700 bg-green-300 my-0 mx-1 py-2 px-2 border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] rounded-md text-lg lg:text-xl w-full font-medium flex gap-2 items-center whitespace-nowrap justify-between">Completato</span>
+                        <span v-if="isCourseCompleted(course)" class="text-green-700 bg-green-300 my-0 mx-1 py-2 px-2 border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] rounded-md text-lg lg:text-xl w-full font-medium flex gap-2 items-center whitespace-nowrap justify-center">Completato</span>
                     </div>
                 </div>
             </div>
@@ -21,10 +21,10 @@
             <div class="bg-white rounded-2xl shadow-lg p-8 w-full max-w-[60rem] h-[40rem] overflow-auto relative">
                 <h3 class="text-3xl font-bold mb-4 uppercase text-indigo-500">{{ currentCourse }}</h3>
                 <div v-if="currentExercises" class="space-y-4">
-                    <div v-for="(exercise, idx) in currentExercises" :key="idx" class="border-4 border-gray-900 bg-white transition-all md:shadow-brutal md:-translate-y-2 md:-translate-x-2 p-4 mb-4 cursor-pointer flex items-center justify-between">
+                    <div v-for="(exercise, idx) in currentExercises" :key="idx" class="border-4 border-gray-900 bg-white transition-all md:shadow-brutal md:-translate-y-2   p-4 mb-4 cursor-pointer flex items-center justify-between">
                         <div class="font-bold">{{ exercise.title }}</div>
                         <div class="flex items-center gap-4">
-                            <div v-if="exercise.completed" class="my-0 mx-1 py-2 px-4 rounded-md border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-green-300 text-lg lg:text-xl w-full text-green-700 font-medium flex gap-2 items-center whitespace-nowrap">Completato</div>
+                            <div v-if="exercise.completed" class="my-0 mx-1 py-2 px-4 rounded-md border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-green-300 text-lg lg:text-xl w-full text-green-700 font-medium text-center whitespace-nowrap">Completato</div>
                             <router-link :to="`/esercitazioni/${currentCourse.toLowerCase()}/${exercise.id}`" class="my-0 mx-1 py-2 px-4 rounded-md border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-YellowWebAcademy text-lg lg:text-xl w-full text-black font-medium flex gap-2 items-center whitespace-nowrap">
                                 Vai all'esercizio
                             </router-link>

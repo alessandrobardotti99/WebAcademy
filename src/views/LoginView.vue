@@ -5,15 +5,14 @@
         <span><IconaBack /></span>
       </div>
     </router-link>
-    <div class="w-[60%] bg-gradient-to-r from-30% from-black to-indigo-600 h-screen grid place-items-center">
+    <div class="w-[60%] bg-indigo-500 h-screen grid place-items-center border-r-4 border-gray-900">
       <div>
-        <IconaStudio class="m-auto mb-8 size-28" />
-        <img src="/src/assets/img/logoWebAcademy-removebg-white.png" alt="logoWebAcademy" class="max-w-full h-[100px] m-auto">
-        <p class="text-white font-bold text-center text-xl mt-8">Formazione digitale a 360 gradi. <br> Corsi, tutorial, notizie e roadmap da seguire.</p>
+        <img src="/src/assets/img/logoWebAcademy-removebg-preview.png" alt="logoWebAcademy" class="max-w-full h-[100px] m-auto">
+        <p class="text-black font-bold text-center text-xl mt-8">Formazione digitale a 360 gradi. <br> Corsi, tutorial, notizie e roadmap da seguire.</p>
       </div>
     </div>
     <div class="w-[40%] grid place-items-center">
-      <div class="border-4 border-gray-900 bg-white transition-all md:shadow-brutal md:-translate-y-2 md:-translate-x-2 relative p-4 h-fit w-3/4">
+      <div class="border-4 border-gray-900 bg-white transition-all md:shadow-brutal md:-translate-y-2   relative p-4 h-fit w-3/4">
         <h1 class="text-5xl mb-12 text-center font-monospace font-thin">Bentornato!</h1>
         <form @submit.prevent="login">
           <div class="mb-4">
@@ -42,7 +41,7 @@
           <div class="flex items-center justify-between">
             <button
               type="submit"
-              class="my-0 py-1 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-indigo-500 text-lg lg:text-xl text-black font-medium whitespace-nowrap mt-4 w-full text-center"
+              class="my-0 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-indigo-500 text-lg lg:text-xl text-black font-medium whitespace-nowrap mt-4 w-full text-center"
               :disabled="loading"
             >
               {{ loading ? 'Accesso in corso...' : 'Accedi' }}

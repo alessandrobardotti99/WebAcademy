@@ -14,10 +14,10 @@
                     <p class="mb-4">{{ exercise.description }}</p>
                     <textarea v-model="exercise.userCode" class="my-0 mx-1 py-4 px-4 border-4 border-gray-900 shadow-brutal cursor-pointer bg-white text-lg lg:text-xl w-full text-black font-medium mb-4" rows="5"></textarea>
                     <div class="flex items-center justify-between"> 
-                    <button @click="checkExercise" :class="exercise.completed ? 'text-green-700 bg-green-500 my-0 mx-1 py-2 px-2 border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] rounded-md text-lg lg:text-xl w-min font-medium whitespace-nowrap' : 'text-black bg-indigo-500 my-0 mx-1 py-2 px-2 border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] rounded-md text-lg lg:text-xl w-min font-medium whitespace-nowrap'" class="py-2 px-4 rounded-lg">
+                    <button @click="checkExercise" :class="exercise.completed ? 'text-green-700 bg-green-300 my-0 mx-1 py-2 px-2 border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] rounded-md text-lg lg:text-xl w-min font-medium flex gap-2 items-center whitespace-nowrap justify-center' : 'text-black bg-indigo-500 my-0 mx-1 py-2 px-2 border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] rounded-md text-lg lg:text-xl w-min font-medium whitespace-nowrap'" class="py-2 px-4 rounded-lg">
                         {{ exercise.completed ? 'Completato' : 'Verifica' }}
                     </button>
-                    <router-link v-if="exercise.completed" :to="`/esercitazioni/html/${nextExerciseId}`" class="text-black bg-indigo-500 my-0 mx-1 py-2 px-2 border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] rounded-md text-lg lg:text-xl w-min font-medium whitespace-nowrap flex items-center gap-2">
+                    <router-link v-if="exercise.completed" :to="`/esercitazioni/html/${nextExerciseId}`" class="text-black bg-indigo-500 my-0 mx-1 py-2 px-2 border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] rounded-md text-lg lg:text-xl w-min font-medium whitespace-nowrap flex items-center gap-3">
                         Vai al prossimo esercizio <IconaBack class="rotate-180 text-black" />
                     </router-link>
                 </div>

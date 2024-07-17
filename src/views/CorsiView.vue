@@ -10,8 +10,8 @@
       <h3 class="mt-[20rem] text-[1rem]">Caricamento in corso...</h3>
     </div>
     <div v-else class="p-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8 max-w-[1800px] ml-auto mr-auto">
-      <div v-for="course in courses" :key="course.id" class="border-4 border-gray-900 bg-white transition-all md:shadow-brutal md:-translate-y-2 md:-translate-x-2 h-[400px] relative p-4" :style="{ backgroundImage: `url(${course.image_url})`, backgroundSize: 'cover',backgroundRepeat: 'no-repeat'}">
-        <div class="p-4 bg-white transition-all md:shadow-brutal md:-translate-y-2 md:-translate-x-2 absolute bottom-0">
+      <div v-for="course in courses" :key="course.id" class="border-4 border-gray-900 bg-white transition-all md:shadow-brutal md:-translate-y-2   h-[400px] relative p-4" :style="{ backgroundImage: `url(${course.image_url})`, backgroundSize: 'cover',backgroundRepeat: 'no-repeat'}">
+        <div class="p-4 bg-white transition-all md:shadow-brutal md:-translate-y-2   absolute bottom-0">
           <h2 class="text-2xl font-bold">{{ course.title }}</h2>
           <p class="text-lg">{{ course.description }}</p>
           <div class="flex justify-between items-center mt-4">
@@ -23,13 +23,15 @@
               Scopri di più
             </router-link>
             <button v-if="isPurchased(course.id)" @click="goToProfile" class="my-0 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-YellowWebAcademy text-lg lg:text-xl text-black font-medium flex gap-2 items-center whitespace-nowrap w-min mt-4 relative">
-              <span class="tooltip-text">Acquistato</span>
+              <span class="border-4 border-gray-900 bg-white transition-all md:shadow-brutal md:-translate-y-2   relative p-4 tooltip-text">Nella libreria</span>
               <IconaNellaLibreria />
             </button>
-            <button v-else-if="isInCart(course.id)" @click="goToProfile" class="my-0 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-YellowWebAcademy text-lg lg:text-xl text-black font-medium flex gap-2 items-center whitespace-nowrap w-min mt-4">
+            <button v-else-if="isInCart(course.id)" @click="addToCart(course)" class="my-0 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-YellowWebAcademy text-lg lg:text-xl text-black font-medium flex gap-2 items-center whitespace-nowrap w-min mt-4 relative">
+              <span class="border-4 border-gray-900 bg-white transition-all md:shadow-brutal md:-translate-y-2   relative p-4 tooltip-text">Nel carrello</span>
               <IconaNelCarrello />
             </button>
-            <button v-else @click="addToCart(course)" class="my-0 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-YellowWebAcademy text-lg lg:text-xl text-black font-medium flex gap-2 items-center whitespace-nowrap w-min mt-4">
+            <button v-else @click="addToCart(course)" class="my-0 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-YellowWebAcademy text-lg lg:text-xl text-black font-medium flex gap-2 items-center whitespace-nowrap w-min mt-4 relative">
+              <span class="border-4 border-gray-900 bg-white transition-all md:shadow-brutal md:-translate-y-2   relative p-4 tooltip-text">Acquista</span>
               <IconaCarrello />
             </button>
           </div>
@@ -159,9 +161,8 @@ export default {
 }
 .tooltip-text {
   visibility: hidden;
-  width: 120px;
-  background-color: black;
-  color: #fff;
+  width: 140px;
+  color: black;
   text-align: center;
   border-radius: 6px;
   padding: 5px 0;

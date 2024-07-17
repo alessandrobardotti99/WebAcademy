@@ -6,11 +6,11 @@
       <div v-if="cartItems.length" class="flex gap-4 items-start">
         <div class="w-[60%]">
           <div v-for="course in cartItems" :key="course.id"
-            class="flex flex-col justify-between  px-8 py-10  border-4 border-gray-900 bg-white  transition-all md:shadow-brutal md:-translate-y-2 md:-translate-x-2 mb-4">
+            class="flex flex-col justify-between  px-8 py-10  border-4 border-gray-900 bg-white  transition-all md:shadow-brutal md:-translate-y-2   mb-4">
             <div class="flex items-center justify-between">
               <div class="flex items-center j">
               <img :src="course.image_url" :alt="course.title"
-                class="w-[9rem] h-[6rem] object-cover border-4 border-gray-900 bg-white transition-all md:shadow-brutal md:-translate-y-2 md:-translate-x-2">
+                class="w-[9rem] h-[6rem] object-cover border-4 border-gray-900 bg-white transition-all md:shadow-brutal md:-translate-y-2  ">
               <div class="ml-4">
                 <h2 class="text-xl font-bold justify-between w-full">{{ course.title }}</h2>
                 <p class="text-gray-500">{{ course.duration }}</p>
@@ -30,7 +30,7 @@
           </div>
         </div>
         <div
-          class="p-4 w-[40%] flex flex-col justify-between  px-8 py-10  border-4 border-gray-900 bg-white  transition-all md:shadow-brutal md:-translate-y-2 md:-translate-x-2 sticky top-32">
+          class="p-4 w-[40%] flex flex-col justify-between  px-8 py-10  border-4 border-gray-900 bg-white  transition-all md:shadow-brutal md:-translate-y-2   sticky top-32">
           <h2 class="text-2xl font-bold mb-4 text-indigo-500">Riepilogo ordine</h2>
           <hr class="mb-4">
           <div class="flex justify-between mb-2">

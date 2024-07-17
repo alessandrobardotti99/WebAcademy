@@ -28,7 +28,7 @@ export default {
                     <span class="text-gradient-one font-bold text-5xl text-center">Da principiante ad avanzato</span>
                 </div>
             </div>
-            <div class="bg-indigo-500 w-full border-4 border-gray-900 transition-all md:shadow-brutal md:-translate-y-2 md:-translate-x-2 relative p-12 text-center m-auto mt-8 mb-24">
+            <div class="bg-indigo-500 w-full border-4 border-gray-900 transition-all md:shadow-brutal md:-translate-y-2   relative p-12 text-center m-auto mt-8 mb-24">
                 <h2 class="text-black text-[2rem] font-bold font-monospace">Realizza il tuo sogno</h2>
                 <p class="text-black mt-4 font-semibold"> Immergiti nella nostra vasta libreria di corsi online e libera il tuo
                     potenziale come sviluppatore web.  </p>
@@ -40,7 +40,7 @@ export default {
             <div class="mt-8 text-center mb-4">
                     <span class="text-gradient-one font-bold text-5xl text-center">Impara e scopri</span>
                 </div>
-            <div class="bg-YellowWebAcademy w-full m-auto border-4 border-gray-900 transition-all md:shadow-brutal md:-translate-y-2 md:-translate-x-2 relative p-12 mt-8 mb-24">
+            <div class="bg-YellowWebAcademy w-full m-auto border-4 border-gray-900 transition-all md:shadow-brutal md:-translate-y-2   relative p-12 mt-8 mb-24">
                 <h2 class="text-black text-[2rem] font-bold font-monospace">Domande frequenti</h2>
                 <p class="text-black mt-4 font-semibold">Ottieni risposte alle tue domande urgenti sui nostri  corsi online in HTML, CSS e JavaScript.</p>
                 <p class="text-black mt-4 text-center font-semibold">Chiarisci qualsiasi dubbio</p>
