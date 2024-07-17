@@ -59,7 +59,7 @@
                     active-class="active">
                     <li>Corsi acquistati</li>
                   </router-link>
-                  <router-link to="/impostazioni"
+                  <router-link to="/profilo?tab=settings"
                     class="flex items-center gap-2 text-2xl font-semibold leading-2 text-gray-900 border-b-4 border-b-transparent mx-6 hover:border-b-gray-900"
                     active-class="active">
                     <li>Impostazioni</li>
