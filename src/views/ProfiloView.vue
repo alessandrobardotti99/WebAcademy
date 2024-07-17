@@ -12,7 +12,8 @@
           <li class="mb-2">
             <button @click="currentTab = 'orders'"
               :class="{ 'text-black font-bold': currentTab === 'orders', 'text-neutral-800 p-4 bg-white rounded-md': currentTab !== 'orders' }"
-              class="my-0   py-2 px-4 rounded-md border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-indigo-500 text-lg lg:text-xl w-full text-black font-medium mb-2 whitespace-nowrap">Corsi acquistati</button>
+              class="my-0   py-2 px-4 rounded-md border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-indigo-500 text-lg lg:text-xl w-full text-black font-medium mb-2 whitespace-nowrap">Corsi
+              acquistati</button>
           </li>
           <li class="mb-2">
             <button @click="currentTab = 'settings'"
@@ -27,28 +28,84 @@
             <div v-if="user">
               <h1 class="text-4xl font-bold mb-8 font-monospace text-indigo-500 text-[4rem] mt-4">Profilo Utente</h1>
               <div class="mb-4">
-                <label class="text-lg lg:text-xl w-full text-black font-medium mb-4">Email:</label>
-                <input v-model="user.email" disabled class="p-4 bg-white my-0 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal text-lg lg:text-xl w-full text-black font-medium mb-2 whitespace-nowrap mt-2" />
-              </div>
-              <div class="mb-4">
                 <label class="text-lg lg:text-xl w-full text-black font-medium">Ultimo accesso:</label>
-                <input v-model="formattedLastSignIn" disabled class="p-4 bg-white my-0 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal text-lg lg:text-xl w-full text-black font-medium mb-2 whitespace-nowrap mt-2" />
+                <input v-model="formattedLastSignIn" disabled
+                  class="p-4 bg-white my-0 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal text-lg lg:text-xl w-full text-black font-medium mb-2 whitespace-nowrap mt-2" />
               </div>
               <div class="mb-4">
                 <label class="text-lg lg:text-xl w-full text-black font-medium">Creato il:</label>
-                <input v-model="formattedCreatedAt" disabled class="p-4 bg-white my-0 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal text-lg lg:text-xl w-full text-black font-medium mb-2 whitespace-nowrap mt-2" />
+                <input v-model="formattedCreatedAt" disabled
+                  class="p-4 bg-white my-0 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal text-lg lg:text-xl w-full text-black font-medium mb-2 whitespace-nowrap mt-2" />
               </div>
+
+              <!-- Dropdown per aggiornare l'email -->
+              <div @click="toggleDropdown('email')"
+                class="my-0 py-4 px-4 border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-grey-100 flex items-center justify-between text-lg lg:text-xl w-full text-black font-medium mb-4 mt-4">
+                <span class="text-lg font-bold">Aggiorna Email</span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5"
+                  stroke="currentColor"
+                  :class="{ 'transform rotate-90': isOpen('email'), 'ml-2': true, 'w-8': true, 'h-8': true, 'transition-transform': true }">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                </svg>
+              </div>
+              <transition name="accordion">
+                <div v-if="isOpen('email')">
+                  <div class="mb-4">
+                    <label class="text-lg lg:text-xl w-full text-black font-medium mb-4">Email:</label>
+                    <input v-model="newEmail"
+                      class="p-4 bg-white my-0 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal text-lg lg:text-xl w-full text-black font-medium mb-2 whitespace-nowrap mt-2" />
+                    <button @click="updateEmail"
+                      class="text-white bg-indigo-500 my-0 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] text-lg lg:text-xl font-medium whitespace-nowrap mt-2">
+                      Aggiorna Email
+                    </button>
+                  </div>
+                </div>
+              </transition>
+
+              <!-- Dropdown per aggiornare la password -->
+              <div @click="toggleDropdown('password')"
+                class="my-0 py-4 px-4 border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-grey-100 flex items-center justify-between text-lg lg:text-xl w-full text-black font-medium mb-4 mt-4">
+                <span class="text-lg font-bold">Aggiorna Password</span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5"
+                  stroke="currentColor"
+                  :class="{ 'transform rotate-90': isOpen('password'), 'ml-2': true, 'w-8': true, 'h-8': true, 'transition-transform': true }">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                </svg>
+              </div>
+              <transition name="accordion">
+                <div v-if="isOpen('password')">
+                  <div class="mb-4">
+                    <label class="text-lg lg:text-xl w-full text-black font-medium mb-4">Nuova Password:</label>
+                    <input type="password" v-model="newPassword"
+                      class="p-4 bg-white my-0 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal text-lg lg:text-xl w-full text-black font-medium mb-2 whitespace-nowrap mt-2" />
+                  </div>
+                  <div class="mb-4">
+                    <label class="text-lg lg:text-xl w-full text-black font-medium mb-4">Conferma Password:</label>
+                    <input type="password" v-model="confirmPassword"
+                      class="p-4 bg-white my-0 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal text-lg lg:text-xl w-full text-black font-medium mb-2 whitespace-nowrap mt-2" />
+                    <button @click="updatePassword"
+                      class="text-white bg-indigo-500 my-0 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] text-lg lg:text-xl font-medium whitespace-nowrap mt-2">
+                      Aggiorna Password
+                    </button>
+                  </div>
+                </div>
+              </transition>
             </div>
             <div v-else class="text-center text-gray-500">
               Caricamento...
             </div>
           </div>
 
+
+
+
+
           <div v-if="currentTab === 'orders'">
             <h1 class="text-4xl font-bold mb-8 font-monospace text-indigo-500 mt-4 text-[4rem]">Corsi acquistati</h1>
             <div v-if="purchasedCourses.length">
               <ul>
-                <li v-for="course in purchasedCourses" :key="course.id" class="my-0   py-2 px-4 rounded-md border-4 border-gray-900 shadow-brutal cursor-pointer bg-white text-lg lg:text-xl w-full text-black font-medium mb-4">
+                <li v-for="course in purchasedCourses" :key="course.id"
+                  class="my-0   py-2 px-4 rounded-md border-4 border-gray-900 shadow-brutal cursor-pointer bg-white text-lg lg:text-xl w-full text-black font-medium mb-4">
                   <h3 class="text-xl font-bold">{{ course.title }}</h3>
                   <p>{{ course.description }}</p>
                   <span class="text-gray-500">Acquistato il: {{ formatDate(course.purchase_date) }}</span>
@@ -65,18 +122,20 @@
                   <transition name="accordion">
                     <div v-if="isOpen(course.id)">
                       <ul v-if="course.videos.length">
-                        <li v-for="video in course.videos" :key="video.id" class="my-0   py-2 px-4 rounded-md border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-indigo-500 text-lg lg:text-xl w-full text-black font-medium mb-2 whitespace-nowrap">
+                        <li v-for="video in course.videos" :key="video.id"
+                          class="my-0   py-2 px-4 rounded-md border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-indigo-500 text-lg lg:text-xl w-full text-black font-medium mb-2 whitespace-nowrap">
                           <div class="flex justify-between items-center">
                             <div>
-                            {{ video.title }}
-                            <p>{{ video.description }}</p>
+                              {{ video.title }}
+                              <p>{{ video.description }}</p>
+                            </div>
+                            <div>
+                              <router-link
+                                :to="{ name: 'VideoView', params: { id: video.id, title: video.title, courseId: course.id } }"
+                                class="my-0   py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-YellowWebAcademy text-lg lg:text-xl w-fit text-black font-medium flex gap-2 items-center whitespace-nowrap">
+                                <button>Vai al video</button> </router-link>
+                            </div>
                           </div>
-                          <div>
-                            <router-link :to="{ name: 'VideoView', params: { id: video.id, title: video.title, courseId: course.id } }"
-                            class="my-0   py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-YellowWebAcademy text-lg lg:text-xl w-fit text-black font-medium flex gap-2 items-center whitespace-nowrap">
-                            <button>Vai al video</button> </router-link>
-                          </div>
-                        </div>
                         </li>
                       </ul>
                       <div v-else class="text-gray-500 p-4">
@@ -96,7 +155,34 @@
           <div v-if="currentTab === 'settings'">
             <h1 class="text-4xl font-bold mb-8 font-monospace text-indigo-500 text-[4rem] mt-4">Impostazioni</h1>
             <p>Pagina delle impostazioni (in arrivo).</p>
+            <button @click="showDeleteModal = true"
+              class="text-red-600 bg-white my-0 py-2 px-4 rounded-md border-2 border-red-600 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] text-lg lg:text-xl font-medium whitespace-nowrap">
+              Elimina Account
+            </button>
+            <!-- Modal per eliminare l'account -->
+            <div v-if="showDeleteModal"
+              class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center">
+              <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+                <h2 class="text-2xl font-bold mb-4">Attenzione!</h2>
+                <p class="mb-4">Eliminando l'account verranno cancellati i dati in modo permanente e si perderà
+                  l'accesso ai corsi acquistati.</p>
+                <p class="mb-4">Non verranno risarciti corsi di account cancellati per errore.</p>
+                <p class="mb-4">Per confermare, scrivi "elimina" nel campo sottostante.</p>
+                <input v-model="deleteConfirmation" type="text" class="p-2 border border-gray-300 rounded w-full mb-4"
+                  placeholder="Scrivi 'elimina' per confermare">
+                <div class="flex justify-end">
+                  <button @click="showDeleteModal = false"
+                    class="text-gray-700 bg-gray-200 px-4 py-2 rounded mr-2">Annulla</button>
+                  <button @click="confirmDeleteAccount" :disabled="deleteConfirmation !== 'elimina'"
+                    class="text-white bg-red-600 px-4 py-2 rounded disabled:opacity-50 disabled:cursor-not-allowed">
+                    Elimina
+                  </button>
+                </div>
+              </div>
+            </div>
+
           </div>
+
         </div>
       </main>
     </div>
@@ -104,55 +190,63 @@
 </template>
 
 <script>
-import { ref, onMounted, computed } from 'vue'
-import { useUserStore } from '../stores/user.js'
-import { supabase } from '../supabase'
-import { format } from 'date-fns'
-import Nav from '../components/NavHomepage.vue'
-import { useRoute } from 'vue-router'
+import { ref, onMounted, computed } from 'vue';
+import { useUserStore } from '../stores/user.js';
+import { supabase } from '../supabase';
+import { format } from 'date-fns';
+import { useToast } from 'vue-toastification'
+import Nav from '../components/NavHomepage.vue';
+import { useRoute, useRouter } from 'vue-router';
 
 export default {
   name: 'ProfileView',
   components: {
-    Nav
+    Nav,
   },
   setup() {
-    const userStore = useUserStore()
-    const user = ref(null)
-    const purchasedCourses = ref([])
-    const route = useRoute()
-    const currentTab = ref(route.query.tab || 'profile')
-    const openDropdowns = ref([])
+    const userStore = useUserStore();
+    const user = ref(null);
+    const purchasedCourses = ref([]);
+    const route = useRoute();
+    const router = useRouter();
+    const currentTab = ref(route.query.tab || 'profile');
+    const openDropdowns = ref([]);
+    const showDeleteModal = ref(false);
+    const deleteConfirmation = ref('');
+    const newEmail = ref('');
+    const newPassword = ref('');
+    const confirmPassword = ref('');
+    const toast = useToast()
 
     const fetchProfile = async () => {
-      userStore.loadSessionFromCookies()
+      userStore.loadSessionFromCookies();
       if (userStore.user) {
-        user.value = userStore.user
-        await fetchPurchasedCourses(user.value.id)
+        user.value = userStore.user;
+        await fetchPurchasedCourses(user.value.id);
       }
-    }
+    };
 
     const fetchPurchasedCourses = async (userId) => {
       try {
         const { data: orders, error } = await supabase
           .from('orders')
           .select('course_id, purchase_date')
-          .eq('user_id', userId)
+          .eq('user_id', userId);
 
         if (error) {
-          console.error('Error fetching orders:', error)
-          return
+          console.error('Error fetching orders:', error);
+          return;
         }
 
-        const courseIds = orders.map(order => order.course_id)
+        const courseIds = orders.map(order => order.course_id);
         const { data: courses, error: coursesError } = await supabase
           .from('courses')
           .select('*')
-          .in('id', courseIds)
+          .in('id', courseIds);
 
         if (coursesError) {
-          console.error('Error fetching courses:', coursesError)
-          return
+          console.error('Error fetching courses:', coursesError);
+          return;
         }
 
         // Fetch videos for each course
@@ -160,52 +254,129 @@ export default {
           const { data: videos, error: videosError } = await supabase
             .from('course_videos')
             .select('*')
-            .eq('course_id', course.id)
+            .eq('course_id', course.id);
 
           if (videosError) {
-            console.error('Error fetching videos:', videosError)
-            course.videos = []
+            console.error('Error fetching videos:', videosError);
+            course.videos = [];
           } else {
-            course.videos = videos
+            course.videos = videos;
           }
         }
 
         purchasedCourses.value = courses.map(course => {
-          const order = orders.find(order => order.course_id === course.id)
-          return { ...course, purchase_date: order.purchase_date }
-        })
+          const order = orders.find(order => order.course_id === course.id);
+          return { ...course, purchase_date: order.purchase_date };
+        });
       } catch (error) {
-        console.error('Error fetching purchased courses:', error)
+        console.error('Error fetching purchased courses:', error);
       }
-    }
+    };
+
+    const deleteAccount = async () => {
+      try {
+        // Elimina gli ordini dell'utente
+        const { error: deleteOrdersError } = await supabase
+          .from('orders')
+          .delete()
+          .eq('user_id', user.value.id);
+
+        if (deleteOrdersError) {
+          console.error('Error deleting orders:', deleteOrdersError);
+          return;
+        }
+
+        // Elimina l'account utente
+        const { data, error } = await supabase
+          .rpc('delete_user', { uid: user.value.id });
+
+        if (error) {
+          console.error('Error deleting account:', error);
+          return;
+        }
+
+        userStore.removeSession();
+        router.push('/');
+      } catch (error) {
+        console.error('Error deleting account:', error);
+      }
+    };
+
+    const confirmDeleteAccount = async () => {
+      if (deleteConfirmation.value === 'elimina') {
+        await deleteAccount();
+        showDeleteModal.value = false;
+      }
+    };
+
+    const updatePassword = async () => {
+      if (newPassword.value !== confirmPassword.value) {
+        toast.error('Le password non corrispondono');
+        return;
+      }
+      try {
+        const { error } = await supabase.auth.updateUser({ password: newPassword.value });
+        if (error) {
+          toast.error('Errore durante l\'aggiornamento della password: ' + error.message);
+          console.error('Error updating password:', error);
+          return;
+        }
+        toast.success('Password cambiata con successo!');
+        fetchProfile();
+      } catch (error) {
+        toast.error('Errore durante l\'aggiornamento della password: ' + error.message);
+        console.error('Error updating password:', error);
+      }
+    };
+
+    const updateEmail = async () => {
+      try {
+        const { data, error } = await supabase.auth.updateUser({ email: newEmail.value });
+        if (error) {
+          toast.error('Errore durante l\'aggiornamento dell\'email: ' + error.message);
+          console.error('Error updating email:', error);
+          return;
+        }
+        if (data.email_change_confirm_status === 1) {
+          console.log('Email change confirmed.');
+        } else {
+          console.log('Please confirm the email change by clicking on the confirmation link sent to your new email.');
+        }
+        toast.success('Email aggiornata con successo!');
+        fetchProfile();
+      } catch (error) {
+        toast.error('Errore durante l\'aggiornamento dell\'email: ' + error.message);
+        console.error('Error updating email:', error);
+      }
+    };
 
     onMounted(() => {
-      fetchProfile()
-    })
+      fetchProfile();
+    });
 
     const formattedLastSignIn = computed(() => {
-      return user.value ? format(new Date(user.value.last_sign_in_at), 'dd/MM/yyyy HH:mm:ss') : ''
-    })
+      return user.value ? format(new Date(user.value.last_sign_in_at), 'dd/MM/yyyy HH:mm:ss') : '';
+    });
 
     const formattedCreatedAt = computed(() => {
-      return user.value ? format(new Date(user.value.created_at), 'dd/MM/yyyy HH:mm:ss') : ''
-    })
+      return user.value ? format(new Date(user.value.created_at), 'dd/MM/yyyy HH:mm:ss') : '';
+    });
 
     const formatDate = (date) => {
-      return format(new Date(date), 'dd/MM/yyyy HH:mm:ss')
-    }
+      return format(new Date(date), 'dd/MM/yyyy HH:mm:ss');
+    };
 
-    const toggleDropdown = (courseId) => {
-      if (openDropdowns.value.includes(courseId)) {
-        openDropdowns.value = openDropdowns.value.filter(id => id !== courseId)
+    const toggleDropdown = (dropdown) => {
+      if (openDropdowns.value.includes(dropdown)) {
+        openDropdowns.value = openDropdowns.value.filter(id => id !== dropdown);
       } else {
-        openDropdowns.value.push(courseId)
+        openDropdowns.value.push(dropdown);
       }
-    }
+    };
 
-    const isOpen = (courseId) => {
-      return openDropdowns.value.includes(courseId)
-    }
+    const isOpen = (dropdown) => {
+      return openDropdowns.value.includes(dropdown);
+    };
 
     return {
       user,
@@ -215,11 +386,23 @@ export default {
       formatDate,
       currentTab,
       toggleDropdown,
-      isOpen
-    }
-  }
-}
+      isOpen,
+      showDeleteModal,
+      deleteConfirmation,
+      confirmDeleteAccount,
+      newEmail,
+      newPassword,
+      confirmPassword,
+      updateEmail,
+      updatePassword,
+    };
+  },
+};
+
+
 </script>
+
+
 
 <style scoped>
 .font-monospace {
