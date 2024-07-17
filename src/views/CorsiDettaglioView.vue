@@ -2,28 +2,28 @@
   <div class="bg-gray-100 min-h-screen">
       <Nav />
       <div class="max-w-6xl mx-auto p-8">
-          <router-link to="/corsi" class="inline-block bg-indigo-600 text-white text-center py-2 px-4 rounded-lg hover:bg-indigo-700 mb-6">
+          <router-link to="/corsi" class="text-black bg-indigo-500 my-0 py-2 px-2 border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] rounded-md text-lg lg:text-xl w-min font-medium whitespace-nowrap flex items-center gap-2 mb-8">
               <span><IconaBack /></span>
           </router-link>
           <div v-if="course">
-              <div class="relative mb-8">
-                  <img :src="course.image_url" :alt="course.title" class="w-full h-64 object-cover rounded-xl">
-                  <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center rounded-xl">
+              <div class="relative mb-8 px-3">
+                  <img :src="course.image_url" :alt="course.title" class="w-full h-64 object-cover border-4 border-gray-900 bg-white transition-all md:shadow-brutal md:-translate-y-2 md:-translate-x-2">
+                  <div class="absolute inset-0 bg-opacity-50 flex items-center justify-center rounded-xl">
                       <h1 class="text-4xl font-bold text-white">{{ course.title }}</h1>
                   </div>
               </div>
               <div class="mb-8">
-                  <div class="flex justify-between items-center mb-4 gap-4">
-                      <div class="flex items-center border-2 border-neutral-800 py-2 px-4 rounded-xl">
-                          <span class="text-sm text-gray-500 mr-4 flex items-center gap-2"><IconaOrologio /> {{ course.duration }}</span>
-                          <span class="text-sm text-gray-500 flex items-center gap-2"><IconaPrincipianti /> {{ course.level }}</span>
+                  <div class="flex justify-between items-center mb-4 gap-4 px-1">
+                      <div class="my-0 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal bg-white text-lg lg:text-xl w-fit text-black font-medium flex gap-2 items-center whitespace-nowrap">
+                          <span class="text-black font-bold mr-4 flex items-center gap-2 text-lg lg:text-xl"><IconaOrologio /> {{ course.duration }}</span>
+                          <span class="text-lg lg:text-xl text-black font-bold flex items-center gap-2"><IconaPrincipianti /> {{ course.level }}</span>
                       </div>
-                      <span class="text-lg font-bold bg-gradient-to-r from-30% from-black to-indigo-600 py-2 px-4 text-white rounded-xl">{{ course.price }} €</span>
+                      <span class="my-0 mx-1 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal bg-indigo-500 text-lg lg:text-xl w-fit text-black font-medium flex gap-2 items-center whitespace-nowrap">{{ course.price }} €</span>
                   </div>
-                  <p class="text-gray-700 mb-6">{{ course.internal_description }}</p>
+                  <p class="text-black font-bold text-justify mb-4 px-2">{{ course.internal_description }}</p>
                   <button @click="addToCart(course)" 
                           class="inline-block text-neutral-800 text-center py-2 px-4 rounded-lg" 
-                          :class="{'bg-YellowWebAcademy hover:bg-HoverYwlloWebAcademt': !isInCart(course.id), 'bg-indigo-500 text-white': isInCart(course.id)}">
+                          :class="{'my-0 mx-1 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-YellowWebAcademy text-lg lg:text-xl w-fit text-black font-medium whitespace-nowrap': !isInCart(course.id), 'my-0 mx-1 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-indigo-500 text-lg lg:text-xl w-fit text-black font-medium whitespace-nowrap': isInCart(course.id)}">
                     {{ isInCart(course.id) ? 'Già nel carrello' : 'Aggiungi al carrello' }}
                   </button>
               </div>

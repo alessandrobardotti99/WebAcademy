@@ -1,5 +1,5 @@
 <template>
-  <div :class="['w-full', 'bg-YellowWebAcademy', 'sticky', 'top-0', 'z-50', { 'shadow-lg': hasScrolled }]">
+  <div class="w-full bg-YellowWebAcademy sticky top-0 z-50">
     <nav class="sticky flex justify-between w-full m-auto ml-auto mr-auto items-center bg-YellowWebAcademy top-0 p-4 max-w-[1800px]">
       <router-link to="/">
         <div>
@@ -48,7 +48,7 @@
               </span>
               <transition name="fade">
                 <ul v-if="dropdownOpen" v-auto-animate
-                  class="absolute top-full right-0 mt-2 bg-YellowWe inline-flex bg-white border-4 rounded-full border-gray-950 px-4 py-2 shadow-brutalSmall gap-4">
+                  class="absolute top-full right-8 mt-2 bg-YellowWe inline-flex bg-white border-4 rounded-full border-gray-950 px-4 py-2 shadow-brutalSmall gap-4">
                   <router-link to="/profilo"
                     class="flex items-center gap-2 text-2xl font-semibold leading-2 text-gray-900 border-b-4 border-b-transparent mx-6 hover:border-b-gray-900"
                     active-class="active">

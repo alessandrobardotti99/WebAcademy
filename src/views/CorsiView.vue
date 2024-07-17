@@ -19,17 +19,17 @@
             <span class="text-lg font-bold">{{ course.price }} €</span>
           </div>
           <div class="flex items-center justify-between">
-            <router-link :to="`/corsi/${course.id}`" class="my-0 py-1 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-indigo-500 text-lg lg:text-xl text-black font-medium flex gap-2 items-center whitespace-nowrap w-min mt-4">
+            <router-link :to="`/corsi/${course.id}`" class="my-0 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-indigo-500 text-lg lg:text-xl text-black font-medium flex gap-2 items-center whitespace-nowrap w-min mt-4">
               Scopri di più
             </router-link>
-            <button v-if="isPurchased(course.id)" @click="goToProfile" class="my-0 py-1 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-YellowWebAcademy text-lg lg:text-xl text-black font-medium flex gap-2 items-center whitespace-nowrap w-min mt-4 relative">
+            <button v-if="isPurchased(course.id)" @click="goToProfile" class="my-0 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-YellowWebAcademy text-lg lg:text-xl text-black font-medium flex gap-2 items-center whitespace-nowrap w-min mt-4 relative">
               <span class="tooltip-text">Acquistato</span>
               <IconaNellaLibreria />
             </button>
-            <button v-else-if="isInCart(course.id)" @click="goToProfile" class="my-0 py-1 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-YellowWebAcademy text-lg lg:text-xl text-black font-medium flex gap-2 items-center whitespace-nowrap w-min mt-4">
+            <button v-else-if="isInCart(course.id)" @click="goToProfile" class="my-0 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-YellowWebAcademy text-lg lg:text-xl text-black font-medium flex gap-2 items-center whitespace-nowrap w-min mt-4">
               <IconaNelCarrello />
             </button>
-            <button v-else @click="addToCart(course)" class="my-0 py-1 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-YellowWebAcademy text-lg lg:text-xl text-black font-medium flex gap-2 items-center whitespace-nowrap w-min mt-4">
+            <button v-else @click="addToCart(course)" class="my-0 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-YellowWebAcademy text-lg lg:text-xl text-black font-medium flex gap-2 items-center whitespace-nowrap w-min mt-4">
               <IconaCarrello />
             </button>
           </div>
