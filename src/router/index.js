@@ -10,8 +10,10 @@ import FaqView from "@/views/FaqView.vue";
 import EsercitazioniView from "../views/EsercitazioniView.vue";
 import HtmlExercisesView from "../views/HtmlExercisesView.vue";
 import CssExerciseView from '../views/CsslExercisesView.vue'
+import JsExercisesView from "../views/JsExercisesView.vue";
 import ReturnPaymentCancelView from "../views/ReturnPaymentCancelView.vue";
 import ReturnPaymentSuccessView from "../views/ReturnPaymentSuccessView.vue";
+import RegistrazioneEffettuataMail from "../views/RegistrazioneEffettuataMail.vue";
 import VideoView from "../views/VideoView.vue";
 import { supabase } from '../supabase';
 import Cookies from 'js-cookie';
@@ -36,7 +38,14 @@ const routes = [
     name: "registrazione",
     component: RegistrazioneView,
   },
-  { path: "/corsi", name: "corsi", component: CorsiView },
+  {
+    path: "/registrazione-effettuata",
+    name: "registrazione-effettuata",
+    component: RegistrazioneEffettuataMail,
+  },
+  { path: "/corsi", 
+    name: "corsi", 
+    component: CorsiView },
   {
     path: "/corsi/:id",
     name: "CourseDetail",
@@ -76,6 +85,12 @@ const routes = [
     path: "/esercitazioni/css/:exerciseId",
     name: "esercitazioni-css",
     component: CssExerciseView,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/esercitazioni/javascript/:exerciseId",
+    name: "esercitazioni-js",
+    component: JsExercisesView,
     meta: { requiresAuth: true },
   },
   {

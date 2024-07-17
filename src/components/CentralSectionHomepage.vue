@@ -21,14 +21,14 @@ export default {
         <p class="mt-2 text-center text-black leading-8 font-semibold text-xl">Esplora la nostra vasta gamma di corsi online progettati per
             aiutarti a padroneggiare i fondamenti di HTML, CSS e JavaScript</p>
     </div>
-    <div class="w-[80%] flex items-center gap-20 justify-center m-auto text-center">
-        <div class="w-[80%]">
-            <div class="">
+    <div class="w-[80%] flex items-center gap-20 justify-center m-auto text-center max-w-[1800px] ml-auto mr-auto max-xl:block max-xl:w-[90%]">
+        <div class="w-[80%] max-xl:w-[90%] max-xl:m-auto">
+            <div>
                 <div class="mt-8 text-center mb-4">
-                    <span class="text-gradient-one font-bold text-5xl text-center">Da principiante ad avanzato</span>
+                    <span class="text-gradient-one font-bold text-5xl text-center max-xl:text-center">Da principiante ad avanzato</span>
                 </div>
             </div>
-            <div class="bg-indigo-500 w-full border-4 border-gray-900 transition-all md:shadow-brutal md:-translate-y-2   relative p-12 text-center m-auto mt-8 mb-24">
+            <div class="bg-indigo-500 w-full border-4 border-gray-900 transition-all md:shadow-brutal md:-translate-y-2   relative p-12 text-center m-auto mt-8 mb-24 max-xl:mb-8">
                 <h2 class="text-black text-[2rem] font-bold font-monospace">Realizza il tuo sogno</h2>
                 <p class="text-black mt-4 font-semibold"> Immergiti nella nostra vasta libreria di corsi online e libera il tuo
                     potenziale come sviluppatore web.  </p>
@@ -36,7 +36,7 @@ export default {
             </div>
         </div>
 
-        <div class="w-[80%] m-auto">
+        <div class="w-[80%] m-auto max-xl:w-[90%] max-xl:m-auto">
             <div class="mt-8 text-center mb-4">
                     <span class="text-gradient-one font-bold text-5xl text-center">Impara e scopri</span>
                 </div>

@@ -2,7 +2,7 @@
     <div>
         <Nav />
         <div class="bg-gray-100 min-h-screen p-8">
-            <h1 class="text-4xl font-bold text-center font-monospace">Esercitazione CSS</h1>
+            <h1 class="text-4xl font-bold text-center font-monospace">Esercitazione JavaScript</h1>
             <router-link to="/esercitazioni">
                 <div
                     class="text-black bg-indigo-500 my-0 mx-1 py-2 px-2 border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] rounded-md text-lg lg:text-xl w-min font-medium whitespace-nowrap flex items-center gap-2 mb-8">
@@ -25,7 +25,7 @@
                             class="py-2 px-4 rounded-lg">
                             {{ exercise.completed ? 'Completato' : 'Verifica' }}
                         </button>
-                        <router-link v-if="exercise.completed" :to="`/esercitazioni/css/${nextExerciseId}`"
+                        <router-link v-if="exercise.completed" :to="`/esercitazioni/js/${nextExerciseId}`"
                             class="text-black bg-indigo-500 my-0 mx-1 py-2 px-2 border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] rounded-md text-lg lg:text-xl w-min font-medium whitespace-nowrap flex items-center gap-3">
                             Vai al prossimo esercizio
                             <IconaBack class="rotate-180 text-black" />
@@ -36,7 +36,6 @@
                         class="mt-4">
                         {{ exercise.feedback }}
                     </p>
-
                 </div>
             </div>
             <div v-else>
@@ -53,7 +52,7 @@ import { supabase } from '../supabase'
 import Cookies from 'js-cookie'
 
 export default {
-    name: 'CssExercisesView',
+    name: 'JsExercisesView',
     components: {
         Nav,
         IconaBack
@@ -66,7 +65,7 @@ export default {
         }
     },
     async mounted() {
-        // Load session from cookies
+    
         const session = Cookies.get('supabaseSession')
         if (session) {
             const parsedSession = JSON.parse(session)
@@ -82,7 +81,7 @@ export default {
         async loadExercise() {
             const exerciseId = this.$route.params.exerciseId
 
-            // Fetch the exercise from the database
+           
             const { data: exercise, error } = await supabase
                 .from('exercises')
                 .select('*')
@@ -92,7 +91,7 @@ export default {
             if (error) {
                 console.error('Error fetching exercise:', error)
             } else {
-                // Fetch completed exercises for the user
+               
                 const { data: userExercise, error: userExercisesError } = await supabase
                     .from('user_exercises')
                     .select('*')
@@ -115,7 +114,7 @@ export default {
             }
         },
         async getNextExerciseId(currentId) {
-            // Logic to determine the next exercise ID
+
             const { data: nextExercise, error } = await supabase
                 .from('exercises')
                 .select('id')
@@ -132,110 +131,53 @@ export default {
             }
         },
         checkExercise() {
-            const exercise = this.exercise;
-            let isCorrect = false;
+            const exercise = this.exercise
+            let isCorrect = false
 
-            // Define the expected CSS rules for each exercise
-            const expectedCssRules = {
-                'Esercizio 1: Applicare stili di base': { 'p': { 'color': /.+/ } },
-                'Esercizio 2: Cambiare il colore di sfondo': { 'body': { 'background-color': /.+/ } },
-                'Esercizio 3: Aggiungere un bordo a un\'immagine': { 'img': { 'border': /.+/ } },
-                'Esercizio 4: Creare una griglia di layout': { '.grid-container': { 'display': /grid/, 'grid-template-columns': /.+/ } },
-                'Esercizio 5: Aggiungere stili a un link al passaggio del mouse': { 'a:hover': { 'color': /.+/ } },
-                'Esercizio 6: Creare un\'animazione semplice': { '@keyframes': /.+/, '.\w+': { 'animation-name': /.+/, 'animation-duration': /.+/ } },
-                'Esercizio 7: Usare Flexbox': { '.flex-container': { 'display': /flex/ } },
-                'Esercizio 8: Applicare ombre': { 'h1': { 'text-shadow': /.+/ }, 'div': { 'box-shadow': /.+/ } },
-                'Esercizio 9: Usare variabili CSS': { ':root': { '--\w+': /.+/ }, 'body': { 'background-color': /var\(--\w+\)/ } },
-                'Esercizio 10: Creare un layout responsive': { '@media': { 'max-width': /.+/ } }
-            };
-
-            // Determine the expected rules for the current exercise
-            const expectedRules = expectedCssRules[exercise.title];
-
-            if (exercise.title === 'Esercizio 10: Creare un layout responsive') {
-                const mediaQueryMatch = /@media\s*\(max-width:\s*768px\)\s*{[^}]*.grid-container\s*{\s*width:\s*100%;\s*}[^}]*}/.test(exercise.userCode);
-                isCorrect = mediaQueryMatch;
-            } else if (expectedRules) {
-                isCorrect = Object.keys(expectedRules).every(selector => {
-                    const regexProperties = expectedRules[selector];
-                    return Object.keys(regexProperties).every(property => {
-                        const regex = regexProperties[property];
-                        const userCodeMatch = exercise.userCode.match(new RegExp(`${selector}\\s*{[^}]*${property}\\s*:[^;]+;[^}]*}`, 'g'));
-                        return userCodeMatch && userCodeMatch.some(match => regex.test(match));
-                    });
-                });
+            const expectedJsSolutions = {
+                'Esercizio 1: Hello World': 'console.log("Hello World");',
+                'Esercizio 2: Somma due numeri': 'function somma(a, b) { return a + b; }',
+                'Esercizio 3: Cambiare contenuto': 'document.getElementById("myElement").innerHTML = "Nuovo Contenuto";',
+                'Esercizio 4: Creare un array': 'let array = [1, 2, 3]; array.forEach(function(item) { console.log(item); });',
+                'Esercizio 5: Aggiungere evento click': 'document.getElementById("myButton").addEventListener("click", function() { alert("Button clicked"); });',
+                'Esercizio 6: Creare oggetto': 'let persona = { nome: "Mario", eta: 30 }; console.log(persona.nome);',
+                'Esercizio 7: If-else': 'let eta = 18; if (eta >= 18) { console.log("Adulto"); } else { console.log("Minorenne"); }',
+                'Esercizio 8: Funzione massimo': 'function massimo(array) { return Math.max(...array); }',
+                'Esercizio 9: Manipolare DOM': 'let nuovoElemento = document.createElement("div"); nuovoElemento.innerHTML = "Nuovo Elemento"; document.body.appendChild(nuovoElemento);',
+                'Esercizio 10: Usare fetch': 'fetch("https://api.example.com/data").then(response => response.json()).then(data => console.log(data));'
             }
 
-            if (isCorrect) {
-                exercise.feedback = "Corretto! Ottimo lavoro.";
-                exercise.isCorrect = true;
-                exercise.completed = true;
+            const expectedSolution = expectedJsSolutions[exercise.title]
 
-                // Update user_exercises table
+           
+            isCorrect = exercise.userCode.trim() === expectedSolution.trim()
+
+            if (isCorrect) {
+                exercise.feedback = "Corretto! Ottimo lavoro."
+                exercise.isCorrect = true
+                exercise.completed = true
+
+                
                 supabase
                     .from('user_exercises')
                     .upsert({ user_id: this.user.id, exercise_id: this.exercise.id, completed: true }, { onConflict: ['user_id', 'exercise_id'] })
                     .then(({ error }) => {
                         if (error) {
-                            console.error('Error updating exercise:', error);
+                            console.error('Error updating exercise:', error)
                         }
 
-                        // Save the state of exercises in cookies
+                      
                         const savedExercises = Cookies.get('completedExercises')
                             ? JSON.parse(Cookies.get('completedExercises'))
-                            : {};
-                        savedExercises[this.exercise.id] = true;
-                        Cookies.set('completedExercises', JSON.stringify(savedExercises), { expires: 7 });
-                    });
+                            : {}
+                        savedExercises[this.exercise.id] = true
+                        Cookies.set('completedExercises', JSON.stringify(savedExercises), { expires: 7 })
+                    })
             } else {
-                exercise.feedback = "Sbagliato. Riprova.";
-                exercise.isCorrect = false;
+                exercise.feedback = "Sbagliato. Riprova."
+                exercise.isCorrect = false
             }
         }
-
-
-
-
     }
 }
 </script>
-
-
-
-<style scoped>
-.bg-gray-100 {
-    background-color: #f7fafc;
-}
-
-.shadow {
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.rounded-lg {
-    border-radius: 0.5rem;
-}
-
-.p-4 {
-    padding: 1rem;
-}
-
-.font-monospace {
-    font-family: monospace;
-}
-
-.mb-4 {
-    margin-bottom: 1rem;
-}
-
-.mt-2 {
-    margin-top: 0.5rem;
-}
-
-.text-green-600 {
-    color: #38a169;
-}
-
-.text-red-600 {
-    color: #e53e3e;
-}
-</style>

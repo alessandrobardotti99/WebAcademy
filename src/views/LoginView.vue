@@ -12,8 +12,9 @@
       </div>
     </div>
     <div class="w-[40%] grid place-items-center">
-      <div class="border-4 border-gray-900 bg-white transition-all md:shadow-brutal md:-translate-y-2   relative p-4 h-fit w-3/4">
-        <h1 class="text-5xl mb-12 text-center font-monospace font-thin">Bentornato!</h1>
+      <h1 class="text-5xl mb-12 text-center font-monospace font-bold">Bentornato!</h1>
+      <div class="border-4 border-gray-900 bg-white transition-all md:shadow-brutal md:-translate-y-2 relative p-4 h-fit w-3/4">
+        
         <form @submit.prevent="login">
           <div class="mb-4">
             <label class="text-lg lg:text-xl w-full text-black font-medium mb-2" for="email">Email</label>

@@ -12,8 +12,8 @@
         </div>
       </div>
       <div class="w-[40%] grid place-items-center">
+        <h1 class="text-5xl mb-12 text-center font-monospace font-bold">Benvenuto</h1>
         <div class="border-4 border-gray-900 bg-white transition-all md:shadow-brutal md:-translate-y-2   relative p-4 h-fit w-3/4">
-          <h1 class="text-5xl mb-12 text-center font-monospace font-thin">Registrati</h1>
           <form @submit.prevent="register">
             <div class="mb-4">
               <label class="text-lg lg:text-xl w-full text-black font-medium mb-2" for="username">Nome utente</label>
@@ -104,10 +104,10 @@
         loading.value = false
         if (registerError) {
           error.value = registerError.message
-          password.value = '' // Reset password value
+          password.value = ''
         } else {
           Cookies.set('supabaseSession', JSON.stringify(user), { expires: 1 })
-          window.location.href = '/'
+          router.push('/registrazione-effettuata')
         }
       }
   

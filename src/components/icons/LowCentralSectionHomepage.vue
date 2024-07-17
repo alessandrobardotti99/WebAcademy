@@ -17,7 +17,7 @@ export default {
 <template>
     <div class="border-b-4 border-gray-900">
         <div
-            class="w-[80%] border-4 border-gray-900 bg-indigo-500 transition-all md:shadow-brutal md:-translate-y-2   relative  m-auto mt-28 mb-28">
+            class="w-[80%] border-4 border-gray-900 bg-indigo-500 transition-all md:shadow-brutal md:-translate-y-2 max-w-[1800px] ml-auto mr-auto relative  m-auto mt-28 mb-24">
             <div class="bg-YellowWebAcademy h-8 border-b-4 border-gray-900 w-full">
                 <div class="flex gap-2 items-center h-full px-2">
                     <div class="w-4 border-2 border-gray-900 h-4 rounded-full bg-red-400"></div>
@@ -68,7 +68,7 @@ export default {
         </div>
     </div>
 
-    <div class="flex items-center justify-center w-[80%] m-auto mt-24">
+    <div class="flex items-center justify-center w-[80%] m-auto mt-24 max-w-[1800px] ml-auto mr-auto">
         <div class="w-[50%]">
             <h1 class="font-monospace text-[2rem] text-center font-bold">Studi o lavori?</h1>
             <p class="text-center font-bold">Puoi frequentare il corso quando vuoi, è strutturato con lezioni

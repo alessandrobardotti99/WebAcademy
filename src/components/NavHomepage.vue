@@ -75,7 +75,7 @@
           </template>
           <template v-else>
             <router-link to="/accedi"
-              class="text-2xl mx-4 border-4 rounded-full border-gray-950 p-2 shadow-brutalSmall text-white font-semibold leading-6 bg-indigo-500 flex items-center cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000]">
+              class="text-2xl mx-4 border-4 rounded-full border-gray-950 py-[0.8rem] px-8 shadow-brutalSmall text-white font-semibold leading-6 bg-indigo-500 flex items-center cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000]">
               <li class="list-none">Accedi</li>
             </router-link>
           </template>
