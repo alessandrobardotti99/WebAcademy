@@ -2,8 +2,8 @@
     <div>
         <Nav />
         <div class="bg-gray-100 min-h-screen">
-            <h1 class="text-[4rem] font-monospace text-center mb-8">Esercitazioni</h1>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 justify-center p-8">
+            <h1 class="text-[4rem] font-monospace text-center mb-8 ">Esercitazioni</h1>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 justify-center p-8 max-w-[1800px] ml-auto mr-auto">
                 <div v-for="(course, index) in Object.keys(exercises)" :key="index" class="my-0 mx-1 py-4 px-4 border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-white text-lg lg:text-xl w-full text-black font-medium flex gap-2 items-center whitespace-nowrap justify-between" @click="openModal(course)">
                     <div class="flex justify-between items-center">
                         <h2 class="text-2xl font-bold text-indigo-500 font-monospace uppercase">{{ course }}</h2>

@@ -9,7 +9,7 @@
     <div v-if="loading" class="text-center text-gray-500 mt-8">
       <h3 class="mt-[20rem] text-[1rem]">Caricamento in corso...</h3>
     </div>
-    <div v-else class="p-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+    <div v-else class="p-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8 max-w-[1800px] ml-auto mr-auto">
       <div v-for="course in courses" :key="course.id" class="border-4 border-gray-900 bg-white transition-all md:shadow-brutal md:-translate-y-2 md:-translate-x-2 h-[400px] relative p-4" :style="{ backgroundImage: `url(${course.image_url})`, backgroundSize: 'cover',backgroundRepeat: 'no-repeat'}">
         <div class="p-4 bg-white transition-all md:shadow-brutal md:-translate-y-2 md:-translate-x-2 absolute bottom-0">
           <h2 class="text-2xl font-bold">{{ course.title }}</h2>
@@ -167,7 +167,7 @@ export default {
   padding: 5px 0;
   position: absolute;
   z-index: 1;
-  bottom: 125%; /* Position the tooltip above the icon */
+  bottom: 125%;
   left: 50%;
   margin-left: -60px;
   opacity: 0;

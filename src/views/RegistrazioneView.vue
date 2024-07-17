@@ -1,7 +1,7 @@
 <template>
     <div class="bg-gray-100 flex h-screen items-center">
       <router-link to="/">
-        <div class="absolute top-4 left-4 z-50 text-white bg-HoverYwlloWebAcademt p-2 rounded-xl">
+        <div class="absolute top-4 left-4 z-50 text-black bg-YellowWebAcademy my-0 mx-1 py-2 px-2 border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] rounded-md text-lg lg:text-xl w-min font-medium whitespace-nowrap flex items-center gap-2 mb-8">
           <span><IconaBack class="text-slate-800" /></span>
         </div>
       </router-link>
@@ -12,52 +12,52 @@
         </div>
       </div>
       <div class="w-[40%] grid place-items-center">
-        <div class="bg-white p-8 rounded-xl shadow-md h-fit w-3/4">
+        <div class="border-4 border-gray-900 bg-white transition-all md:shadow-brutal md:-translate-y-2 md:-translate-x-2 relative p-4 h-fit w-3/4">
           <h1 class="text-5xl mb-12 text-center font-monospace font-thin">Registrati</h1>
           <form @submit.prevent="register">
             <div class="mb-4">
-              <label class="block text-neutral-500 text-sm font-bold mb-2" for="username">Nome utente</label>
+              <label class="text-lg lg:text-xl w-full text-black font-medium mb-2" for="username">Nome utente</label>
               <input
                 v-model="username"
                 type="text"
                 id="username"
-                class="appearance-none border rounded-xl w-full p-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                class="text-neutral-800 p-4 bg-white hover:bg-neutral-200 my-0 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000 text-lg lg:text-xl w-full text-black font-medium mb-2 whitespace-nowrap mt-2"
                 required
               />
             </div>
             <div class="mb-4">
-              <label class="block text-neutral-500 text-sm font-bold mb-2" for="email">Email</label>
+              <label class="text-lg lg:text-xl w-full text-black font-medium mb-2" for="email">Email</label>
               <input
                 v-model="email"
                 type="email"
                 id="email"
-                class="appearance-none border rounded-xl w-full p-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                class="text-neutral-800 p-4 bg-white hover:bg-neutral-200 my-0 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000 text-lg lg:text-xl w-full text-black font-medium mb-2 whitespace-nowrap mt-2"
                 required
                 />
             </div>
             <div class="mb-6">
-              <label class="block text-neutral-500 text-sm font-bold mb-2" for="password">Password</label>
+              <label class="text-lg lg:text-xl w-full text-black font-medium mb-2" for="password">Password</label>
               <input
                 v-model="password"
                 type="password"
                 id="password"
-                class="appearance-none border rounded-xl w-full p-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                class="text-neutral-800 p-4 bg-white hover:bg-neutral-200 my-0 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000 text-lg lg:text-xl w-full text-black font-medium mb-2 whitespace-nowrap mt-2"
                 required
               />
             </div>
-            <div v-if="error" class="text-red-500 text-sm mt-4 bg-red-100 p-4 rounded-xl text-center border-red-500 border mb-4">
+            <div v-if="error" class="my-0 mx-1 py-2 px-2 rounded-md border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-red-200 text-lg lg:text-xl w-full text-red-500 font-medium whitespace-nowrap mb-4">
               {{ error }}
             </div>
             <div class="flex items-center justify-between">
               <button
                 type="submit"
-                class="bg-YellowWebAcademy hover:bg-HoverYwlloWebAcademt text-slate-800 font-bold p-4 rounded-xl focus:outline-none focus:shadow-outline w-full"
+                class="my-0 py-1 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-YellowWebAcademy text-lg lg:text-xl text-black font-medium whitespace-nowrap mt-2 w-full text-center"
                 :disabled="loading"
               >
                 {{ loading ? 'Registrazione in corso...' : 'Registrati' }}
               </button>
             </div>
-            <div class="mt-8 text-center text-neutral-500">
+            <div class="mt-8 text-center text-black text-lg lg:text-xl font-bold">
               <p>Hai già un account? 
                 <router-link to="/login">
                 <span class="text-neutral-800 font-bold underline cursor-pointer">Accedi</span>

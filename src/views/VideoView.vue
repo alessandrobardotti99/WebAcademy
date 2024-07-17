@@ -7,20 +7,20 @@
           <video ref="videoElement" :src="videoUrl" controls @ended="playNextVideo"></video>
         </vue-plyr>
       </div>
-      <div class="w-[30%] p-4 bg-neutral-200 h-screen">
+      <div class="w-[30%] p-4 border-l-4 border-gray-900 h-screen bg-neutral-100">
         <ul>
           <li
             v-for="video in courseVideos"
             :key="video.id"
             :class="{
-              'bg-indigo-500 text-white cursor-pointer': video.id === currentVideoId,
-              'bg-neutral-300 text-neutral-500 cursor-pointer': video.id !== currentVideoId
+              'my-0 py-2 px-4 border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-indigo-500 text-lg lg:text-xl w-full text-black font-medium mb-2 whitespace-nowrap': video.id === currentVideoId,
+              'my-0 py-2 px-4 border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-neutral-100 text-lg lg:text-xl w-full text-black font-medium mb-2 whitespace-nowrap mt-4': video.id !== currentVideoId
             }"
-            class="mb-2 p-4 rounded-xl"
+            class="mb-2 p-4"
           >
             <router-link
               :to="{ name: 'VideoView', params: { id: video.id, title: video.title, courseId: courseId } }"
-              :class="{'text-white': video.id === currentVideoId, 'text-neutral-500': video.id !== currentVideoId}"
+              :class="{'text-black': video.id === currentVideoId, 'text-black': video.id !== currentVideoId}"
               class="hover:underline"
             >
               {{ video.title }}
@@ -146,7 +146,18 @@ export default {
 
 <style>
 .plyr--video {
-  border-radius: 0.75rem;
+  --tw-shadow: 5px 5px 0px 0px #000;
+  --tw-shadow-colored: 5px 5px 0px 0px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  --tw-border-opacity: 1;
+    border-color: rgb(17 24 39 / var(--tw-border-opacity));
+    --tw-bg-opacity: 1;
+    background-color: rgb(245 245 245 / var(--tw-bg-opacity));
+    border-width: 4px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
 }
 .plyr--full-ui input[type=range] {
   color: #6466f1 !important;

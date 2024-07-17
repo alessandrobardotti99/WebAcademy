@@ -1,6 +1,6 @@
 <template>
   <div :class="['w-full', 'bg-YellowWebAcademy', 'sticky', 'top-0', 'z-50', { 'shadow-lg': hasScrolled }]">
-    <nav class="sticky flex justify-between w-full m-auto ml-auto mr-auto items-center bg-YellowWebAcademy top-0 p-4">
+    <nav class="sticky flex justify-between w-full m-auto ml-auto mr-auto items-center bg-YellowWebAcademy top-0 p-4 max-w-[1800px]">
       <router-link to="/">
         <div>
           <img src="/src/assets/img/logoWebAcademy-removebg-preview.png" alt="logoWebAcademy" class="max-w-full h-[40px]">
@@ -70,7 +70,7 @@
           </template>
           <template v-else>
             <router-link to="/accedi"
-              class="my-0 mx-1 py-1 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-indigo-500 text-lg lg:text-xl w-fit text-black font-medium flex gap-2 items-center whitespace-nowrap">
+              class="text-2xl mx-4 border-4 rounded-full border-gray-950 p-2 shadow-brutalSmall text-white font-semibold leading-6 bg-indigo-500 flex items-center cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000]">
               <li class="list-none">Accedi</li>
             </router-link>
           </template>
@@ -149,7 +149,7 @@
             </template>
             <template v-else>
               <router-link to="/accedi"
-                class="bg-indigo-600 text-white py-2 px-4 rounded-xl cursor-pointer hover:bg-indigo-700"
+                class="text-2xl mx-4 border-4 rounded-full border-gray-950 p-2 shadow-brutalSmall text-white font-semibold leading-6 bg-indigo-500 flex items-center cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000]"
                 @click="toggleMobileMenu">
                 <li class="list-none">Accedi</li>
               </router-link>

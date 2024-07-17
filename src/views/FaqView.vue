@@ -67,7 +67,7 @@ onBeforeUnmount(() => {
 <template>
   <div class="bg-gray-100 min-h-screen">  
     <Nav />
-    <div class="p-8">
+    <div class="p-8 max-w-[1800px] ml-auto mr-auto">
       <h1 class="text-[4rem] font-monospace text-center mt-4 mb-8">Domande più popolari</h1>
       <div ref="dropdownStudy" class="my-0 mx-1 py-4 px-4 border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-white text-lg lg:text-xl w-full text-black font-medium mb-4" @click.stop>
         <div class="flex justify-between items-center cursor-pointer"  @click="showStudy = !showStudy">

@@ -1,8 +1,8 @@
 <template>
   <Nav />
   <div class="bg-white min-h-screen flex">
-    <div class="flex w-full">
-      <aside class="bg-white w-1/4 min-h-screen p-8 shadow-xl">
+    <div class="flex w-full max-w-[1800px] mr-auto ml-auto">
+      <aside class="w-1/4 min-h-screen p-8 border-r-4 border-gray-900 bg-white">
         <ul>
           <li class="mb-2">
             <button @click="currentTab = 'profile'"
@@ -48,7 +48,7 @@
             <h2 class="text-4xl font-bold mb-6 font-monospace text-indigo-500 mt-4">Corsi acquistati</h2>
             <div v-if="purchasedCourses.length">
               <ul>
-                <li v-for="course in purchasedCourses" :key="course.id" class="my-0 mx-1 py-2 px-4 rounded-md border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-white text-lg lg:text-xl w-full text-black font-medium mb-4">
+                <li v-for="course in purchasedCourses" :key="course.id" class="my-0 mx-1 py-2 px-4 rounded-md border-4 border-gray-900 shadow-brutal cursor-pointer bg-white text-lg lg:text-xl w-full text-black font-medium mb-4">
                   <h3 class="text-xl font-bold">{{ course.title }}</h3>
                   <p>{{ course.description }}</p>
                   <span class="text-gray-500">Acquistato il: {{ formatDate(course.purchase_date) }}</span>
