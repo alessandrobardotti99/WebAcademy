@@ -28,20 +28,88 @@
             <div v-if="user">
               <h1 class="text-4xl font-bold mb-8 font-monospace text-indigo-500 text-[4rem] mt-4">Profilo Utente</h1>
               <div class="mb-4">
+                <label class="text-lg lg:text-xl w-full text-black font-medium">Email corrente:</label>
+                <input v-model="user.email" disabled
+                  class="p-4 bg-white my-0 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal text-lg lg:text-xl w-full text-black font-medium mb-2 whitespace-nowrap mt-2" />
+              </div>
+              <div class="mb-4">
                 <label class="text-lg lg:text-xl w-full text-black font-medium">Ultimo accesso:</label>
                 <input v-model="formattedLastSignIn" disabled
                   class="p-4 bg-white my-0 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal text-lg lg:text-xl w-full text-black font-medium mb-2 whitespace-nowrap mt-2" />
               </div>
               <div class="mb-4">
-                <label class="text-lg lg:text-xl w-full text-black font-medium">Creato il:</label>
+                <label class="text-lg lg:text-xl w-full text-black font-medium">Account creato il:</label>
                 <input v-model="formattedCreatedAt" disabled
                   class="p-4 bg-white my-0 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal text-lg lg:text-xl w-full text-black font-medium mb-2 whitespace-nowrap mt-2" />
               </div>
 
               <!-- Dropdown per aggiornare l'email -->
-              <div @click="toggleDropdown('email')"
+              
+            </div>
+            <div v-else class="text-center text-gray-500">
+              <span class="text-start text-black leading-8 font-semibold text-xl mb-5 mt-16">Caricamrnto in
+                corso...</span>
+            </div>
+          </div>
+
+          <div v-if="currentTab === 'orders'">
+            <h1 class="text-4xl font-bold mb-8 font-monospace text-indigo-500 mt-4 text-[4rem]">Corsi acquistati</h1>
+            <div v-if="purchasedCourses.length">
+              <ul>
+                <li v-for="course in purchasedCourses" :key="course.id"
+                  class="my-0   py-2 px-4 rounded-md border-4 border-gray-900 shadow-brutal bg-white text-lg lg:text-xl w-full text-black font-medium mb-4">
+                  <h3 class="text-xl font-bold text-indigo-500 mt-4 mb-2 underline">{{ course.title }}</h3>
+                  <p>{{ course.description }}</p>
+                  <span class="text-gray-500">Acquistato il: {{ formatDate(course.purchase_date) }}</span>
+                  <div @click="toggleDropdown(course.id)"
+                    class="my-0 py-4 px-4 border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-grey-100 flex items-center justify-between text-lg lg:text-xl w-full text-black font-medium mb-4 mt-4">
+                    <span class="text-lg font-bold">Video del corso</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5"
+                      stroke="currentColor"
+                      :class="{ 'transform rotate-90': isOpen(course.id), 'ml-2': true, 'w-8': true, 'h-8': true, 'transition-transform': true }">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                    </svg>
+
+                  </div>
+                  <transition name="accordion">
+                    <div v-if="isOpen(course.id)">
+                      <ul v-if="course.videos.length">
+                        <li v-for="video in course.videos" :key="video.id"
+                          class="my-0   py-2 px-4 rounded-md border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-indigo-500 text-lg lg:text-xl w-full text-black font-medium mb-2 whitespace-nowrap">
+                          <div class="flex justify-between items-center text-white">
+                            <div>
+                              {{ video.title }}
+                              <p>{{ video.description }}</p>
+                            </div>
+                            <div>
+                              <router-link
+                                :to="{ name: 'VideoView', params: { id: video.id, title: video.title, courseId: course.id } }"
+                                class="my-0   py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-YellowWebAcademy text-lg lg:text-xl w-fit text-black font-medium flex gap-2 items-center whitespace-nowrap">
+                                <button>Vai al video</button> </router-link>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                      <div v-else class="text-gray-500 p-4">
+                        <span class="text-start text-black leading-8 font-semibold text-xl mb-5 mt-16">Nessun video
+                          disponibile...</span>
+                      </div>
+                    </div>
+                  </transition>
+                </li>
+              </ul>
+            </div>
+            <div v-else class="text-center text-gray-500">
+              <span class="text-start text-black leading-8 font-semibold text-xl mb-5 mt-16">Nessun corso
+                trovato...</span>
+            </div>
+          </div>
+
+          <div v-if="currentTab === 'settings'">
+            <h1 class="text-4xl font-bold mb-8 font-monospace text-indigo-500 text-[4rem] mt-4">Impostazioni</h1>
+            <div @click="toggleDropdown('email')"
                 class="my-0 py-4 px-4 border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-grey-100 flex items-center justify-between text-lg lg:text-xl w-full text-black font-medium mb-4 mt-4">
-                <span class="text-lg font-bold">Aggiorna Email</span>
+                <span class="text-lg font-bold">Modifica email</span>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5"
                   stroke="currentColor"
                   :class="{ 'transform rotate-90': isOpen('email'), 'ml-2': true, 'w-8': true, 'h-8': true, 'transition-transform': true }">
@@ -51,7 +119,8 @@
               <transition name="accordion">
                 <div v-if="isOpen('email')">
                   <div class="mb-4">
-                    <label class="text-lg lg:text-xl w-full text-black font-medium mb-4">Email:</label>
+                    <label class="text-lg lg:text-xl w-full text-black font-medium mb-4">Inserisci la nuova
+                      email:</label>
                     <input v-model="newEmail"
                       class="p-4 bg-white my-0 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal text-lg lg:text-xl w-full text-black font-medium mb-2 whitespace-nowrap mt-2" />
                     <button @click="updateEmail"
@@ -65,7 +134,7 @@
               <!-- Dropdown per aggiornare la password -->
               <div @click="toggleDropdown('password')"
                 class="my-0 py-4 px-4 border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-grey-100 flex items-center justify-between text-lg lg:text-xl w-full text-black font-medium mb-4 mt-4">
-                <span class="text-lg font-bold">Aggiorna Password</span>
+                <span class="text-lg font-bold">Modifica password</span>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5"
                   stroke="currentColor"
                   :class="{ 'transform rotate-90': isOpen('password'), 'ml-2': true, 'w-8': true, 'h-8': true, 'transition-transform': true }">
@@ -90,91 +159,36 @@
                   </div>
                 </div>
               </transition>
-            </div>
-            <div v-else class="text-center text-gray-500">
-              Caricamento...
-            </div>
-          </div>
+              <hr class="border-2 border-black mt-8 mb-8">
+            <p class="mt-4 text-start text-black leading-8 font-semibold text-xl mb-5">Eliminando l'account verranno
+              cancellati i dati in modo permanente e si perderà l'accesso ai corsi
+              acquistati.
 
-
-
-
-
-          <div v-if="currentTab === 'orders'">
-            <h1 class="text-4xl font-bold mb-8 font-monospace text-indigo-500 mt-4 text-[4rem]">Corsi acquistati</h1>
-            <div v-if="purchasedCourses.length">
-              <ul>
-                <li v-for="course in purchasedCourses" :key="course.id"
-                  class="my-0   py-2 px-4 rounded-md border-4 border-gray-900 shadow-brutal cursor-pointer bg-white text-lg lg:text-xl w-full text-black font-medium mb-4">
-                  <h3 class="text-xl font-bold">{{ course.title }}</h3>
-                  <p>{{ course.description }}</p>
-                  <span class="text-gray-500">Acquistato il: {{ formatDate(course.purchase_date) }}</span>
-                  <div @click="toggleDropdown(course.id)"
-                    class="my-0 py-4 px-4 border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-grey-100 flex items-center justify-between text-lg lg:text-xl w-full text-black font-medium mb-4 mt-4">
-                    <span class="text-lg font-bold">Video del corso</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5"
-                      stroke="currentColor"
-                      :class="{ 'transform rotate-90': isOpen(course.id), 'ml-2': true, 'w-8': true, 'h-8': true, 'transition-transform': true }">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                    </svg>
-
-                  </div>
-                  <transition name="accordion">
-                    <div v-if="isOpen(course.id)">
-                      <ul v-if="course.videos.length">
-                        <li v-for="video in course.videos" :key="video.id"
-                          class="my-0   py-2 px-4 rounded-md border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-indigo-500 text-lg lg:text-xl w-full text-black font-medium mb-2 whitespace-nowrap">
-                          <div class="flex justify-between items-center">
-                            <div>
-                              {{ video.title }}
-                              <p>{{ video.description }}</p>
-                            </div>
-                            <div>
-                              <router-link
-                                :to="{ name: 'VideoView', params: { id: video.id, title: video.title, courseId: course.id } }"
-                                class="my-0   py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-YellowWebAcademy text-lg lg:text-xl w-fit text-black font-medium flex gap-2 items-center whitespace-nowrap">
-                                <button>Vai al video</button> </router-link>
-                            </div>
-                          </div>
-                        </li>
-                      </ul>
-                      <div v-else class="text-gray-500 p-4">
-                        Nessun video disponibile.
-                      </div>
-                    </div>
-
-                  </transition>
-                </li>
-              </ul>
-            </div>
-            <div v-else class="text-center text-gray-500">
-              Nessun ordine trovato.
-            </div>
-          </div>
-
-          <div v-if="currentTab === 'settings'">
-            <h1 class="text-4xl font-bold mb-8 font-monospace text-indigo-500 text-[4rem] mt-4">Impostazioni</h1>
-            <p>Pagina delle impostazioni (in arrivo).</p>
+              Non verranno risarciti corsi di account cancellati per errore.</p>
             <button @click="showDeleteModal = true"
-              class="text-red-600 bg-white my-0 py-2 px-4 rounded-md border-2 border-red-600 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] text-lg lg:text-xl font-medium whitespace-nowrap">
+              class="p-4 bg-red-300 rounded-md cursor-pointer my-0 py-2 px-4 border-4 border-gray-900 shadow-brutal active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] text-lg lg:text-xl w-min text-red-500 font-medium mb-2 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed">
               Elimina Account
             </button>
             <!-- Modal per eliminare l'account -->
             <div v-if="showDeleteModal"
-              class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center">
-              <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
-                <h2 class="text-2xl font-bold mb-4">Attenzione!</h2>
-                <p class="mb-4">Eliminando l'account verranno cancellati i dati in modo permanente e si perderà
+              class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+              <div
+                class="max-w-md p-4 bg-white rounded-md my-0 py-2 px-4 border-4 border-gray-900 shadow-brutal cursor-pointer text-lg lg:text-xl w-full text-black font-medium mb-2">
+                <h2 class="text-4xl font-bold mb-4 text-center mt-2">Attenzione!</h2>
+                <p class="mb-4 text-center">Eliminando l'account verranno cancellati i dati in modo permanente e si
+                  perderà
                   l'accesso ai corsi acquistati.</p>
-                <p class="mb-4">Non verranno risarciti corsi di account cancellati per errore.</p>
-                <p class="mb-4">Per confermare, scrivi "elimina" nel campo sottostante.</p>
-                <input v-model="deleteConfirmation" type="text" class="p-2 border border-gray-300 rounded w-full mb-4"
+                <p class="mb-4 text-center">Non verranno risarciti corsi di account cancellati per errore.</p>
+                <p class="mb-4 text-center">Per confermare, scrivi <span class="text-red-500 font-bold">"elimina"</span>
+                  nel campo sottostante.</p>
+                <input v-model="deleteConfirmation" type="text"
+                  class="p-4 bg-white hover:bg-neutral-200 my-0 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer text-lg lg:text-xl w-full text-black font-medium mb-2 whitespace-nowrap mt-2"
                   placeholder="Scrivi 'elimina' per confermare">
-                <div class="flex justify-end">
+                <div class="flex justify-between mt-8 mb-4">
                   <button @click="showDeleteModal = false"
-                    class="text-gray-700 bg-gray-200 px-4 py-2 rounded mr-2">Annulla</button>
+                    class="p-4 bg-white rounded-md my-0 py-2 px-4  border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] text-lg lg:text-xl w-min text-black font-medium mb-2 whitespace-nowrap">Annulla</button>
                   <button @click="confirmDeleteAccount" :disabled="deleteConfirmation !== 'elimina'"
-                    class="text-white bg-red-600 px-4 py-2 rounded disabled:opacity-50 disabled:cursor-not-allowed">
+                    class="p-4 bg-red-300 rounded-md cursor-pointer my-0 py-2 px-4  border-4 border-gray-900 shadow-brutal active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] text-lg lg:text-xl w-min text-red-500 font-medium mb-2 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed">
                     Elimina
                   </button>
                 </div>
