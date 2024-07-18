@@ -29,10 +29,14 @@ export default {
                 </div>
             </div>
             <div class="bg-indigo-500 w-full border-4 border-gray-900 transition-all md:shadow-brutal md:-translate-y-2   relative p-12 text-center m-auto mt-8 mb-24 max-xl:mb-8">
-                <h2 class="text-black text-[2rem] font-bold font-monospace">Realizza il tuo sogno</h2>
-                <p class="text-black mt-4 font-semibold"> Immergiti nella nostra vasta libreria di corsi online e libera il tuo
+                <h2 class="text-black text-[2rem] font-bold font-monospace mb-4">Realizza il tuo sogno</h2>
+                <p class="w-full text-black leading-8 font-semibold text-xl text-center"> Immergiti nella nostra vasta libreria di corsi online e libera il tuo
                     potenziale come sviluppatore web.  </p>
-                <p class="text-black mt-4 text-sm flex items-center gap-2 justify-center font-semibold">Raggiungi i tuoi obbiettivi</p>
+                    <div class="m-auto text-center">
+            <router-link to="/corsi" class="flex justify-center">
+                <p class="my-0 mx-1 py-2 px-4 mt-8 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-indigo-500 text-lg lg:text-xl w-fit text-black font-medium m-auto">Raggiungi i tuoi obbiettivi</p>
+            </router-link>
+        </div>
             </div>
         </div>
 
@@ -41,9 +45,13 @@ export default {
                     <span class="text-gradient-one font-bold text-5xl text-center">Impara e scopri</span>
                 </div>
             <div class="bg-YellowWebAcademy w-full m-auto border-4 border-gray-900 transition-all md:shadow-brutal md:-translate-y-2   relative p-12 mt-8 mb-24">
-                <h2 class="text-black text-[2rem] font-bold font-monospace">Domande frequenti</h2>
-                <p class="text-black mt-4 font-semibold">Ottieni risposte alle tue domande urgenti sui nostri  corsi online in HTML, CSS e JavaScript.</p>
-                <p class="text-black mt-4 text-center font-semibold">Chiarisci qualsiasi dubbio</p>
+                <h2 class="text-black text-[2rem] font-bold font-monospace mb-4">Domande frequenti</h2>
+                <p class="w-full text-black leading-8 font-semibold text-xl text-center">Ottieni risposte alle tue domande urgenti sui nostri  corsi online in HTML, CSS e JavaScript.</p>
+                <div class="m-auto text-center">
+            <router-link to="/faq" class="flex justify-center">
+                <p class="my-0 mx-1 py-2 px-4 mt-8 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-YellowWebAcademy text-lg lg:text-xl w-fit text-black font-medium m-auto">Chiarisci qualsiasi dubbio</p>
+            </router-link>
+        </div>
             </div>
             
         </div>
