@@ -19,7 +19,7 @@ export default {
 <template>
     <div class="w-full bg-YellowWebAcademy border-b-4 border-gray-900">
         <div class="w-[80%] pt-24 pb-36 bg-YellowWebAcademy m-auto max-w-[1800px] ml-auto mr-auto max-xl:w-[90%] max-md:pt-4 max-xl:pb-16">
-            <div class="flex justify-around gap-4 max-xl:block">
+            <div class="flex justify-around gap-4 max-xl:block items-center">
                 <div class="w-[60%] max-xl:w-full">
                     <h1 class="text-[4rem] font-monospace font-bold max-xl:text-center max-sm:text-[3rem]">Corsi online di HTML, CSS e JAVASCRIPT</h1>
                     <p class="mt-4 text-black leading-8 font-semibold text-xl max-xl:text-center">Impara le competenze essenziali di

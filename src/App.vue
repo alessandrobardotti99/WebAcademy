@@ -11,3 +11,9 @@ import HomePage from '@/views/HomeView.vue'
   </header>
   <router-view></router-view>
 </template>
+
+<style>
+#app {
+  background-color: #f3f4f6;
+}
+</style>

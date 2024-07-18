@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-100 min-h-screen relative">
+  <div class="bg-gray-100 h-screen relative">
     <Nav />
     <div class="max-w-6xl mx-auto p-8">
       <h1 class="text-[4rem] font-monospace text-center mt-4 mb-8">Il tuo carrello</h1>
@@ -52,13 +52,10 @@
       </div>
       <div v-else class="text-center text-gray-500">
         <h3 class="mt-[20rem] text-[1.5rem]">Il tuo carrello è vuoto</h3>
-        <div>
-          <CarrelloVuoto class="m-auto max-w-full w-[500px]" />
-        </div>
       </div>
     </div>
-    <Footer />
   </div>
+  <Footer />
 </template>
 
 <script>

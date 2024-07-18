@@ -24,11 +24,6 @@
             active-class="active">
             <li>Esercitazioni</li>
           </router-link>
-          <router-link to="/contatti"
-            class="flex items-center gap-2 text-2xl font-semibold leading-2 text-gray-900 border-b-4 border-b-transparent mx-6 hover:border-b-gray-900"
-            active-class="active">
-            <li>Contatti</li>
-          </router-link>
           <router-link v-if="user" to="/carrello"
             class="relative flex items-center gap-2 text-2xl font-semibold leading-2 text-gray-900 border-b-4 border-b-transparent mx-6 hover:border-b-gray-900"
             active-class="active">
@@ -108,11 +103,6 @@
               class="flex items-center gap-2 text-2xl font-semibold leading-2 text-gray-900 border-b-4 border-b-transparent mx-6 hover:border-b-gray-900"
               active-class="active" @click="toggleMobileMenu">
               <li>Esercitazioni</li>
-            </router-link>
-            <router-link to="/contatti"
-              class="flex items-center gap-2 text-2xl font-semibold leading-2 text-gray-900 border-b-4 border-b-transparent mx-6 hover:border-b-gray-900"
-              active-class="active" @click="toggleMobileMenu">
-              <li>Contatti</li>
             </router-link>
             <template v-if="user">
               <router-link to="/carrello"

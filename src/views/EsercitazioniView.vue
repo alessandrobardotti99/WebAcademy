@@ -19,7 +19,7 @@
             <div class="p-8">
             <div class="text-center my-0 mx-1 py-4 px-4 border-4 border-gray-900 shadow-brutal bg-white text-lg lg:text-xl w-fulltext-black font-medium flex gap-2 items-center whitespace-nowrap justify-between">
                 <p v-if="!allCoursesCompleted()" class="text-black">Completa tutti gli esercizi per poter
-                    scaricare il template</p>
+                    scaricare il template di un sito professionale</p>
                 <a :href="allCoursesCompleted() ? 'link-al-template.zip' : '#'"
                     :class="{ 'cursor-not-allowed opacity-50': !allCoursesCompleted() }"
                     class="text-white bg-indigo-500 my-0 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal text-lg lg:text-xl font-medium whitespace-nowrap flex items-center gap-2"
