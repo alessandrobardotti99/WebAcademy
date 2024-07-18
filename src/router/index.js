@@ -14,6 +14,7 @@ import JsExercisesView from "../views/JsExercisesView.vue";
 import ReturnPaymentCancelView from "../views/ReturnPaymentCancelView.vue";
 import ReturnPaymentSuccessView from "../views/ReturnPaymentSuccessView.vue";
 import RegistrazioneEffettuataMail from "../views/RegistrazioneEffettuataMail.vue";
+import EmailConfirmationView from "../views/EmailConfirmationView.vue";
 import VideoView from "../views/VideoView.vue";
 import { supabase } from '../supabase';
 import Cookies from 'js-cookie';
@@ -111,7 +112,12 @@ const routes = [
     name: 'OrderFailed',
     component: ReturnPaymentCancelView,
     meta: { requiresAuth: true },
-  }
+  },
+  {
+    path: '/email-confermata',
+    name: 'email-confermata',
+    component: EmailConfirmationView,
+  },
 ];
 
 const router = createRouter({

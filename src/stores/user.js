@@ -36,10 +36,16 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
+  const setSession = (session) => {
+    user.value = session.user
+    Cookies.set('supabaseSession', JSON.stringify(session), { expires: 1 })
+  }
+
   return {
     user,
     fetchUser,
     removeSession,
-    loadSessionFromCookies
+    loadSessionFromCookies,
+    setSession
   }
 })

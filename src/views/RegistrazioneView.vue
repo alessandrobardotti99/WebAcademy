@@ -73,54 +73,57 @@
   
   <script>
   import { ref } from 'vue'
-  import { supabase } from '../supabase'
-  import Cookies from 'js-cookie'
-  import IconaBack from '../components/icons/IconaBack.vue'
-  
-  export default {
-    name: 'RegisterView',
-    components: {
-      IconaBack
-    },
-    setup() {
-      const username = ref('')
-      const email = ref('')
-      const password = ref('')
-      const error = ref(null)
-      const loading = ref(false)
-  
-      const register = async () => {
-        error.value = null
-        loading.value = true
-        const { user, error: registerError } = await supabase.auth.signUp({
-          email: email.value,
-          password: password.value,
-        }, {
-          data: { 
-            username: username.value,
-            email: email.value
-          }
-        })
-        loading.value = false
-        if (registerError) {
-          error.value = registerError.message
-          password.value = ''
-        } else {
-          Cookies.set('supabaseSession', JSON.stringify(user), { expires: 1 })
-          router.push('/registrazione-effettuata')
+import { useRouter } from 'vue-router'
+import { supabase } from '../supabase'
+import Cookies from 'js-cookie'
+import IconaBack from '../components/icons/IconaBack.vue'
+
+export default {
+  name: 'RegisterView',
+  components: {
+    IconaBack
+  },
+  setup() {
+    const username = ref('')
+    const email = ref('')
+    const password = ref('')
+    const error = ref(null)
+    const loading = ref(false)
+    const router = useRouter() 
+
+    const register = async () => {
+      error.value = null
+      loading.value = true
+      const { user, error: registerError } = await supabase.auth.signUp({
+        email: email.value,
+        password: password.value,
+      }, {
+        data: { 
+          username: username.value,
+          email: email.value
         }
-      }
-  
-      return {
-        username,
-        email,
-        password,
-        error,
-        loading,
-        register
+      })
+      loading.value = false
+      if (registerError) {
+        error.value = registerError.message
+        password.value = ''
+      } else {
+        Cookies.set('supabaseSession', JSON.stringify(user), { expires: 1 })
+        router.push('/registrazione-effettuata')
       }
     }
+
+    return {
+      username,
+      email,
+      password,
+      error,
+      loading,
+      register
+    }
   }
+}
+
   </script>
   
   <style scoped>

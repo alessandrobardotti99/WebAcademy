@@ -294,7 +294,7 @@ export default {
           console.error('Error deleting account:', error);
           return;
         }
-
+        toast.success('Profilo eliminato con successo!');
         userStore.removeSession();
         router.push('/');
       } catch (error) {
