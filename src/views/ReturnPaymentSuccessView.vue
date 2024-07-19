@@ -1,13 +1,16 @@
 <template>
   <div class="min-h-screen bg-indigo-500 flex items-center justify-center">
     <div class="p-8 rounded-lg text-center">
-      <img src="/src/assets/img/logoWebAcademy-removebg-white.png" alt="logoWebAcademy" class="max-w-full w-[600px] m-auto mb-10">
+      <img src="/src/assets/img/logoWebAcademy-removebg-white.png" alt="logoWebAcademy"
+        class="max-w-full w-[600px] m-auto mb-10">
       <div class="text-center m-auto">
         <IconaOrdineCompletato class="m-auto" />
       </div>
       <h1 class="text-4xl font-bold mb-4 text-white font-monospace">Ordine Completato!</h1>
-      <p class="text-white mb-8">Grazie per il tuo acquisto! Il tuo ordine è stato completato con successo. <br> Visita la pagina dei corsi acquistati, all'interno del tuo profilo, per iniziare ad imparare.</p>
-      <router-link to="/profilo?tab=orders" @click.native="clearCart" class="text-neutral-800 hover:underline p-4 bg-YellowWebAcademy mt-8 rounded-xl">Vai al profilo</router-link>
+      <p class="text-white mb-8">Grazie per il tuo acquisto! Il tuo ordine è stato completato con successo. <br> Visita
+        la pagina dei corsi acquistati, all'interno del tuo profilo, per iniziare ad imparare.</p>
+      <router-link to="/profilo?tab=orders" @click.native="clearCart"
+        class="text-neutral-800 hover:underline p-4 bg-YellowWebAcademy mt-8 rounded-xl">Vai al profilo</router-link>
     </div>
   </div>
 </template>
@@ -51,7 +54,7 @@ export default {
               await sendConfirmationEmail(user.email, item)
             }
           }
-          localStorage.removeItem('cartItems') 
+          localStorage.removeItem('cartItems')
         } catch (error) {
           console.error('Error saving order:', error)
         }
@@ -84,10 +87,9 @@ export default {
         template_id: import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
         user_id: import.meta.env.VITE_EMAILJS_USER_ID,
         template_params: {
-          user_email: email,
+          to_name: email,
           course_title: course.title,
           course_duration: course.duration,
-          course_price: course.price
         }
       };
 
@@ -109,6 +111,7 @@ export default {
         console.error('Error sending confirmation email:', error.response ? error.response.data : error.message);
       }
     };
+
 
     onMounted(() => {
       saveOrder()
