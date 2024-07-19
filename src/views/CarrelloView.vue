@@ -9,16 +9,16 @@
             class="flex flex-col justify-between  px-8 py-10  border-4 border-gray-900 bg-white  transition-all md:shadow-brutal md:-translate-y-2   mb-4">
             <div class="flex items-center justify-between">
               <div class="flex items-center j">
-              <img :src="course.image_url" :alt="course.title"
-                class="w-[9rem] h-[6rem] object-cover border-4 border-gray-900 bg-white transition-all md:shadow-brutal md:-translate-y-2  ">
-              <div class="ml-4">
-                <h2 class="text-xl font-bold justify-between w-full">{{ course.title }}</h2>
-                <p class="text-gray-500">{{ course.duration }}</p>
-                <div class="flex items-center justify-between">
-                  <span class="text-lg font-bold mr-4">{{ course.price }} €</span>
+                <img :src="course.image_url" :alt="course.title"
+                  class="w-[9rem] h-[6rem] object-cover border-4 border-gray-900 bg-white transition-all md:shadow-brutal md:-translate-y-2  ">
+                <div class="ml-4">
+                  <h2 class="text-xl font-bold justify-between w-full">{{ course.title }}</h2>
+                  <p class="text-gray-500">{{ course.duration }}</p>
+                  <div class="flex items-center justify-between">
+                    <span class="text-lg font-bold mr-4">{{ course.price }} €</span>
+                  </div>
                 </div>
               </div>
-            </div>
               <div>
                 <button @click="removeFromCart(course.id)"
                   class="my-0 mx-1 py-2 px-2 rounded-md border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-red-500 text-lg lg:text-xl w-full text-black font-medium flex gap-2 items-center whitespace-nowrap justify-center">
@@ -43,11 +43,13 @@
           </div>
           <hr class="mb-4 mt-4">
           <button @click="goToPayment"
-              class="my-0 mx-1 py-2 px-4 rounded-md border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-indigo-500 text-lg lg:text-xl w-full text-black font-medium flex gap-2 items-center whitespace-nowrap"
-              :disabled="loadingPayment">
-        <span v-if="loadingPayment">Pagamento in corso...</span>
-        <span v-else class="flex items-center justify-start gap-2">Vai al pagamento <IconaFrecciaLunga /></span>
-      </button>
+            class="my-0 mx-1 py-2 px-4 rounded-md border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-indigo-500 text-lg lg:text-xl w-full text-black font-medium flex gap-2 items-center whitespace-nowrap"
+            :disabled="loadingPayment">
+            <span v-if="loadingPayment">Pagamento in corso...</span>
+            <span v-else class="flex items-center justify-start gap-2">Vai al pagamento
+              <IconaFrecciaLunga />
+            </span>
+          </button>
         </div>
       </div>
       <div v-else class="text-center text-gray-500">
@@ -157,8 +159,22 @@ export default {
       }
     }
 
+    const sendConfirmationEmail = async (user, course) => {
+      try {
+        await axios.post('http://localhost:3000/send-confirmation-email', {
+          email: user.email,
+          course: course
+        })
+      } catch (error) {
+        console.error('Error sending confirmation email:', error)
+      }
+    }
+
     onMounted(() => {
       fetchCartItems()
+      if (userStore.user && cartItems.value.length) {
+        sendConfirmationEmail(userStore.user, cartItems.value[0]) // Invia l'email per il primo corso
+      }
     })
 
     return {

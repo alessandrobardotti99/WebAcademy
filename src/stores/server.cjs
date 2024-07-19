@@ -6,7 +6,7 @@ const { v4: uuidv4 } = require('uuid');
 require('dotenv').config();
 
 const app = express();
-const stripe = Stripe(process.env.STRIPE_SECRET_KEY); // Usa la chiave segreta di Stripe
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 const supabase = createClient(process.env.VITE_SUPABASE_URL, process.env.VITE_SUPABASE_ANON_KEY);
 
 app.use(cors());

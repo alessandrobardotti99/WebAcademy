@@ -18,6 +18,7 @@ import { ref, onMounted } from 'vue'
 import { useUserStore } from '../stores/user.js'
 import { supabase } from '../supabase'
 import { v4 as uuidv4 } from 'uuid'
+import axios from 'axios'
 
 export default {
   name: 'OrderCompleted',
@@ -46,6 +47,8 @@ export default {
               throw error
             } else {
               console.log('Order inserted:', data)
+              // Chiamata per inviare l'email di conferma
+              await sendConfirmationEmail(user.email, item)
             }
           }
           localStorage.removeItem('cartItems') 
@@ -75,9 +78,41 @@ export default {
       }
     }
 
+    const sendConfirmationEmail = async (email, course) => {
+      const emailData = {
+        service_id: import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        template_id: import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        user_id: import.meta.env.VITE_EMAILJS_USER_ID,
+        template_params: {
+          user_email: email,
+          course_title: course.title,
+          course_duration: course.duration,
+          course_price: course.price
+        }
+      };
+
+      console.log("Sending email with data:", emailData); // Debug info
+
+      try {
+        const response = await axios.post('https://api.emailjs.com/api/v1.0/email/send', emailData, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if (response.status === 200) {
+          console.log('Email sent successfully:', response.data);
+        } else {
+          console.error('Failed to send email:', response.data);
+        }
+      } catch (error) {
+        console.error('Error sending confirmation email:', error.response ? error.response.data : error.message);
+      }
+    };
+
     onMounted(() => {
       saveOrder()
-    })
+    });
 
     return {
       clearCart
