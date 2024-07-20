@@ -20,6 +20,14 @@
               :class="{ 'text-black font-bold': currentTab === 'settings', 'text-neutral-800 p-4 bg-white rounded-md': currentTab !== 'settings' }"
               class="my-0   py-2 px-4 rounded-md border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-indigo-500 text-lg lg:text-xl w-full text-black font-medium mb-2 whitespace-nowrap">Impostazioni</button>
           </li>
+          <li class="mb-2" v-if="isAdmin">
+            <button @click="currentTab = 'adminOrders'"
+              :class="{ 'text-black font-bold': currentTab === 'adminOrders', 'text-neutral-800 p-4 bg-white rounded-md': currentTab !== 'adminOrders' }"
+              class="my-0 py-2 px-4 rounded-md border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-indigo-500 text-lg lg:text-xl w-full text-black font-medium mb-2 whitespace-nowrap">
+              Ordini
+            </button>
+          </li>
+
         </ul>
       </aside>
       <main class="w-3/4 p-4">
@@ -44,7 +52,7 @@
               </div>
 
               <!-- Dropdown per aggiornare l'email -->
-              
+
             </div>
             <div v-else class="text-center text-gray-500">
               <span class="text-start text-black leading-8 font-semibold text-xl mb-5 mt-16">Caricamrnto in
@@ -105,61 +113,90 @@
             </div>
           </div>
 
+          <div v-if="currentTab === 'adminOrders' && isAdmin">
+            <h1 class="text-4xl font-bold mb-8 font-monospace text-indigo-500 mt-4 text-[4rem]">Ordini</h1>
+            <div v-if="allOrders.length">
+              <ul>
+                <li v-for="order in allOrders" :key="order.id"
+                  class="my-0 py-2 px-4 rounded-md border-4 border-gray-900 shadow-brutal bg-white text-lg lg:text-xl w-full text-black font-medium mb-4">
+                  <h3 class="text-xl font-bold text-indigo-500 mt-4 mb-2 underline">{{ order.courseTitle }}</h3>
+                  <p>{{ order.email }}</p>
+                  <span class="text-gray-500">Acquistato il: {{ formatDate(order.purchase_date) }}</span>
+                  <div class="flex mt-4">
+                    <button @click="confirmDeleteOrder(order.id)"
+                      class="mr-2 text-white bg-red-500 my-0 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] text-lg lg:text-xl font-medium">Elimina
+                      Ordine</button>
+                    <button @click="confirmDeleteUser(order.user_id)"
+                      class="text-white bg-red-500 my-0 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] text-lg lg:text-xl font-medium">Elimina
+                      Utente</button>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div v-else class="text-center text-gray-500">
+              <span class="text-start text-black leading-8 font-semibold text-xl mb-5 mt-16">Nessun ordine
+                trovato...</span>
+            </div>
+          </div>
+
+
+
+
           <div v-if="currentTab === 'settings'">
             <h1 class="text-4xl font-bold mb-8 font-monospace text-indigo-500 text-[4rem] mt-4">Impostazioni</h1>
             <div @click="toggleDropdown('email')"
-                class="my-0 py-4 px-4 border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-grey-100 flex items-center justify-between text-lg lg:text-xl w-full text-black font-medium mb-4 mt-4">
-                <span class="text-lg font-bold">Modifica email</span>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5"
-                  stroke="currentColor"
-                  :class="{ 'transform rotate-90': isOpen('email'), 'ml-2': true, 'w-8': true, 'h-8': true, 'transition-transform': true }">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                </svg>
-              </div>
-              <transition name="accordion">
-                <div v-if="isOpen('email')">
-                  <div class="mb-4">
-                    <label class="text-lg lg:text-xl w-full text-black font-medium mb-4">Inserisci la nuova
-                      email:</label>
-                    <input v-model="newEmail"
-                      class="p-4 bg-white my-0 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal text-lg lg:text-xl w-full text-black font-medium mb-2 whitespace-nowrap mt-2" />
-                    <button @click="updateEmail"
-                      class="text-white bg-indigo-500 my-0 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] text-lg lg:text-xl font-medium whitespace-nowrap mt-2">
-                      Aggiorna Email
-                    </button>
-                  </div>
+              class="my-0 py-4 px-4 border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-grey-100 flex items-center justify-between text-lg lg:text-xl w-full text-black font-medium mb-4 mt-4">
+              <span class="text-lg font-bold">Modifica email</span>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5"
+                stroke="currentColor"
+                :class="{ 'transform rotate-90': isOpen('email'), 'ml-2': true, 'w-8': true, 'h-8': true, 'transition-transform': true }">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+              </svg>
+            </div>
+            <transition name="accordion">
+              <div v-if="isOpen('email')">
+                <div class="mb-4">
+                  <label class="text-lg lg:text-xl w-full text-black font-medium mb-4">Inserisci la nuova
+                    email:</label>
+                  <input v-model="newEmail"
+                    class="p-4 bg-white my-0 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal text-lg lg:text-xl w-full text-black font-medium mb-2 whitespace-nowrap mt-2" />
+                  <button @click="updateEmail"
+                    class="text-white bg-indigo-500 my-0 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] text-lg lg:text-xl font-medium whitespace-nowrap mt-2">
+                    Aggiorna Email
+                  </button>
                 </div>
-              </transition>
+              </div>
+            </transition>
 
-              <!-- Dropdown per aggiornare la password -->
-              <div @click="toggleDropdown('password')"
-                class="my-0 py-4 px-4 border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-grey-100 flex items-center justify-between text-lg lg:text-xl w-full text-black font-medium mb-4 mt-4">
-                <span class="text-lg font-bold">Modifica password</span>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5"
-                  stroke="currentColor"
-                  :class="{ 'transform rotate-90': isOpen('password'), 'ml-2': true, 'w-8': true, 'h-8': true, 'transition-transform': true }">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                </svg>
-              </div>
-              <transition name="accordion">
-                <div v-if="isOpen('password')">
-                  <div class="mb-4">
-                    <label class="text-lg lg:text-xl w-full text-black font-medium mb-4">Nuova Password:</label>
-                    <input type="password" v-model="newPassword"
-                      class="p-4 bg-white my-0 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal text-lg lg:text-xl w-full text-black font-medium mb-2 whitespace-nowrap mt-2" />
-                  </div>
-                  <div class="mb-4">
-                    <label class="text-lg lg:text-xl w-full text-black font-medium mb-4">Conferma Password:</label>
-                    <input type="password" v-model="confirmPassword"
-                      class="p-4 bg-white my-0 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal text-lg lg:text-xl w-full text-black font-medium mb-2 whitespace-nowrap mt-2" />
-                    <button @click="updatePassword"
-                      class="text-white bg-indigo-500 my-0 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] text-lg lg:text-xl font-medium whitespace-nowrap mt-2">
-                      Aggiorna Password
-                    </button>
-                  </div>
+            <!-- Dropdown per aggiornare la password -->
+            <div @click="toggleDropdown('password')"
+              class="my-0 py-4 px-4 border-4 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] bg-grey-100 flex items-center justify-between text-lg lg:text-xl w-full text-black font-medium mb-4 mt-4">
+              <span class="text-lg font-bold">Modifica password</span>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5"
+                stroke="currentColor"
+                :class="{ 'transform rotate-90': isOpen('password'), 'ml-2': true, 'w-8': true, 'h-8': true, 'transition-transform': true }">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+              </svg>
+            </div>
+            <transition name="accordion">
+              <div v-if="isOpen('password')">
+                <div class="mb-4">
+                  <label class="text-lg lg:text-xl w-full text-black font-medium mb-4">Nuova Password:</label>
+                  <input type="password" v-model="newPassword"
+                    class="p-4 bg-white my-0 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal text-lg lg:text-xl w-full text-black font-medium mb-2 whitespace-nowrap mt-2" />
                 </div>
-              </transition>
-              <hr class="border-2 border-black mt-8 mb-8">
+                <div class="mb-4">
+                  <label class="text-lg lg:text-xl w-full text-black font-medium mb-4">Conferma Password:</label>
+                  <input type="password" v-model="confirmPassword"
+                    class="p-4 bg-white my-0 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal text-lg lg:text-xl w-full text-black font-medium mb-2 whitespace-nowrap mt-2" />
+                  <button @click="updatePassword"
+                    class="text-white bg-indigo-500 my-0 py-2 px-4 rounded-md border-2 border-gray-900 shadow-brutal cursor-pointer active:translate-y-1 active:shadow-[1px_2px_0px_0px_#000] text-lg lg:text-xl font-medium whitespace-nowrap mt-2">
+                    Aggiorna Password
+                  </button>
+                </div>
+              </div>
+            </transition>
+            <hr class="border-2 border-black mt-8 mb-8">
             <p class="mt-4 text-start text-black leading-8 font-semibold text-xl mb-5">Eliminando l'account verranno
               cancellati i dati in modo permanente e si perderà l'accesso ai corsi
               acquistati.
@@ -206,6 +243,7 @@
 <script>
 import { ref, onMounted, computed } from 'vue';
 import { useUserStore } from '../stores/user.js';
+import axios from 'axios';
 import { supabase } from '../supabase';
 import { format } from 'date-fns';
 import { useToast } from 'vue-toastification'
@@ -228,15 +266,21 @@ export default {
     const showDeleteModal = ref(false);
     const deleteConfirmation = ref('');
     const newEmail = ref('');
+    const allOrders = ref([]);
     const newPassword = ref('');
     const confirmPassword = ref('');
     const toast = useToast()
+    const isAdmin = ref(false);
 
     const fetchProfile = async () => {
       userStore.loadSessionFromCookies();
       if (userStore.user) {
         user.value = userStore.user;
+        isAdmin.value = user.value.email === 'alessandrobardotti99@gmail.com';
         await fetchPurchasedCourses(user.value.id);
+        if (isAdmin.value) {
+          await fetchAllOrders();
+        }
       }
     };
 
@@ -286,6 +330,136 @@ export default {
         console.error('Error fetching purchased courses:', error);
       }
     };
+
+    const fetchAllOrders = async () => {
+      try {
+        const { data: orders, error: ordersError } = await supabase
+          .from('orders')
+          .select('*');
+
+        if (ordersError) {
+          console.error('Error fetching orders:', ordersError);
+          return;
+        }
+
+        // Fetch users from your backend server
+        const response = await axios.get('http://localhost:3000/api/users');
+        const users = response.data;
+
+        const { data: courses, error: coursesError } = await supabase
+          .from('courses')
+          .select('*');
+
+        if (coursesError) {
+          console.error('Error fetching courses:', coursesError);
+          return;
+        }
+
+        allOrders.value = orders.map(order => {
+          const user = users.find(user => user.id === order.user_id);
+          const course = courses.find(course => course.id === order.course_id);
+          return {
+            ...order,
+            email: user ? user.email : 'Unknown',
+            courseTitle: course ? course.title : 'Unknown'
+          }
+        });
+      } catch (error) {
+        console.error('Error fetching all orders:', error);
+      }
+    };
+
+
+    const confirmDeleteOrder = async (orderId) => {
+      const password = prompt('Inserisci la tua password per confermare l\'eliminazione dell\'ordine:');
+      if (password) {
+        try {
+          const { error } = await supabase.auth.signInWithPassword({
+            email: user.value.email,
+            password: password,
+          });
+
+          if (error) {
+            toast.error('Password errata. Eliminazione annullata.');
+            return;
+          }
+
+          await deleteOrder(orderId);
+        } catch (error) {
+          toast.error('Errore durante l\'eliminazione dell\'ordine: ' + error.message);
+        }
+      }
+    };
+
+    const confirmDeleteUser = async (userId) => {
+      const password = prompt('Inserisci la tua password per confermare l\'eliminazione dell\'utente:');
+      if (password) {
+        try {
+          const { error } = await supabase.auth.signInWithPassword({
+            email: user.value.email,
+            password: password,
+          });
+
+          if (error) {
+            toast.error('Password errata. Eliminazione annullata.');
+            return;
+          }
+
+          await deleteUser(userId);
+        } catch (error) {
+          toast.error('Errore durante l\'eliminazione dell\'utente: ' + error.message);
+        }
+      }
+    };
+
+    const deleteOrder = async (orderId) => {
+      try {
+        const { error } = await supabase
+          .from('orders')
+          .delete()
+          .eq('id', orderId);
+
+        if (error) {
+          toast.error('Errore durante l\'eliminazione dell\'ordine: ' + error.message);
+          return;
+        }
+
+        toast.success('Ordine eliminato con successo!');
+        await fetchAllOrders();
+      } catch (error) {
+        toast.error('Errore durante l\'eliminazione dell\'ordine: ' + error.message);
+      }
+    };
+
+    const deleteUser = async (userId) => {
+      try {
+        const { error: deleteOrdersError } = await supabase
+          .from('orders')
+          .delete()
+          .eq('user_id', userId);
+
+        if (deleteOrdersError) {
+          toast.error('Errore durante l\'eliminazione degli ordini dell\'utente: ' + deleteOrdersError.message);
+          return;
+        }
+
+        const { error } = await supabase
+          .rpc('delete_user', { uid: userId });
+
+        if (error) {
+          toast.error('Errore durante l\'eliminazione dell\'utente: ' + error.message);
+          return;
+        }
+
+        toast.success('Utente eliminato con successo!');
+        await fetchAllOrders();
+      } catch (error) {
+        toast.error('Errore durante l\'eliminazione dell\'utente: ' + error.message);
+      }
+    };
+
+
+
 
     const deleteAccount = async () => {
       try {
@@ -409,6 +583,12 @@ export default {
       confirmPassword,
       updateEmail,
       updatePassword,
+      isAdmin,
+      allOrders,
+      confirmDeleteOrder,
+      confirmDeleteUser,  // Aggiungi queste righe
+      deleteOrder,
+      deleteUser
     };
   },
 };

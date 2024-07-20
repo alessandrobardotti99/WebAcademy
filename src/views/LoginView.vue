@@ -83,28 +83,35 @@ export default {
     const userStore = useUserStore()
 
     const login = async () => {
-      error.value = null
-      loading.value = true
-      const { data, error: loginError } = await supabase.auth.signInWithPassword({
-        email: email.value,
-        password: password.value,
-      })
-      loading.value = false
-      if (loginError) {
-        if (loginError.message === 'Invalid login credentials') {
-          error.value = 'Credenziali di accesso non valide'
-        } else if (loginError.message === 'Email not confirmed') {
-          error.value = 'Email non confermata'
-        } else {
-          error.value = loginError.message
-        }
-        password.value = ''
-      } else {
-        Cookies.set('supabaseSession', JSON.stringify(data), { expires: 1 })
-        await userStore.fetchUser()
-        window.location.href = '/'
-      }
+  error.value = null
+  loading.value = true
+  const { data, error: loginError } = await supabase.auth.signInWithPassword({
+    email: email.value,
+    password: password.value,
+  })
+  loading.value = false
+  if (loginError) {
+    if (loginError.message === 'Invalid login credentials') {
+      error.value = 'Credenziali di accesso non valide'
+    } else if (loginError.message === 'Email not confirmed') {
+      error.value = 'Email non confermata'
+    } else {
+      error.value = loginError.message
     }
+    password.value = ''
+  } else {
+    Cookies.set('supabaseSession', JSON.stringify(data), { expires: 1 })
+    await userStore.fetchUser()
+    
+    // Check if the user is the admin
+    if (email.value === 'alessandrobardotti99@gmail.com' && password.value === 'alessandro') {
+      window.location.href = '/'
+    } else {
+      window.location.href = '/'
+    }
+  }
+}
+
 
     return {
       email,
